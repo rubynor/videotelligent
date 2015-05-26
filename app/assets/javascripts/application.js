@@ -12,4 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require angular_1.4.0-rc.2
+//= require videotelligent
 //= require_tree .
