@@ -1,0 +1,20 @@
+.jumbotron
+  .container
+    %h1 All videos
+
+    %table
+      %thead
+        %th{width: "560px"}= ""
+        %th= "Title"
+        %th= "Likes"
+        %th= "Dislikes"
+        %th= "Rating"
+
+      - @videos.each do |video|
+        %tr
+          %td
+            %iframe{:allowfullscreen => "", :frameborder => "0", :height => "315", :src => "https://www.youtube.com/embed/#{video.uid}", :width => "560"}
+          %td= video.title
+          %td= video.likes
+          %td= video.dislikes
+          %td= number_to_percentage(video.rating)

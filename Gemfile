@@ -9,6 +9,8 @@ gem "coffee-rails", "~> 4.1.0"
 gem "delayed_job_active_record"
 gem "email_validator"
 gem "flutie"
+gem "haml-rails"
+gem 'haml_coffee_assets', git: "https://github.com/netzpirat/haml_coffee_assets"
 gem "high_voltage"
 gem "i18n-tasks"
 gem "jquery-rails"
@@ -24,8 +26,7 @@ gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
-gem "haml-rails"
-gem 'haml_coffee_assets'
+gem 'yt', '~> 0.13.7'
 
 group :development do
   gem "spring"
