@@ -19,13 +19,13 @@ gem "pg"
 gem "rack-canonical-host"
 gem "rails", "4.2.1"
 gem "recipient_interceptor"
-gem "refills"
 gem "sass-rails", "~> 5.0"
 gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
-gem "haml"
+gem "haml-rails"
+gem 'haml_coffee_assets'
 
 group :development do
   gem "spring"
