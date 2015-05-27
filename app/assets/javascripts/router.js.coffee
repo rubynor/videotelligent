@@ -1,10 +1,17 @@
 Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
-  $urlRouterProvider.otherwise "/"
+  $urlRouterProvider.otherwise "/dashboard/home"
 
   $stateProvider
-    .state "main",
-      url: "/"
-      template: JST["main"]
+    .state "dashboard",
+      url: "/dashboard"
+      views:
+        "header": { template: JST['blocks/header'] }
+        "sidebar": { template: JST['blocks/sidebar'] }
+        "content": { template: JST['blocks/content'] }
+        "footer": { template: JST['blocks/footer'] }
+    .state "dashboard.home",
+      url: "/home"
+      template: JST['home']
 
   $locationProvider.html5Mode(true)
 

@@ -1,0 +1,214 @@
+/ header
+%header#header.app-header.navbar{:role => "menu"}
+  / navbar header
+  .navbar-header.bg-dark
+    %button.pull-right.visible-xs.dk{:target => ".navbar-collapse", "ui-toggle" => "show"}
+      %i.glyphicon.glyphicon-cog
+    %button.pull-right.visible-xs{:target => ".app-aside", "ui-scroll" => "app", "ui-toggle" => "off-screen"}
+      %i.glyphicon.glyphicon-align-justify
+    / brand
+    %a.navbar-brand.text-lt{:href => "#/"}
+      %i.fa.fa-btc
+      %img.hide{:alt => ".", :src => "img/logo.png"}
+      %span.hidden-folded.m-l-xs Videotelligent
+    / / brand
+  / / navbar header
+  / navbar collapse
+  .collapse.pos-rlt.navbar-collapse.box-shadow.bg-white-only
+    / buttons
+    .nav.navbar-nav.hidden-xs
+      %a.btn.no-shadow.navbar-btn{:href => "#", :target => ".app", "ui-toggle" => "app-aside-folded"}
+        %i.fa.fa-dedent.fa-fw.text
+        %i.fa.fa-indent.fa-fw.text-active
+      %a.btn.no-shadow.navbar-btn{:href => "#", :target => "#aside-user", "ui-toggle" => "show"}
+        %i.icon-user.fa-fw
+    / / buttons
+    / link and dropdown
+    %ul.nav.navbar-nav.hidden-sm
+      %li.dropdown.pos-stc
+        %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+          %span Mega
+          %span.caret
+        .dropdown-menu.wrapper.w-full.bg-white
+          .row
+            .col-sm-4
+              .m-l-xs.m-t-xs.m-b-xs.font-bold
+                Pages
+                %span.badge.badge-sm.bg-success 10
+              .row
+                .col-xs-6
+                  %ul.list-unstyled.l-h-2x
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Profile
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Post
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Search
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Invoice
+                .col-xs-6
+                  %ul.list-unstyled.l-h-2x
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Price
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Lock screen
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Sign in
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Sign up
+            .col-sm-4.b-l.b-light
+              .m-l-xs.m-t-xs.m-b-xs.font-bold
+                UI Kits
+                %span.label.label-sm.bg-primary 12
+              .row
+                .col-xs-6
+                  %ul.list-unstyled.l-h-2x
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Buttons
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Icons
+                        %span.badge.badge-sm.bg-warning 1000+
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Grid
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Widgets
+                .col-xs-6
+                  %ul.list-unstyled.l-h-2x
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Bootstap
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Sortable
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Portlet
+                    %li
+                      %a{:href => ""}
+                        %i.fa.fa-fw.fa-angle-right.text-muted.m-r-xs>
+                        Timeline
+            .col-sm-4.b-l.b-light
+              .m-l-xs.m-t-xs.m-b-sm.font-bold Analysis
+              .text-center
+                .inline
+                  %div{"ui-jq" => "easyPieChart", "ui-options" => "{\r\n                          percent: 65,\r\n                          lineWidth: 50,\r\n                          trackColor: '#e8eff0',\r\n                          barColor: '#23b7e5',\r\n                          scaleColor: false,\r\n                          size: 100,\r\n                          rotate: 90,\r\n                          lineCap: 'butt',\r\n                          animate: 2000\r\n                        }"}
+      %li.dropdown
+        %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+          %i.fa.fa-fw.fa-plus.visible-xs-inline-block
+          %span{:translate => "header.navbar.new.NEW"} New
+          %span.caret
+        %ul.dropdown-menu{:role => "menu"}
+          %li
+            %a{:href => "#", :translate => "header.navbar.new.PROJECT"} Projects
+          %li
+            %a{:href => ""}
+              %span.badge.bg-info.pull-right 5
+              %span{:translate => "header.navbar.new.TASK"} Task
+          %li
+            %a{:href => "", :translate => "header.navbar.new.USER"} User
+          %li.divider
+          %li
+            %a{:href => ""}
+              %span.badge.bg-danger.pull-right 4
+              %span{:translate => "header.navbar.new.EMAIL"} Email
+    / / link and dropdown
+    / search form
+    %form.navbar-form.navbar-form-sm.navbar-left.shift{"data-target" => ".navbar-collapse", "ng-controller" => "TypeaheadDemoCtrl", :role => "search", "ui-shift" => "prependTo"}
+      .form-group
+        .input-group
+          %input.form-control.input-sm.bg-light.no-border.rounded.padder{"ng-model" => "selected", :placeholder => "Search projects...", :type => "text", :typeahead => "state for state in states | filter:$viewValue | limitTo:8"}
+          %span.input-group-btn
+            %button.btn.btn-sm.bg-light.rounded{:type => "submit"}
+              %i.fa.fa-search
+    / / search form
+    / nabar right
+    %ul.nav.navbar-nav.navbar-right
+      %li.dropdown
+        %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+          %i.icon-bell.fa-fw
+          %span.visible-xs-inline Notifications
+          %span.badge.badge-sm.up.bg-danger.pull-right-xs 2
+        / dropdown
+        .dropdown-menu.w-xl.animated.fadeInUp
+          .panel.bg-white
+            .panel-heading.b-light.bg-light
+              %strong
+                You have
+                %span 2
+                notifications
+            .list-group
+              %a.list-group-item{:href => ""}
+                %span.pull-left.m-r.thumb-sm
+                  %img.img-circle{:alt => "...", :src => "img/a0.jpg"}
+                %span.clear.block.m-b-none
+                  Use awesome animate.css
+                  %br
+                  %small.text-muted 10 minutes ago
+              %a.list-group-item{:href => ""}
+                %span.clear.block.m-b-none
+                  1.0 initial released
+                  %br
+                  %small.text-muted 1 hour ago
+            .panel-footer.text-sm
+              %a.pull-right{:href => ""}
+                %i.fa.fa-cog
+              %a{"data-toggle" => "class:show animated fadeInRight", :href => "#notes"} See all the notifications
+        / / dropdown
+      %li.dropdown
+        %a.dropdown-toggle.clear{"data-toggle" => "dropdown", :href => "#"}
+          %span.thumb-sm.avatar.pull-right.m-t-n-sm.m-b-n-sm.m-l-sm
+            %img{:alt => "...", :src => "img/a0.jpg"}
+            %i.on.md.b-white.bottom
+          %span.hidden-sm.hidden-md John.Smith
+          %b.caret
+        / dropdown
+        %ul.dropdown-menu.animated.fadeInRight.w
+          %li.wrapper.b-b.m-b-sm.bg-light.m-t-n-xs
+            %div
+              %p 300mb of 500mb used
+            .progress.progress-xs.m-b-none.dker
+              .progress-bar.progress-bar-info{"data-original-title" => "50%", "data-toggle" => "tooltip", :style => "width: 50%"}
+          %li
+            %a{:href => ""}
+              %span.badge.bg-danger.pull-right 30%
+              %span Settings
+          %li
+            %a{"ui-sref" => "app.page.profile"} Profile
+          %li
+            %a{"ui-sref" => "app.docs"}
+              %span.label.bg-info.pull-right new
+              Help
+          %li.divider
+          %li
+            %a{"ui-sref" => "access.signin"} Logout
+        / / dropdown
+    / / navbar right
+  / / navbar collapse
+/ / header

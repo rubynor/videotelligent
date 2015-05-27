@@ -26,6 +26,7 @@ gem "uglifier"
 gem "unicorn"
 gem "haml-rails"
 gem 'haml_coffee_assets'
+gem 'font-awesome-rails'
 
 group :development do
   gem "spring"

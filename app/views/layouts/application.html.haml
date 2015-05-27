@@ -10,8 +10,12 @@
       = stylesheet_link_tag :application, media: "all"
       = csrf_meta_tags
   %body{:class => body_class, "ng-controller" => "MainCtrl as main"}
-    {{ main.test }}
     = render "flashes"
-    %ui-view
+
+    %div(ui-view='header')
+    %div(ui-view='sidebar')
+    %div(ui-view='content')
+    %div(ui-view='footer')
+
     = yield
     = render "javascript"
