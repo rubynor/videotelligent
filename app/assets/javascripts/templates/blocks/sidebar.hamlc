@@ -2,47 +2,13 @@
 %aside#aside.app-aside.hidden-xs.bg-dark
   .aside-wrap
     .navi-wrap
-      / user
-      #aside-user.clearfix.hidden-xs.text-center.hide
-        .dropdown.wrapper
-          %a{:href => "app.page.profile"}
-            %span.thumb-lg.w-auto-folded.avatar.m-t-sm
-              %img.img-full{:alt => "...", :src => "img/a0.jpg"}/
-          %a.dropdown-toggle.hidden-folded{"data-toggle" => "dropdown", :href => "#"}
-            %span.clear
-              %span.block.m-t-sm
-                %strong.font-bold.text-lt John.Smith
-                %b.caret
-              %span.text-muted.text-xs.block Art Director
-          / dropdown
-          %ul.dropdown-menu.animated.fadeInRight.w.hidden-folded
-            %li.wrapper.b-b.m-b-sm.bg-info.m-t-n-xs
-              %span.arrow.top.hidden-folded.arrow-info
-              %div
-                %p 300mb of 500mb used
-              .progress.progress-xs.m-b-none.dker
-                .progress-bar.bg-white{"data-original-title" => "50%", "data-toggle" => "tooltip", :style => "width: 50%"}
-            %li
-              %a{:href => ""} Settings
-            %li
-              %a{:href => "page_profile.html"} Profile
-            %li
-              %a{:href => ""}
-                %span.badge.bg-danger.pull-right 3
-                Notifications
-            %li.divider
-            %li
-              %a{:href => "page_signin.html"} Logout
-          / / dropdown
-        .line.dk.hidden-folded
-      / / user
       / nav
       %nav.navi.clearfix{"ui-nav" => ""}
         %ul.nav
           %li.hidden-folded.padder.m-t.m-b-sm.text-muted.text-xs
             %span Navigation
-          %li
-            %a.auto{:href => ""}
+          %li(ng-class='{active: sidebar.isCurrentTab("dashboard.home")}')
+            %a.auto(ui-sref='dashboard.home')
               %span.pull-right.text-muted
                 %i.fa.fa-fw.fa-angle-right.text
                 %i.fa.fa-fw.fa-angle-down.text-active
