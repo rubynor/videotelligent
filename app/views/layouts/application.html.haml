@@ -1,5 +1,6 @@
 !!!
-%html(ng-app='Videotelligent' ng-strict-di)
+%html
+
   %head
     %meta{:charset => "utf-8"}
     %meta{:content => "NOODP", :name => "ROBOTS"}
@@ -15,6 +16,14 @@
     %div(ui-view='header')
     %div(ui-view='sidebar')
     %div(ui-view='content')
+      .navbar.navbar-inverse
+        .container
+          .navbar-header
+            = link_to 'Videotelligent', root_path, class: 'navbar-brand'
+          %ul.nav.navbar-nav
+            %li= link_to 'Videos', root_path
+          %ul.nav.navbar-nav.pull-right
+            %li= link_to 'Authorize new content provider', '/auth/google_oauth2'
     %div(ui-view='footer')
 
     = yield
