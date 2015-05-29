@@ -1,0 +1,5 @@
+%li(ng-class='{active: isCurrentState()}')
+  %a(href='' ng-click='go()')
+    %b.label.pull-right(ng-if='labelText' ng-class='labelClass') {{ labelText }}
+    %i(ng-class='icon')
+    %span(ng-class="{'font-bold': bold}") {{ name }}

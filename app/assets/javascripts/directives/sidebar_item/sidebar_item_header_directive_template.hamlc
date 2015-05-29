@@ -1,0 +1,9 @@
+%li(ng-class='{active: active}')
+  %a.auto(href='' ng-click='active = !active')
+    %span.pull-right.text-muted
+      %i.fa.fa-fw.fa-angle-right.text
+      %i.fa.fa-fw.fa-angle-down.text-active
+    %b.label.pull-right(ng-if='labelText' ng-class='labelClass') {{ labelText }}
+    %i(ng-class='icon')
+    %span {{ name }}
+  %ul.nav.nav-sub.dk(ng-transclude)
