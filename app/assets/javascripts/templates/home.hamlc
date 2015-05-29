@@ -1,5 +1,7 @@
-%h1
-  Welcome to Videotelligent
-
-%p
-  Add moar contentz!
+.bg-light.lter.b-b.wrapper-md
+  .row
+    .col-xs-12
+      %h1.m-n.font-thin.h3.text-black
+        Welcome to Videotelligent
+      %small.text-muted
+        The best source of online media

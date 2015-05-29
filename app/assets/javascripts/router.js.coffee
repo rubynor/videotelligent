@@ -20,6 +20,10 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
       url: "/home"
       template: JST['home']
 
+    .state "dashboard.away",
+      url: "/away"
+      template: JST['away']
+
   $locationProvider.html5Mode(true)
 
 angular
