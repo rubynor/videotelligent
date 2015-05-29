@@ -35,7 +35,6 @@ SidebarItem = ($state) ->
     scope.go = ->
       $state.go(scope.uiSrefName)
 
-    console.log scope
     return
 
 angular
