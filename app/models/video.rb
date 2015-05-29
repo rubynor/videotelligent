@@ -2,7 +2,7 @@ class Video < ActiveRecord::Base
 
   def self.import_all
     ContentProvider.all.map do |cp|
-      account = Yt::Account.new access_token: cp.token
+      account = Yt::Account.new(access_token: cp.valid_token)
       account.videos.map do |video|
         Video.new(
             uid: video.id,

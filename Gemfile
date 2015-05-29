@@ -9,6 +9,7 @@ gem "bourbon", "~> 4.2.0"
 gem "coffee-rails", "~> 4.1.0"
 gem "delayed_job_active_record"
 gem "email_validator"
+gem "faraday_middleware"
 gem "flutie"
 gem 'font-awesome-rails'
 gem "haml-rails"
