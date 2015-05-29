@@ -11,8 +11,6 @@
           %sidebar-item(name='Home' icon='glyphicon glyphicon-file icon' ui-sref-name='dashboard.home' bold='true')
 
           %sidebar-item-header(name='Dashboard' icon='glyphicon glyphicon-stats icon text-primary-dker' label-class='bg-info' label-text='19')
-            %sidebar-item(name='Gone' ui-sref-name='dashboard.gone')
             %sidebar-item(name='Away' ui-sref-name='dashboard.away')
-            %sidebar-item(name='Middle' ui-sref-name='dashboard.middle')
 
 
