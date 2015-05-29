@@ -6,4 +6,5 @@ class ApplicationController < ActionController::Base
   def angular
     render text: '', layout: 'application'
   end
+
 end

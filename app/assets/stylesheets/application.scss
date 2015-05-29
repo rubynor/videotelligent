@@ -9,3 +9,23 @@
 @import "simple-line-icons";
 @import "font-awesome";
 @import "glyphicons";
+
+
+// Just some styling for the demonstration
+table.demo {
+  tr {
+    td:nth-child(2), th:nth-child(2) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    th {
+      width: 100px;
+    }
+    th:first-child {
+      width: 560px;
+    }
+    th:nth-child(2) {
+      width: 100%;
+    }
+  }
+}
