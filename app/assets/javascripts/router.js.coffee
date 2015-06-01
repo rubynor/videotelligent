@@ -19,6 +19,7 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
     .state "dashboard.home",
       url: "/home"
       template: JST['home']
+      controller: 'HomeCtrl as home'
 
     .state "dashboard.away",
       url: "/away"
