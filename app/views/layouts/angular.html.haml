@@ -1,0 +1,19 @@
+!!!
+%html(ng-app='Videotelligent')
+
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => "NOODP", :name => "ROBOTS"}
+    %meta{:content => "initial-scale=1", :name => "viewport"}
+      %title Videotelligent
+      %base(href="/angular")
+      = stylesheet_link_tag :application, media: "all"
+      = csrf_meta_tags
+  %body
+    .app.app-header-fixed.app-aside-fixed
+      %div(ui-view='header')
+      %div(ui-view='sidebar')
+      %div(ui-view='content')
+      %div(ui-view='footer')
+
+    = render "javascript"
