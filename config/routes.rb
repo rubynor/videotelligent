@@ -6,7 +6,6 @@ Rails.application.routes.draw do
 
   root to: 'videos#index'
 
-  #root 'application#angular'
-
-  get '/*path' => 'application#angular'
+  get '/dashboard/home' => 'application#angular'
+  get '/dashboard/*path' => 'application#angular'
 end
