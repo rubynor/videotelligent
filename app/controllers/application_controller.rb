@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def angular
-    render text: '', layout: 'application'
+    render text: '', layout: 'angular'
   end
 
 end
