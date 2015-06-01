@@ -5,3 +5,10 @@
         Welcome to Videotelligent
       %small.text-muted
         The best source of online media
+
+.wrapper-md
+  .row
+    .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in ::home.videos")
+      .panel.b-a
+        .panel-heading.no-border.wrapper-xs(ng-class='video[1]')
+        .video-wrapper(ng-bind-html='home.getVideoEmbed(video[0])')
