@@ -1,6 +1,10 @@
-.hbox.hbox-auto-xs.hbox-auto-sm
+.hbox.hbox-auto-xs.hbox-auto-sm.videos
   .col.w-md.bg-light.dk.b-r.bg-auto
-    .wrapper.hidden-sm.hidden-xs
+    .wrapper.b-b.bg.filters.clearfix
+      %h1.font-thin.h3.m-n.text-black.pull-left Browse videos
+      %button.btn.btn-sm.btn-default.pull-right.visible-sm.visible-xs(target="#filters" ui-toggle-class="show")
+        %i.fa.fa-bars
+    #filters.wrapper.hidden-sm.hidden-xs
       .wrapper Categories
       %ul.nav.nav-pills.nav-stacked.nav-sm
         %li(ng-class='{active: !home.selectedColor}')
@@ -23,5 +27,13 @@
         .video.panel.b-a
           .panel-heading(ng-style="{ 'background-color': video[1] }")
           .video-wrapper(ng-bind-html='home.getVideoEmbed(video[0])')
-          .wrapper
-            Yes hello this is metadata
+          .wrapper.clearfix
+            .col-sx-12
+              %strong Very cool video is this
+              %br
+              %small.text-muted by The Best Channel
+              %br
+              %small.text-muted 2,396,551 views • 2 months ago
+            .col-sx-12
+              %a.btn.btn-default.btn-sm.pull-right(ui-sref='dashboard.video')
+                More info
