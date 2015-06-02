@@ -10,6 +10,7 @@
         %th= "Likes"
         %th= "Dislikes"
         %th= "Rating"
+        %td
 
       - @videos.each do |video|
         %tr
@@ -20,3 +21,4 @@
           %td= video.likes
           %td= video.dislikes
           %td= number_to_percentage(video.rating)
+          %td= link_to 'Download', video_download_path(video_id: video.uid)

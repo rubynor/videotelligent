@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'viddl-rb'
+
 class Video < ActiveRecord::Base
 
   def self.import_all
@@ -20,4 +23,10 @@ class Video < ActiveRecord::Base
     (likes.to_f / (likes + dislikes)) * 100
   end
 
+  def download
+    yt = ViddlRb.get_urls_names("https://www.youtube.com/watch?v=#{uid}").first
+    File.open(yt[:name], 'wb') do |video_file|
+      open(yt[:url]) { |video| video_file.write video.read }
+    end
+  end
 end
