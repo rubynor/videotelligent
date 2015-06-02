@@ -8,6 +8,7 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
       views:
         "header":
           template: JST['blocks/header']
+          controller: 'HeaderCtrl as header'
         "sidebar":
           template: JST['blocks/sidebar']
           controller: 'SidebarCtrl as sidebar'
