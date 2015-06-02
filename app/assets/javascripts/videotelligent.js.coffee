@@ -10,7 +10,6 @@ angular.module "Videotelligent", [
   'ui.router'
   'ui.bootstrap'
   'ui.utils'
-#  'ui.jq'
   'oc.lazyLoad'
   'ngMaterial'
 ]

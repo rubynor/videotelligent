@@ -5,7 +5,8 @@
       %button.btn.btn-sm.btn-default.pull-right.visible-sm.visible-xs(target="#filters" ui-toggle-class="show")
         %i.fa.fa-bars
     #filters.wrapper.hidden-sm.hidden-xs
-      .wrapper Categories
+      .wrapper
+        %strong Categories
       %ul.nav.nav-pills.nav-stacked.nav-sm
         %li(ng-class='{active: !home.selectedColor}')
           %a(ng-click="home.selectedColor = ''")
@@ -14,6 +15,9 @@
           %a(ng-click='home.selectedColor = color')
             %i.fa.fa-fw.fa-circle.text-muted(ng-style="{ 'color': color }")
             {{ category }}
+      .wrapper
+        %strong Views
+      %input(type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="[3, 10]" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="show" bootstrap-slider)
   .col
     .wrapper.bg-light.lter.b-b
       %form.ng-pristine
