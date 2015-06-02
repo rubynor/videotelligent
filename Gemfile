@@ -31,6 +31,7 @@ gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
+gem "viddl-rb"
 gem "yt", "~> 0.13.7"
 
 group :development do
