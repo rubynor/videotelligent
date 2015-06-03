@@ -10,15 +10,19 @@ class Video < ActiveRecord::Base
         channel = content_owner.partnered_channels.first
 
         begin
-          channel.videos.map do |video|
-            Video.new(
-                uid: video.id,
-                title: video.title,
-                views: video.view_count,
-                likes: video.like_count,
-                dislikes: video.dislike_count,
-                thumbnail_url: video.thumbnail_url
-            )
+          channel.videos.map do |yt_video|
+
+            video = Video.find_by_uid(yt_video.id) || Video.new
+
+            video.uid = yt_video.id
+            video.title = yt_video.title
+            video.views = yt_video.view_count
+            video.likes = yt_video.like_count
+            video.dislikes = yt_video.dislike_count
+            video.thumbnail_url = yt_video.thumbnail_url
+
+            video.save
+            
           end
         rescue Yt::Errors::RequestError => e
           if e.kind['code'] == 404

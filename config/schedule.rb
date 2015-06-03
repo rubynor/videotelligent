@@ -18,3 +18,7 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+every :day, at: '03:00am' do
+  rake "videos:import"
+end
