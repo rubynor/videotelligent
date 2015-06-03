@@ -33,6 +33,7 @@ gem "uglifier"
 gem "unicorn"
 gem "viddl-rb"
 gem "yt", "~> 0.13.7"
+gem 'whenever', :require => false
 
 group :development do
   gem "spring"

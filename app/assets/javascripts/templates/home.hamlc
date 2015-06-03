@@ -1,27 +1,7 @@
-.hbox.hbox-auto-xs.hbox-auto-sm
-  .col.w-md.bg-light.dk.b-r.bg-auto
-    .wrapper.hidden-sm.hidden-xs
-      .wrapper Categories
-      %ul.nav.nav-pills.nav-stacked.nav-sm
-        %li(ng-class='{active: !home.selectedColor}')
-          %a(ng-click="home.selectedColor = ''")
-            All
-        %li(ng-repeat='(category, color) in home.categories()' ng-class='{active: home.selectedColor == color}')
-          %a(ng-click='home.selectedColor = color')
-            %i.fa.fa-fw.fa-circle.text-muted(ng-style="{ 'color': color }")
-            {{ category }}
-  .col
-    .wrapper.bg-light.lter.b-b
-      %form.ng-pristine
-        .input-group
-          %input.form-control.input-lg(type='text' placeholder='Search in metadata')
-          %span.input-group-btn
-            %button.btn.btn-lg.btn-default
-              Search
-    .wrapper
-      .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in home.videos | filter: home.selectedColor")
-        .video.panel.b-a
-          .panel-heading(ng-style="{ 'background-color': video[1] }")
-          .video-wrapper(ng-bind-html='home.getVideoEmbed(video[0])')
-          .wrapper
-            Yes hello this is metadata
+.bg-light.lter.b-b.wrapper-md
+  .row
+    .col-xs-12
+      %h1.m-n.font-thin.h3.text-black
+        Welcome!
+      %small.text-muted
+        Testing testing
