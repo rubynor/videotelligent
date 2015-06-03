@@ -1,6 +1,6 @@
 class VideosController < ApplicationController
   def index
-    @videos = Video.order(views: :desc).limit(3)
+    @videos = Video.order(views: :desc)
   end
 
   def new
