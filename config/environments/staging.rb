@@ -4,6 +4,12 @@ Mail.register_interceptor(
   RecipientInterceptor.new(ENV.fetch("EMAIL_RECIPIENTS"))
 )
 
+Videotelligent::Application.configure do
+  config.middleware.insert_after(::Rack::Runtime, "::Rack::Auth::Basic", "Staging") do |u, p|
+    [u, p] == ['video', 'ingen ku uten rockering']
+  end
+end
+
 Rails.application.configure do
   # ...
 
