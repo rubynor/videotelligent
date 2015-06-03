@@ -16,8 +16,12 @@ class VideosController < ApplicationController
   def download
     dummy_data
     @video = @videos.first
-    @video.download
-    # redirect_to root_path, notice: 'yo'
+    if (path = @video.download)
+      puts "url is #{path}"
+      send_file "#{Rails.root}/#{path}"
+    else
+      fail 'Error'
+    end
   end
 
   private

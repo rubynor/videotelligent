@@ -24,9 +24,11 @@ class Video < ActiveRecord::Base
   end
 
   def download
+    path = "public/videos"
     yt = ViddlRb.get_urls_names("https://www.youtube.com/watch?v=#{uid}").first
-    File.open(yt[:name], 'wb') do |video_file|
+    File.open("#{path}/#{yt[:name]}", 'wb') do |video_file|
       open(yt[:url]) { |video| video_file.write video.read }
     end
+    "#{path}/#{yt[:name]}"
   end
 end
