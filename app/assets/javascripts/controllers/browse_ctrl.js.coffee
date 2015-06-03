@@ -1,4 +1,4 @@
-HomeCtrl = ($sce, $timeout) ->
+BrowseCtrl = (YoutubeEmbed, $timeout) ->
   @selectedColor = ''
 
   categories =
@@ -60,11 +60,11 @@ HomeCtrl = ($sce, $timeout) ->
   @categories = ->
     categories
 
-  @getVideoEmbed = (video) ->
-    $sce.trustAsHtml('<iframe src="https://www.youtube.com/embed/' + video + '?controls=1&showinfo=0" frameborder="0" allowfullscreen></iframe>')
+  @getVideoEmbed = (id) ->
+    YoutubeEmbed.embed(id)
 
   return
 
 angular
   .module('Videotelligent')
-  .controller('HomeCtrl', ['$sce', '$timeout', HomeCtrl])
+  .controller('BrowseCtrl', ['YoutubeEmbed', '$timeout', BrowseCtrl])

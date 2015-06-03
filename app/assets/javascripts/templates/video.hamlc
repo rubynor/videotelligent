@@ -1,0 +1,18 @@
+.bg-light.lter.b-b.wrapper-md
+  .row
+    .col-xs-12
+      %h1.m-n.font-thin.h3.text-black
+        KUNG FURY Official Movie [HD]
+
+.wrapper-md.videos
+  .row
+    .col-sx-12.col-md-9
+      .panel
+        .video-wrapper(ng-bind-html='video.embed()')
+        .wrapper
+          This is where we put the description
+    .col-sx-12.col-md-3
+      %h5.font-bold
+        Meta
+      .tags.m-b-lg.l-h-2x
+        %a.label.bg-primary
