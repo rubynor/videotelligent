@@ -32,6 +32,7 @@ gem "title"
 gem "uglifier"
 gem "unicorn"
 gem "yt", "~> 0.13.7"
+gem 'whenever', :require => false
 
 group :development do
   gem "spring"
