@@ -1,6 +1,6 @@
 class VideosController < ApplicationController
   def index
-    @videos = Video.order(views: :desc)
+    @videos = Video.order(views: :desc).limit(3)
   end
 
   def new
@@ -12,11 +12,7 @@ class VideosController < ApplicationController
 
   def download
     @video = Video.find(params[:video_id])
-    if (path = @video.download)
-      send_file "#{Rails.root}/#{path}"
-    else
-      fail 'Error'
-    end
+    send_file "#{Rails.root}/#{@video.download}"
   end
 
 end
