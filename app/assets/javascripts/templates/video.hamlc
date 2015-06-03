@@ -10,9 +10,29 @@
       .panel
         .video-wrapper(ng-bind-html='video.embed()')
         .wrapper
-          This is where we put the description
+          This is description
     .col-sx-12.col-md-3
-      %h5.font-bold
-        Meta
-      .tags.m-b-lg.l-h-2x
-        %a.label.bg-primary
+      .wrapper
+        %h5.font-bold
+          Likes
+        .graph.text-center
+          .sparkline.inline(values="[30401, 2120]" options="{type:'pie', height:154, sliceColors:['#27c24c','#f05050']}" sparkline-charts)
+          .line.pull-in
+          .text-lg
+            %i.fa.fa-thumbs-up(style="color: #27c24c;")
+            {{ 30401 | number }}
+            %i.fa.fa-thumbs-down.m-1(style="color: #f05050;")
+            {{ 2120 | number }}
+
+      .wrapper.clearfix
+        %h5.font-bold
+          Tags
+        .tags.m-b-lg.l-h-2x
+          %b.label.bg-info(ng-repeat='tag in video.tags')
+            {{ tag }}
+
+      %hr
+      .wrapper
+        .btn.btn-lg.btn-primary
+          %i.fa.fa-download
+          DOWNLOAD
