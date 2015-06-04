@@ -22,5 +22,5 @@
           %td= video.dislikes
           %td= number_to_percentage(video.rating)
           %td
-            = link_to video_download_path(video_id: video.id) do
+            = link_to download_video_path(video.id) do
               .icon-cloud-download
