@@ -2,7 +2,7 @@
   .row
     .col-xs-12
       %h1.m-n.font-thin.h3.text-black
-        KUNG FURY Official Movie [HD]
+        {{ video.current.title }}
 
 .wrapper-md.videos
   .row
@@ -16,13 +16,13 @@
         %h5.font-bold
           Likes
         .graph.text-center
-          .sparkline.inline(values="[30401, 2120]" options="{type:'pie', height:154, sliceColors:['#27c24c','#f05050']}" sparkline-charts)
+          .sparkline.inline(values="[video.current.likes, video.current.dislikes]" options="{type:'pie', height:154, sliceColors:['#27c24c','#f05050']}" sparkline-charts)
           .line.pull-in
           .text-lg
             %i.fa.fa-thumbs-up(style="color: #27c24c;")
-            {{ 30401 | number }}
+            {{ video.current.likes | number }}
             %i.fa.fa-thumbs-down.m-1(style="color: #f05050;")
-            {{ 2120 | number }}
+            {{ video.current.dislikes | number }}
 
       .wrapper.clearfix
         %h5.font-bold
