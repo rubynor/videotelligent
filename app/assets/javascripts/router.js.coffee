@@ -33,6 +33,9 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
       url: "/videos/:id"
       template: JST['video']
       controller: 'VideoCtrl as video'
+      resolve: video: ['$stateParams', 'Video', ($stateParams, Video) ->
+        Video.get({id: $stateParams.id}).$promise
+      ]
 
     .state "dashboard.away",
       url: "/away"
