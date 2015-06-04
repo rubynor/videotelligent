@@ -193,6 +193,7 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     pg (0.18.2)
+    progressbar (0.21.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -310,6 +311,11 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    viddl-rb (1.0.1)
+      mime-types
+      multi_json
+      nokogiri
+      progressbar
     web-console (2.1.2)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -376,6 +382,7 @@ DEPENDENCIES
   title
   uglifier
   unicorn
+  viddl-rb
   web-console
   webmock
   whenever
