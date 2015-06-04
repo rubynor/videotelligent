@@ -42,6 +42,3 @@
               %small.text-muted
                 {{ video.views | number }} views •
                 {{ video.created_at | date }}
-            .col-sx-12
-              %a.btn.btn-default.btn-sm.pull-right(ui-sref='dashboard.video')
-                More info
