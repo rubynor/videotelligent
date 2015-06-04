@@ -1,5 +1,26 @@
-BrowseCtrl = (YoutubeEmbed, $timeout) ->
+BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video) ->
+  @videos = videos
+  @searchText = ''
   @selectedColor = ''
+
+  @minViews = @videos[@videos.length - 1].views
+  @maxViews = @videos[0].views
+  @filteredMinViews = @minViews
+  @filteredMaxViews = @maxViews
+
+  @sliderOptions =
+    min: @minViews
+    max: @maxViews
+    value: [@minViews, @maxViews]
+    step: Math.floor(@maxViews / 20)
+    orientation: 'horizontal'
+    selection: 'after'
+    tooltip: 'show'
+
+  @sliderValueChanged = (value) =>
+    @filteredMinViews = value[0]
+    @filteredMaxViews = value[1]
+    $scope.$apply()
 
   categories =
     'action': '#b71c1c'
@@ -16,43 +37,23 @@ BrowseCtrl = (YoutubeEmbed, $timeout) ->
   background = ->
     categories[Object.keys(categories)[Math.floor(Math.random() * Object.keys(categories).length)]]
 
-  videos = [
-    'bS5P_LAqiVg'
-    'ZTidn2dBYbY'
-    'yKORsrlN-2k'
-    'NU7W7qe2R0A'
-    'h-_hBOHU4dw'
-    'cG9P8DLuh0U'
-    'qUgFscMmR3c'
-    'TWsxfTObuTU'
-    'Z1PCtIaM_GQ'
-    'bS5P_LAqiVg'
-    'ZTidn2dBYbY'
-    'yKORsrlN-2k'
-    'NU7W7qe2R0A'
-    'h-_hBOHU4dw'
-    'cG9P8DLuh0U'
-    'qUgFscMmR3c'
-    'TWsxfTObuTU'
-    'Z1PCtIaM_GQ'
-  ]
-
   videosWithBackground = ->
     withBackground = []
     for video in videos
       withBackground.push [ video, background() ]
     withBackground
 
-  @videos = videosWithBackground()
-
   @categories = ->
     categories
 
-  @getVideoEmbed = (id) ->
-    YoutubeEmbed.embed(id)
+  @getVideoEmbed = (uid) ->
+    YoutubeEmbed.embed(uid)
+
+  @goToVideo = (id) ->
+    $state.go('dashboard.video', { id: id })
 
   return
 
 angular
   .module('Videotelligent')
-  .controller('BrowseCtrl', ['YoutubeEmbed', '$timeout', BrowseCtrl])
+  .controller('BrowseCtrl', ['$timeout', '$state', '$scope', 'videos', 'YoutubeEmbed', 'Video', BrowseCtrl])
