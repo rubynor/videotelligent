@@ -328,7 +328,7 @@ GEM
       chronic (>= 0.6.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    yt (0.13.12)
+    yt (0.24.1)
       activesupport
 
 PLATFORMS
@@ -386,4 +386,7 @@ DEPENDENCIES
   web-console
   webmock
   whenever
-  yt (~> 0.13.7)
+  yt (~> 0.24.1)
+
+BUNDLED WITH
+   1.10.3

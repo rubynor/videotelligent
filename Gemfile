@@ -32,7 +32,7 @@ gem "title"
 gem "uglifier"
 gem "unicorn"
 gem "viddl-rb"
-gem "yt", "~> 0.13.7"
+gem "yt", "~> 0.24.1"
 gem 'whenever', :require => false
 
 group :development do
