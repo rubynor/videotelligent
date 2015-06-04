@@ -25,6 +25,9 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
       url: "/browse"
       template: JST['browse']
       controller: 'BrowseCtrl as browse'
+      resolve: videos: ['Video', (Video) ->
+        Video.query().$promise
+      ]
 
     .state "dashboard.video",
       url: "/videos/:id"
