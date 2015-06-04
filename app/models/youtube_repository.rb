@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'viddl-rb'
 
-class YoutubeManager
+class YoutubeRepository
   def self.import_all
     ContentProvider.all.map do |cp|
       account = Yt::Account.new(access_token: cp.valid_token, refresh_token: cp.refresh_token)

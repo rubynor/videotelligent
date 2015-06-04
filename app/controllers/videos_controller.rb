@@ -12,6 +12,6 @@ class VideosController < ApplicationController
 
   def download
     @video = Video.find(params[:video_id])
-    send_file "#{Rails.root}/#{YoutubeManager.download(@video)}"
+    send_file "#{Rails.root}/#{YoutubeRepository.download(@video)}"
   end
 end
