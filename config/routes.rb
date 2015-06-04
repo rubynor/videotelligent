@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :videos, only: [:index, :new, :create]
+  resources :videos, except: [:destroy, :edit]
 
   get '/auth/:provider/callback', to: 'content_provider#import'
 
