@@ -1,4 +1,11 @@
 require Rails.root.join("config/smtp")
+
+Videotelligent::Application.configure do
+  config.middleware.insert_after(::Rack::Runtime, "::Rack::Auth::Basic", "Production") do |u, p|
+    [u, p] == ['video', 'ingen ku uten rockering']
+  end
+end
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
