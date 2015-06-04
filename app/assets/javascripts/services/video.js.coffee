@@ -1,5 +1,5 @@
 Video = ($resource) ->
-  $resource("/videos/:id.json", {id: "@id"}, {update: {method: "PUT"}})
+  $resource("/videos/:id.json", {id: "@id"}, {update: {method: "PUT"}, query: {isArray: false}})
 
 angular
   .module('Videotelligent')
