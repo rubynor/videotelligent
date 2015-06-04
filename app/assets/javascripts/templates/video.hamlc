@@ -33,6 +33,6 @@
 
       %hr
       .wrapper
-        .btn.btn-lg.btn-primary
+        %a.btn.btn-lg.btn-primary(ng-href="{{ video.current.download_path }}" target="_self")
           %i.fa.fa-download
           DOWNLOAD
