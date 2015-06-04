@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :videos, except: [:destroy, :edit]
+  resources :videos, except: [:destroy, :edit] do
+    get :download
+  end
 
   get '/auth/:provider/callback', to: 'content_provider#import'
 
