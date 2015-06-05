@@ -1,5 +1,7 @@
 class Video < ActiveRecord::Base
 
+  serialize :tags
+
   def self.import_all
     ContentProvider.all.map do |cp|
       account = Yt::Account.new(access_token: cp.valid_token, refresh_token: cp.refresh_token)
@@ -20,8 +22,11 @@ class Video < ActiveRecord::Base
             video.likes = yt_video.like_count
             video.dislikes = yt_video.dislike_count
             video.thumbnail_url = yt_video.thumbnail_url
+            video.description = yt_video.description
+            video.tags = yt_video.tags
 
             video.save
+            video
             
           end
         rescue Yt::Errors::RequestError => e
