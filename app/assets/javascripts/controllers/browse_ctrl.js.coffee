@@ -3,8 +3,8 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video) ->
   @searchText = ''
   @selectedColor = ''
 
-  @minViews = @videos[@videos.length - 1].views
-  @maxViews = @videos[0].views
+  @minViews = Video.minViews(@videos)
+  @maxViews = Video.maxViews(@videos)
   @filteredMinViews = @minViews
   @filteredMaxViews = @maxViews
 

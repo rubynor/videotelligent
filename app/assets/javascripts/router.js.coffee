@@ -34,7 +34,7 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
       template: JST['video']
       controller: 'VideoCtrl as video'
       resolve: video: ['$stateParams', 'Video', ($stateParams, Video) ->
-        Video.get({id: $stateParams.id}).$promise
+        Video.get($stateParams.id).$promise
       ]
 
     .state "dashboard.away",
