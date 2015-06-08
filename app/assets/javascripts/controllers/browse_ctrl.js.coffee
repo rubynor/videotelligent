@@ -3,10 +3,19 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video) ->
   @searchText = ''
   @selectedColor = ''
 
-  @minViews = Video.minViews(@videos)
-  @maxViews = Video.maxViews(@videos)
+  setMinAndMaxViews = =>
+    @minViews = Video.minViews(@videos)
+    @maxViews = Video.maxViews(@videos)
+
+  setMinAndMaxViews()
   @filteredMinViews = @minViews
   @filteredMaxViews = @maxViews
+
+  $scope.$watch(angular.bind(this, (videos) ->
+    @videos
+  ), (newVal) ->
+    setMinAndMaxViews()
+  )
 
   @sliderOptions =
     min: @minViews
@@ -21,6 +30,13 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video) ->
     @filteredMinViews = value[0]
     @filteredMaxViews = value[1]
     $scope.$apply()
+
+  @addMoreVideos = =>
+    Video.query (data) =>
+      for video in data.videos
+        @videos.push(video)
+    , (err) ->
+      console.log err
 
   categories =
     'action': '#b71c1c'
