@@ -10,7 +10,7 @@
       .panel
         .video-wrapper(ng-bind-html='video.embed()')
         .wrapper
-          This is description
+          {{ video.current.description }}
     .col-sx-12.col-md-3
       .wrapper
         %h5.font-bold
