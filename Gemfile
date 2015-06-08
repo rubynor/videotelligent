@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "2.2.2"
 gem "rails", "4.2.1"
 
-gem "airbrake"
+gem "active_model_serializers"
 gem "autoprefixer-rails"
 gem "bourbon", "~> 4.2.0"
 gem "coffee-rails", "~> 4.1.0"
@@ -15,6 +15,7 @@ gem 'font-awesome-rails'
 gem "haml-rails"
 gem "haml_coffee_assets", git: "https://github.com/netzpirat/haml_coffee_assets"
 gem "high_voltage"
+gem 'honeybadger', '~> 2.0'
 gem "i18n-tasks"
 gem "jquery-rails"
 gem "neat", "~> 1.7.0"
@@ -31,8 +32,10 @@ gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
-gem "yt", "~> 0.13.7"
+gem "viddl-rb"
+gem "yt", "~> 0.24.1"
 gem 'whenever', :require => false
+gem "will_paginate"
 
 group :development do
   gem "spring"

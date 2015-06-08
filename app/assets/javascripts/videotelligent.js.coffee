@@ -12,9 +12,12 @@ angular.module "Videotelligent", [
   'ui.utils'
   'oc.lazyLoad'
   'ngMaterial'
+  'infinite-scroll'
 ]
 
 
 angular.module('Videotelligent').controller('TypeaheadDemoCtrl', ->
   # Dummy
 )
+
+angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 1000)

@@ -17,27 +17,29 @@
             {{ category }}
       .wrapper
         %strong Views
-      %input(type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="[3, 10]" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="show" bootstrap-slider)
+      /.wrapper
+      /  %input(bootstrap-slider="browse.sliderOptions" value-changed="browse.sliderValueChanged" min="browse.minViews" max="browse.maxViews")
   .col
     .wrapper.bg-light.lter.b-b
       %form.ng-pristine
         .input-group
-          %input.form-control.input-lg(type='text' placeholder='Search in metadata')
+          %input.form-control.input-lg(type='text' ng-model='browse.searchText' placeholder='Video title')
           %span.input-group-btn
             %button.btn.btn-lg.btn-default
               Search
-    .wrapper
-      .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in browse.videos | filter: browse.selectedColor")
-        .video.panel.b-a
-          .panel-heading(ng-style="{ 'background-color': video[1] }")
-          .video-wrapper(ng-bind-html='browse.getVideoEmbed(video[0])')
+    .wrapper.clearfix(infinite-scroll="browse.addMoreVideos()" infinite-scroll-distance="0")
+      .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in browse.videos | filter: { title: browse.searchText }")
+        / | videoViewsRange: browse.filteredMinViews: browse.filteredMaxViews")
+        .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
+          .panel-heading(ng-style="{ 'background-color': browse.categories()['action'] }")
+          .image-wrapper
+            %img(ng-src="{{ video.thumbnail_url }}")
           .wrapper.clearfix
             .col-sx-12
-              %strong Very cool video is this
+              %strong {{ video.title }}
               %br
               %small.text-muted by The Best Channel
               %br
-              %small.text-muted 2,396,551 views • 2 months ago
-            .col-sx-12
-              %a.btn.btn-default.btn-sm.pull-right(ui-sref='dashboard.video')
-                More info
+              %small.text-muted
+                {{ video.views | number }} views •
+                {{ video.created_at | date }}

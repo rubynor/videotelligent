@@ -25,11 +25,17 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
       url: "/browse"
       template: JST['browse']
       controller: 'BrowseCtrl as browse'
+      resolve: videos: ['Video', (Video) ->
+        Video.query().$promise
+      ]
 
     .state "dashboard.video",
       url: "/videos/:id"
       template: JST['video']
       controller: 'VideoCtrl as video'
+      resolve: video: ['$stateParams', 'Video', ($stateParams, Video) ->
+        Video.get($stateParams.id).$promise
+      ]
 
     .state "dashboard.away",
       url: "/away"
