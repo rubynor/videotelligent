@@ -17,8 +17,8 @@
             {{ category }}
       .wrapper
         %strong Views
-      .wrapper
-        %input(bootstrap-slider="browse.sliderOptions" value-changed="browse.sliderValueChanged")
+      /.wrapper
+      /  %input(bootstrap-slider="browse.sliderOptions" value-changed="browse.sliderValueChanged" min="browse.minViews" max="browse.maxViews")
   .col
     .wrapper.bg-light.lter.b-b
       %form.ng-pristine
@@ -27,8 +27,9 @@
           %span.input-group-btn
             %button.btn.btn-lg.btn-default
               Search
-    .wrapper
-      .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in browse.videos | filter: { title: browse.searchText } | videoViewsRange: browse.filteredMinViews: browse.filteredMaxViews")
+    .wrapper.clearfix(infinite-scroll="browse.addMoreVideos()" infinite-scroll-distance="0")
+      .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in browse.videos | filter: { title: browse.searchText }")
+        / | videoViewsRange: browse.filteredMinViews: browse.filteredMaxViews")
         .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
           .panel-heading(ng-style="{ 'background-color': browse.categories()['action'] }")
           .image-wrapper
