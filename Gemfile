@@ -35,6 +35,7 @@ gem "unicorn"
 gem "viddl-rb"
 gem "yt", "~> 0.24.1"
 gem 'whenever', :require => false
+gem "will_paginate"
 
 group :development do
   gem "spring"
