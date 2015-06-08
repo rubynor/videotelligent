@@ -390,3 +390,6 @@ DEPENDENCIES
   whenever
   will_paginate
   yt (~> 0.24.1)
+
+BUNDLED WITH
+   1.10.3

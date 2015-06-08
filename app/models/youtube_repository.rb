@@ -4,7 +4,7 @@ require 'viddl-rb'
 class YoutubeRepository
   def self.import_all
     ContentProvider.all.map do |cp|
-      account = Yt::Account.new(access_token: cp.valid_token, refresh_token: cp.refresh_token)
+      account = Yt::Account.new(access_token: cp.token, refresh_token: cp.refresh_token)
       account.content_owners.map do |content_owner|
 
         # TODO: Get all channels, not just the first
