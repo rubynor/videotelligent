@@ -15,6 +15,7 @@ class YoutubeRepository
           channel.videos.map do |yt_video|
             video = to_video_from(yt_video)
             video.save
+            video
           end
         rescue Yt::Errors::RequestError => e
           if e.kind['code'] == 404
@@ -45,7 +46,7 @@ class YoutubeRepository
     video.views = yt_video.view_count
     video.likes = yt_video.like_count
     video.dislikes = yt_video.dislike_count
-    video.thumbnail_url = yt_video.thumbnail_url
+    video.thumbnail_url = yt_video.thumbnail_url(:medium)
     video.description = yt_video.description
     video.published_at = yt_video.published_at
     video.category_title = yt_video.category_title

@@ -4,4 +4,8 @@ namespace :videos do
     videos = YoutubeRepository.import_all
     puts "Total of #{videos.size} imported/refreshed"
   end
+
+  task clean: :environment do
+    Video.destroy_all
+  end
 end

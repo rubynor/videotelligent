@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :videos, except: [:destroy, :edit] do
+  resources :videos, only: [:index, :show] do
     get :download, on: :member
   end
 
