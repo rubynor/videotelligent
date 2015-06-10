@@ -14,16 +14,22 @@
   / / navbar header
   / navbar collapse
   .collapse.pos-rlt.navbar-collapse.box-shadow.bg-white-only
+
+
     / buttons
     .nav.navbar-nav.hidden-xs
       %a.btn.no-shadow.navbar-btn{:href => "#", :target => ".app", "ui-toggle-class" => "app-aside-folded"}
         %i.fa.fa-dedent.fa-fw.text
         %i.fa.fa-indent.fa-fw.text-active
-      %a.btn.no-shadow.navbar-btn{:href => "#", :target => "#aside-user", "ui-toggle-class" => "show"}
+
+      /User icon used to toggle userinfo in the sidebar
+      /%a.btn.no-shadow.navbar-btn{:href => "#", :target => "#aside-user", "ui-toggle-class" => "show"}
         %i.icon-user.fa-fw
     / / buttons
-    / link and dropdown
-    %ul.nav.navbar-nav.hidden-sm
+
+
+    / link and dropdown (Example, not in use)
+    /%ul.nav.navbar-nav.hidden-sm
       %li.dropdown.pos-stc
         %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
           %span Mega
@@ -138,8 +144,11 @@
               %span.badge.bg-danger.pull-right 4
               %span{:translate => "header.navbar.new.EMAIL"} Email
     / / link and dropdown
-    / search form
-    %form.navbar-form.navbar-form-sm.navbar-left.shift{"data-target" => ".navbar-collapse", "ng-controller" => "TypeaheadDemoCtrl", :role => "search", "ui-shift" => "prependTo"}
+
+
+
+    / search form(example)
+    /%form.navbar-form.navbar-form-sm.navbar-left.shift{"data-target" => ".navbar-collapse", "ng-controller" => "TypeaheadDemoCtrl", :role => "search", "ui-shift" => "prependTo"}
       .form-group
         .input-group
           %input.form-control.input-sm.bg-light.no-border.rounded.padder{"ng-model" => "selected", :placeholder => "Search projects...", :type => "text", :typeahead => "state for state in states | filter:$viewValue | limitTo:8"}
@@ -147,14 +156,17 @@
             %button.btn.btn-sm.bg-light.rounded{:type => "submit"}
               %i.fa.fa-search
     / / search form
+
+
+
     / nabar right
     %ul.nav.navbar-nav.navbar-right
-      %li.dropdown
+      /%li.dropdown
         %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
           %i.icon-bell.fa-fw
           %span.visible-xs-inline Notifications
           %span.badge.badge-sm.up.bg-danger.pull-right-xs 2
-        / dropdown
+
         .dropdown-menu.w-xl.animated.fadeInUp
           .panel.bg-white
             .panel-heading.b-light.bg-light
@@ -179,15 +191,15 @@
               %a.pull-right{:href => ""}
                 %i.fa.fa-cog
               %a{"data-toggle" => "class:show animated fadeInRight", :href => "#notes"} See all the notifications
-        / / dropdown
-      %li.dropdown
+
+      /%li.dropdown
         %a.dropdown-toggle.clear{"data-toggle" => "dropdown", :href => "#"}
           %span.thumb-sm.avatar.pull-right.m-t-n-sm.m-b-n-sm.m-l-sm
             %img{:alt => "...", :src => "img/a0.jpg"}
             %i.on.md.b-white.bottom
           %span.hidden-sm.hidden-md John.Smith
           %b.caret
-        / dropdown
+
         %ul.dropdown-menu.animated.fadeInRight.w
           %li.wrapper.b-b.m-b-sm.bg-light.m-t-n-xs
             %div
@@ -207,7 +219,6 @@
           %li.divider
           %li
             %a{"ui-sref" => "access.signin"} Logout
-        / / dropdown
     / / navbar right
   / / navbar collapse
 / / header

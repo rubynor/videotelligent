@@ -7,12 +7,11 @@
         %ul.nav
           %li.hidden-folded.padder.m-t.m-b-sm.text-muted.text-xs
             %span Navigation
-
-          %sidebar-item(name='Home' icon='glyphicon glyphicon-file icon' ui-sref-name='dashboard.home' bold='true')
-
           %sidebar-item(name='Browse' icon='glyphicon glyphicon-film icon' ui-sref-name='dashboard.browse' bold='true')
 
-          %sidebar-item-header(name='Dashboard' icon='glyphicon glyphicon-stats icon text-primary-dker' label-class='bg-info' label-text='19')
+          / Examples:
+          /%sidebar-item(name='Home' icon='glyphicon glyphicon-file icon' ui-sref-name='dashboard.home' bold='true')
+          /%sidebar-item-header(name='Dashboard' icon='glyphicon glyphicon-stats icon text-primary-dker' label-class='bg-info' label-text='19')
             %sidebar-item(name='Away' ui-sref-name='dashboard.away')
 
 
