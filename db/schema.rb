@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150529091255) do
+ActiveRecord::Schema.define(version: 20150605134953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,9 +52,13 @@ ActiveRecord::Schema.define(version: 20150529091255) do
     t.integer  "dislikes"
     t.string   "uid"
     t.string   "thumbnail_url"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "views"
+    t.string   "description"
+    t.string   "tags"
+    t.string   "category_title"
+    t.string   "channel_title"
   end
 
   add_index "videos", ["uid"], name: "index_videos_on_uid", using: :btree

@@ -12,13 +12,6 @@ class VideosController < ApplicationController
     render json: Video.find(params[:id])
   end
 
-  def new
-    @video = Video.new
-  end
-
-  def create
-  end
-
   def download
     @video = Video.find(params[:id])
     send_file "#{Rails.root}/#{YoutubeRepository.download(@video)}"

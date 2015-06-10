@@ -38,7 +38,7 @@
             .col-sx-12
               %strong {{ video.title }}
               %br
-              %small.text-muted by The Best Channel
+              %small.text-muted by {{ video.channel_title }}
               %br
               %small.text-muted
                 {{ video.views | number }} views •
