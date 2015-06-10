@@ -30,7 +30,8 @@ class YoutubeRepository
 
   def self.download(video)
     yt = ViddlRb.get_urls_names("https://www.youtube.com/watch?v=#{video.uid}").first
-    path = "public/videos/#{yt[:name]}"
+    filename = yt[:name].gsub(/[^0-9A-Za-z.\-]/, '_')
+    path = "public/videos/#{filename}"
     File.open(path, 'wb') do |video_file|
       open(yt[:url]) { |v| video_file.write v.read }
     end
