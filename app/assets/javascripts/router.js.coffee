@@ -1,5 +1,5 @@
 Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
-  $urlRouterProvider.otherwise "/dashboard/home"
+  $urlRouterProvider.otherwise "/dashboard/browse"
 
   $stateProvider
     .state "dashboard",
@@ -17,10 +17,6 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
         "footer":
           template: JST['blocks/footer']
 
-    .state "dashboard.home",
-      url: "/home"
-      template: JST['home']
-
     .state "dashboard.browse",
       url: "/browse"
       template: JST['browse']
@@ -36,10 +32,6 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
       resolve: video: ['$stateParams', 'Video', ($stateParams, Video) ->
         Video.get($stateParams.id).$promise
       ]
-
-    .state "dashboard.away",
-      url: "/away"
-      template: JST['away']
 
   $locationProvider.html5Mode(true)
 

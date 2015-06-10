@@ -1,7 +1,0 @@
-.bg-light.lter.b-b.wrapper-md
-  .row
-    .col-xs-12
-      %h1.m-n.font-thin.h3.text-black
-        Welcome!
-      %small.text-muted
-        Testing testing
