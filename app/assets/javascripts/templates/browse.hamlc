@@ -28,6 +28,10 @@
             %button.btn.btn-lg.btn-default
               Search
     .wrapper.clearfix(infinite-scroll="browse.addMoreVideos()" infinite-scroll-distance="0")
+      .col-sm-12
+        .wrapper
+          %small.text-muted
+            {{ browse.totalVideos | number }} results total
       .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in browse.videos | filter: { title: browse.searchText }")
         / | videoViewsRange: browse.filteredMinViews: browse.filteredMaxViews")
         .video.panel.b-a(ng-click="browse.goToVideo(video.id)")

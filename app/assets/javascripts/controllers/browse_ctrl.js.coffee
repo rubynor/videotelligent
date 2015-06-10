@@ -1,5 +1,6 @@
 BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video) ->
   @videos = videos.videos
+  @totalVideos = videos.meta.total_videos
   @searchText = ''
   @selectedColor = ''
 

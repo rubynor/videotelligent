@@ -4,7 +4,7 @@ class VideosController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @videos }
+      format.json { render json: @videos, meta: { total_videos: @videos.total_entries } }
     end
   end
 
