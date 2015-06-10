@@ -17,8 +17,6 @@
             {{ category }}
       .wrapper
         %strong Views
-      /.wrapper
-      /  %input(bootstrap-slider="browse.sliderOptions" value-changed="browse.sliderValueChanged" min="browse.minViews" max="browse.maxViews")
   .col
     .wrapper.bg-light.lter.b-b
       %form.ng-pristine
