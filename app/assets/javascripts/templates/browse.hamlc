@@ -27,7 +27,7 @@
           %span.input-group-btn
             %button.btn.btn-lg.btn-default
               Search
-    .wrapper.clearfix(infinite-scroll="browse.addMoreVideos()" infinite-scroll-distance="0")
+    .wrapper.clearfix(infinite-scroll="browse.addMoreVideos()" infinite-scroll-distance="1")
       .col-sm-12
         .wrapper
           %small.text-muted
