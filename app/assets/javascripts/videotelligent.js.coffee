@@ -13,6 +13,7 @@ angular.module "Videotelligent", [
   'oc.lazyLoad'
   'ngMaterial'
   'infinite-scroll'
+  'truncate'
 ]
 
 
