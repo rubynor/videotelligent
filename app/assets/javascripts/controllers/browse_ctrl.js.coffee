@@ -33,7 +33,7 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video) ->
     $scope.$apply()
 
   @addMoreVideos = =>
-    Video.query (data) =>
+    Video.nextPage (data) =>
       for video in data.videos
         @videos.push(video)
     , (err) ->
