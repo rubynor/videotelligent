@@ -24,11 +24,11 @@
             %i.fa.fa-thumbs-down.m-1(style="color: #f05050;")
             {{ video.current.dislikes | number }}
 
-      .wrapper.clearfix
+      .wrapper.clearfix(ng-if="video.current.tags")
         %h5.font-bold
           Tags
         .tags.m-b-lg.l-h-2x
-          %b.label.bg-info(ng-repeat='tag in video.tags')
+          %b.label.bg-info(ng-repeat='tag in video.current.tags')
             {{ tag }}
 
       %hr
