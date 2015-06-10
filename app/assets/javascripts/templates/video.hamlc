@@ -12,6 +12,13 @@
         .wrapper
           {{ video.current.description }}
     .col-sx-12.col-md-3
+
+      .wrapper
+        %h5.font-bold
+          Category
+        %h4.m-t-xs.m-b-xs
+          {{ video.current.category_title }}
+
       .wrapper
         %h5.font-bold
           Likes
@@ -32,6 +39,7 @@
             {{ tag }}
 
       %hr
+
       .wrapper
         %a.btn.btn-lg.btn-primary(ng-href="{{ video.current.download_path }}" target="_self")
           %i.fa.fa-download
