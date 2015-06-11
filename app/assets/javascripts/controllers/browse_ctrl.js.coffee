@@ -1,8 +1,12 @@
-BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video) ->
+BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) ->
   @videos = videos.videos
   @totalVideos = videos.meta.total_videos
+  @categories = []
   @searchText = ''
   @selectedColor = ''
+
+  Category.query (data) =>
+    @categories = data.categories
 
   @addMoreVideos = =>
     Video.nextPage (data) =>
@@ -45,4 +49,4 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video) ->
 
 angular
   .module('Videotelligent')
-  .controller('BrowseCtrl', ['$timeout', '$state', '$scope', 'videos', 'YoutubeEmbed', 'Video', BrowseCtrl])
+  .controller('BrowseCtrl', ['$timeout', '$state', '$scope', 'videos', 'YoutubeEmbed', 'Video', 'Category', BrowseCtrl])
