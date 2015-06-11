@@ -1,5 +1,5 @@
 Category = ($resource) ->
-  resource = $resource("/categories/:id.json", {id: "@id"}, {query: {isArray: false}})
+  $resource("/categories/:id.json", {id: "@id"}, {query: {isArray: false}})
 
 angular
   .module('Videotelligent')
