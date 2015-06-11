@@ -11,9 +11,10 @@
         %li(ng-class='{active: !browse.selectedColor}')
           %a(ng-click="browse.selectedColor = ''")
             All
-        %li(ng-repeat='(category, color) in browse.categories()' ng-class='{active: browse.selectedColor == color}')
-          %a(ng-click='browse.selectedColor = color')
-            %i.fa.fa-fw.fa-circle.text-muted(ng-style="{ 'color': color }")
+        {{ browse.categories }}
+        %li(ng-repeat='category in browse.categories' ng-class='{active: browse.selectedColor == false}')
+          %a(ng-click='browse.selectedColor = false')
+            %i.fa.fa-fw.fa-circle.text-muted
             {{ category }}
       .wrapper
         %strong Views
@@ -31,7 +32,6 @@
           %small.text-muted
             {{ browse.totalVideos | number }} results total
       .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in browse.videos | filter: { title: browse.searchText }")
-        / | videoViewsRange: browse.filteredMinViews: browse.filteredMaxViews")
         .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
           .panel-heading(ng-style="{ 'background-color': browse.categories()['action'] }")
           .image-wrapper
