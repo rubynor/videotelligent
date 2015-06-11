@@ -11,7 +11,6 @@ class CategoriesController < ApplicationController
       "Gaming",
       "Videoblogging",
       "People & Blogs",
-      "Comedy",
       "Entertainment",
       "News & Politics",
       "Howto & Style",
