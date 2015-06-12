@@ -8,11 +8,11 @@
       .wrapper
         %strong Categories
       %ul.nav.nav-pills.nav-stacked.nav-sm
-        %li(ng-class='{active: !browse.selectedColor}')
-          %a(ng-click="browse.selectedColor = ''")
+        %li(ng-class='{active: !browse.selectedCategory}')
+          %a(ng-click="browse.filterByCategory('')")
             All
-        %li(ng-repeat='(category, color) in browse.categories' ng-class='{active: browse.selectedColor == color}')
-          %a(ng-click='browse.selectedColor = color')
+        %li(ng-repeat='(category, color) in browse.categories' ng-class='{active: browse.selectedCategory == category}')
+          %a(ng-click='browse.filterByCategory(category)')
             %i.fa.fa-fw.fa-circle.text-muted(ng-style="{'color': color}")
             {{ category }}
       .wrapper
