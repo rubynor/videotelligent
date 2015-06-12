@@ -1,6 +1,10 @@
 VideoCtrl = ($state, video, YoutubeEmbed) ->
   @current = video.video
 
+  @richDescription = ->
+    # Replace linebrake \n with tag <br/>
+    @current.description.replace(/\n/g, '<br/>')
+
   @embed = =>
     YoutubeEmbed.embed(@current.uid)
 
