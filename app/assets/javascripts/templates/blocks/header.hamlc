@@ -21,6 +21,9 @@
       %a.btn.no-shadow.navbar-btn{:href => "#", :target => ".app", "ui-toggle-class" => "app-aside-folded"}
         %i.fa.fa-dedent.fa-fw.text
         %i.fa.fa-indent.fa-fw.text-active
+    %ul.nav.navbar-nav
+      %li
+        %a(href='/auth/google_oauth2' target="_self") Authorize new content provider
 
       /User icon used to toggle userinfo in the sidebar
       /%a.btn.no-shadow.navbar-btn{:href => "#", :target => "#aside-user", "ui-toggle-class" => "show"}
