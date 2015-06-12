@@ -6,8 +6,6 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'content_provider#import'
 
-  root to: 'videos#index'
-
-  get '/dashboard/home' => 'application#angular'
+  root to: 'application#angular'
   get '/dashboard/*path' => 'application#angular'
 end
