@@ -8,7 +8,7 @@
       %i.glyphicon.glyphicon-align-justify
     / brand
     %a.navbar-brand.text-lt{:href => "#/"}
-      %img.hide{:alt => ".", :src => "img/logo.png"}
+      /%img.hide{:alt => ".", :src => "img/logo.png"}
       %span.hidden-folded.m-l-xs Videotelligent
     / / brand
   / / navbar header
