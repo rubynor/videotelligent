@@ -1,4 +1,7 @@
 class Video < ActiveRecord::Base
+  include Filterable
+
+  scope :category, -> (category_title) { where category_title: category_title }
 
   serialize :tags
 
