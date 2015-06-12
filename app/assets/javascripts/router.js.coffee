@@ -18,11 +18,13 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
           template: JST['blocks/footer']
 
     .state "dashboard.browse",
-      url: "/browse"
+      url: "/browse?filters"
       template: JST['browse']
       controller: 'BrowseCtrl as browse'
-      resolve: videos: ['Video', (Video) ->
-        Video.firstPage().$promise
+      resolve: videos: ['$state', '$stateParams', 'Video', ($state, $stateParams, Video) ->
+        filters = {}
+        filters = JSON.parse(atob($stateParams.filters)) if $stateParams.filters
+        Video.firstPage(filters).$promise
       ]
 
     .state "dashboard.video",

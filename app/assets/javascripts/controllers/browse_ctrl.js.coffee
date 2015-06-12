@@ -1,20 +1,34 @@
 BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) ->
+  filtersFromStateParams = ->
+    if $state.params['filters']
+      JSON.parse(atob($state.params.filters))
+    else
+      {}
+
   @videos = videos.videos
   @totalVideos = videos.meta.total_videos
   @categories = {}
   @searchText = ''
-  @selectedColor = ''
+  @selectedCategory = filtersFromStateParams()['category']
+
+  $scope.filters = {}
+  $scope.$watch 'filters', (newVal, oldVal) ->
+    $state.go('dashboard.browse', { filters: btoa(angular.toJson(newVal)) }, {reloadOnSearch: true}) if !_.isEmpty(newVal)
+  , true
 
   Category.query (data) =>
     for category, index in data.categories
       @categories[category] = categoryColors[index]
 
   @addMoreVideos = =>
-    Video.nextPage (data) =>
+    Video.nextPage filtersFromStateParams(), (data) =>
       for video in data.videos
         @videos.push(video)
     , (err) ->
       console.log err
+
+  @filterByCategory = (category) ->
+    $scope.filters['category'] = category
 
   categoryColors = [
     'rgb(127, 0, 0)'
