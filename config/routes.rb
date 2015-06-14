@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     get :download, on: :member
   end
 
+  resources :categories, only: [:index]
+
   get '/auth/:provider/callback', to: 'content_provider#import'
 
   root to: 'application#angular'

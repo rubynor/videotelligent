@@ -8,12 +8,12 @@
       .wrapper
         %strong Categories
       %ul.nav.nav-pills.nav-stacked.nav-sm
-        %li(ng-class='{active: !browse.selectedColor}')
-          %a(ng-click="browse.selectedColor = ''")
+        %li(ng-class='{active: !browse.selectedCategory}')
+          %a(ng-click="browse.filterByCategory('')")
             All
-        %li(ng-repeat='(category, color) in browse.categories()' ng-class='{active: browse.selectedColor == color}')
-          %a(ng-click='browse.selectedColor = color')
-            %i.fa.fa-fw.fa-circle.text-muted(ng-style="{ 'color': color }")
+        %li(ng-repeat='(category, color) in browse.categories' ng-class='{active: browse.selectedCategory == category}')
+          %a(ng-click='browse.filterByCategory(category)')
+            %i.fa.fa-fw.fa-circle.text-muted(ng-style="{'color': color}")
             {{ category }}
       .wrapper
         %strong Views
@@ -31,9 +31,8 @@
           %small.text-muted
             {{ browse.totalVideos | number }} results total
       .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in browse.videos | filter: { title: browse.searchText }")
-        / | videoViewsRange: browse.filteredMinViews: browse.filteredMaxViews")
         .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
-          .panel-heading(ng-style="{ 'background-color': browse.categories()['action'] }")
+          .panel-heading(ng-style="{ 'background-color': browse.categories[video.category_title] }")
           .image-wrapper
             %img(ng-src="{{ video.thumbnail_url }}")
           .wrapper.clearfix.video-info

@@ -15,6 +15,7 @@
 //= require hamlcoffee
 //= require angular_1.4.0-rc.2
 //= require jquery-plugins
+//= require lodash
 //= require videotelligent
 //= require_tree ./templates
 //= require_tree .
