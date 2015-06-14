@@ -8,20 +8,21 @@ class YoutubeRepository
       account.content_owners.map do |content_owner|
 
         # TODO: Get all channels, not just the first
-        # content_owner.partnered_channels.map do |channel|
-        channel = content_owner.partnered_channels.first
+        content_owner.partnered_channels.map do |channel|
+          # channel = content_owner.partnered_channels.first
 
-        begin
-          channel.videos.map do |yt_video|
-            video = to_video_from(Yt::Video.new(id: yt_video.id, auth: account))
-            video.save
-            video
-          end
-        rescue Yt::Errors::RequestError => e
-          if e.kind['code'] == 404
-            []
-          else
-            raise e
+          begin
+            channel.videos.map do |yt_video|
+              video = to_video_from(Yt::Video.new(id: yt_video.id, auth: account))
+              video.save
+              video
+            end
+          rescue Yt::Errors::RequestError => e
+            if e.kind['code'] == 404
+              []
+            else
+              raise e
+            end
           end
         end
       end
