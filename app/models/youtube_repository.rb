@@ -13,7 +13,7 @@ class YoutubeRepository
 
         begin
           channel.videos.map do |yt_video|
-            video = to_video_from(yt_video)
+            video = to_video_from(Yt::Video.new(id: yt_video.id, auth: account))
             video.save
             video
           end
@@ -35,6 +35,7 @@ class YoutubeRepository
   end
 
   private
+
   def self.to_video_from(yt_video)
     video = Video.find_or_initialize_by(uid: yt_video.id)
 
@@ -50,5 +51,4 @@ class YoutubeRepository
     video.channel_title = yt_video.channel_title
     video
   end
-
 end
