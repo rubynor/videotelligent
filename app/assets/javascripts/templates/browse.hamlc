@@ -8,20 +8,20 @@
       .wrapper
         %strong Categories
       %ul.nav.nav-pills.nav-stacked.nav-sm
-        %li(ng-class='{active: !browse.selectedCategory}')
+        %li(ng-class='{ active: !browse.selectedCategory }')
           %a(ng-click="browse.filterByCategory('')")
             All
-        %li(ng-repeat='(category, color) in browse.categories' ng-class='{active: browse.selectedCategory == category}')
-          %a(ng-click='browse.filterByCategory(category)')
-            %i.fa.fa-fw.fa-circle.text-muted(ng-style="{'color': color}")
-            {{ category }}
+        %li(ng-repeat='category in browse.categories | orderBy: "name"' ng-class='{ active: browse.selectedCategory == category.name }')
+          %a(ng-click='browse.filterByCategory(category.name)')
+            %i.fa.fa-fw.fa-circle.text-muted(ng-style="{'color': category.color}")
+            {{ category.name }}
       .wrapper
         %strong Views
   .col
     .wrapper.bg-light.lter.b-b
       %form.ng-pristine
         .input-group
-          %input.form-control.input-lg(type='text' ng-model='browse.searchText' placeholder='Video title')
+          %input.form-control.input-lg(type='text' ng-model='searchText' placeholder='Video title')
           %span.input-group-btn
             %button.btn.btn-lg.btn-default
               Search
@@ -29,15 +29,16 @@
       .col-sm-12
         .wrapper
           %small.text-muted
-            {{ browse.totalVideos | number }} results total
-      .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in browse.videos | filter: { title: browse.searchText }")
+            {{ totalVideos | number }} results total
+      .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in videos | filter: { title: searchText }")
         .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
           .panel-heading(ng-style="{ 'background-color': browse.categories[video.category_title] }")
           .image-wrapper
-            %img(ng-src="{{ video.thumbnail_url }}")
+            %img(ng-src='{{ video.thumbnail_url }}')
           .wrapper.clearfix.video-info
             .col-sx-12
-              %strong {{ video.title | characters: 75: true }}
+              %strong
+                {{ video.title | characters: 75: true }}
               %br
               %small.text-muted by {{ video.channel_title }}
               %br

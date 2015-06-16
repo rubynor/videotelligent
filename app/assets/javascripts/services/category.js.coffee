@@ -7,7 +7,7 @@ Category = ($resource) ->
     if _.isEmpty(categories)
       resource.query (data) ->
         categories = data.categories
-        success(categories)
+        success(categories) if success
     else
       success(categories)
       categories
