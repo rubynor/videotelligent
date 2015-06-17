@@ -2,7 +2,7 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
 
   params = if $state.params.filters then JSON.parse(atob($state.params.filters)) else {}
 
-  Category.query (categories) =>
+  Category.get (categories) =>
     @categories = categories
 
   @selectedCategory = params.category
@@ -32,11 +32,9 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
   @filterByCategory = (category) ->
     $scope.filters.category = category
 
-  @categoryByName = (category_name) =>
+  @colorByCategoryName = (category_name) =>
     return unless @categories
-    for category in @categories
-      if category.name == category_name
-        return category.color
+    @categories[category_name]
 
   @getVideoEmbed = (uid) ->
     YoutubeEmbed.embed(uid)
