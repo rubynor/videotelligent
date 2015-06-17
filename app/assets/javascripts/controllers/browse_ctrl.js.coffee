@@ -33,6 +33,7 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
     $scope.filters.category = category
 
   @categoryByName = (category_name) =>
+    return unless @categories
     for category in @categories
       if category.name == category_name
         return category.color
