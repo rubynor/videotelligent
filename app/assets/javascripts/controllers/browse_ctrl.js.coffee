@@ -1,6 +1,8 @@
 BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) ->
 
   params = if $state.params.filters then JSON.parse(atob($state.params.filters)) else {}
+  params.orderby = 'views'
+  params.orderDirection = 'desc'
 
   Category.get (categories) =>
     @categories = categories
@@ -16,12 +18,40 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
     $state.go('dashboard.browse', { filters: btoa(angular.toJson(newVal)) }, { reloadOnSearch: true }) if !_.isEmpty(newVal)
   , true
 
-  $scope.$watch 'searchText', (newVal, oldVal) ->
-    return unless newVal != oldVal
-    params.query = newVal
+  toggleOrder = ->
+    params.orderDirection = if params.orderDirection == 'desc' then 'asc' else 'desc'
+
+  reload = ->
     Video.firstPage params, (data) =>
       $scope.videos = data.videos
       $scope.totalVideos = data.meta.total_videos
+
+  $scope.$watch 'searchText', (newVal, oldVal) ->
+    return unless newVal != oldVal
+    params.query = newVal
+    reload()
+
+  $scope.orderByLikes = ->
+    params.orderby = 'likes'
+    toggleOrder()
+    reload()
+
+  $scope.orderByViews = ->
+    params.orderby = 'views'
+    toggleOrder()
+    reload()
+
+  @isOrderedByViews = ->
+    params.orderby == 'views'
+
+  @isOrderedByLikes = ->
+    params.orderby == 'likes'
+
+  @orderIcon = ->
+    if params.orderDirection == 'desc'
+      'glyphicon-triangle-bottom'
+    else
+      'glyphicon-triangle-top'
 
   @addMoreVideos = =>
     Video.nextPage params, (data) =>

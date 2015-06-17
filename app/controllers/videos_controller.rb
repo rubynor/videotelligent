@@ -1,9 +1,12 @@
 class VideosController < ApplicationController
   def index
+    params[:orderby] = 'views' unless params[:orderby]
+    params[:orderDirection] = 'desc' unless params[:orderDirection]
+
     params[:query].downcase! if params[:query]
     @videos = Video.filter(params.slice(:category))
                   .where('lower(title) LIKE :q OR lower(description) LIKE :q', q: "%#{params[:query]}%")
-                  .order(views: :desc)
+                  .order(params[:orderby] => params[:orderDirection])
                   .paginate(page: params[:page], per_page: 24)
 
     respond_to do |format|
