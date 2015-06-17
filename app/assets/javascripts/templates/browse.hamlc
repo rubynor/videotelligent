@@ -32,7 +32,7 @@
             {{ totalVideos | number }} results total
       .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in videos")
         .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
-          .panel-heading(ng-style="{ 'background-color': browse.categories[video.category_title] }")
+          .panel-heading(ng-style="{ 'background-color': browse.categoryByName(video.category_title) }")
           .image-wrapper
             %img(ng-src='{{ video.thumbnail_url }}')
           .wrapper.clearfix.video-info
