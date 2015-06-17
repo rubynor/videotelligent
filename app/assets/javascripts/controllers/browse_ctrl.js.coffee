@@ -1,14 +1,11 @@
 BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) ->
-  filtersFromStateParams = ->
-    if $state.params.filters
-      JSON.parse(atob($state.params.filters))
-    else
-      {}
+
+  params = if $state.params.filters then JSON.parse(atob($state.params.filters)) else {}
 
   Category.query (categories) =>
     @categories = categories
 
-  @selectedCategory = filtersFromStateParams().category
+  @selectedCategory = params.category
 
   $scope.videos = videos.videos
   $scope.totalVideos = videos.meta.total_videos
@@ -21,14 +18,13 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
 
   $scope.$watch 'searchText', (newVal, oldVal) ->
     return unless newVal != oldVal
-    params = filtersFromStateParams()
-    params.title = newVal
+    params.query = newVal
     Video.firstPage params, (data) =>
       $scope.videos = data.videos
       $scope.totalVideos = data.meta.total_videos
 
   @addMoreVideos = =>
-    Video.nextPage filtersFromStateParams(), (data) =>
+    Video.nextPage params, (data) =>
       $scope.videos = $scope.videos.concat data.videos
     , (err) ->
       console.log err

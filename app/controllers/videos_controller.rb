@@ -1,7 +1,7 @@
 class VideosController < ApplicationController
   def index
     @videos = Video.filter(params.slice(:category))
-                  .where('title LIKE ?', "%#{params[:title]}%")
+                  .where('title ILIKE :q OR description ILIKE :q', q: "%#{params[:query]}%")
                   .order(views: :desc)
                   .paginate(page: params[:page], per_page: 24)
 
