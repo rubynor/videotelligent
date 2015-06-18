@@ -32,16 +32,16 @@
             {{ totalVideos | number }} results total
           .sort-videos(style='float: right')
             %small.text-muted order by:
-            %small(ng-click='orderByViews()')
+            %small(ng-click='browse.orderBy("views")')
               views
               .sort-icon
-                .icon.asc(ng-class='browse.orderViewsClass("asc")')
-                .icon.desc(ng-class='browse.orderViewsClass("desc")')
-            %small(ng-click='orderByLikes()')
+                .icon.asc(ng-class='browse.orderClass("views", "asc")')
+                .icon.desc(ng-class='browse.orderClass("views", "desc")')
+            %small(ng-click='browse.orderBy("likes")')
               likes
               .sort-icon
-                .icon.asc(ng-class='browse.orderLikesClass("asc")')
-                .icon.desc(ng-class='browse.orderLikesClass("desc")')
+                .icon.asc(ng-class='browse.orderClass("likes", "asc")')
+                .icon.desc(ng-class='browse.orderClass("likes", "desc")')
       .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in videos")
         .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
           .panel-heading(ng-style="{ 'background-color': browse.colorByCategoryName(video.category_title) }")

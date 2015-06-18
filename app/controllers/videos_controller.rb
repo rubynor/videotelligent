@@ -1,17 +1,16 @@
 class VideosController < ApplicationController
   def index
-    params[:orderby] = 'views' unless params[:orderby]
-    params[:orderDirection] = 'desc' unless params[:orderDirection]
+    orderby = params[:orderby] || 'views'
+    order_direction = params[:orderDirection] || 'desc'
 
-    params[:query].downcase! if params[:query]
     @videos = Video.filter(params.slice(:category))
-                  .where('lower(title) LIKE :q OR lower(description) LIKE :q', q: "%#{params[:query]}%")
-                  .order(params[:orderby] => params[:orderDirection])
+                  .search(params[:query])
+                  .order(orderby => order_direction)
                   .paginate(page: params[:page], per_page: 24)
 
     respond_to do |format|
       format.html
-      format.json { render json: @videos, meta: { total_videos: @videos.total_entries } }
+      format.json { render json: @videos, meta: { total_videos: @videos.total_entries, orderby: orderby, orderDirection: order_direction } }
     end
   end
 

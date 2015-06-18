@@ -1,8 +1,8 @@
 BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) ->
 
   params = if $state.params.filters then JSON.parse(atob($state.params.filters)) else {}
-  params.orderby = 'views'
-  params.orderDirection = 'desc'
+  params.orderby = videos.meta.orderby
+  params.orderDirection = videos.meta.orderDirection
 
   Category.get (categories) =>
     @categories = categories
@@ -18,6 +18,14 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
     $state.go('dashboard.browse', { filters: btoa(angular.toJson(newVal)) }, { reloadOnSearch: true }) if !_.isEmpty(newVal)
   , true
 
+  $scope.$watch 'searchText', (newVal, oldVal) ->
+    return unless newVal != oldVal
+    params.query = newVal
+    reload()
+
+  isOrderedBy = (type) ->
+    params.orderby == type
+
   toggleOrder = ->
     params.orderDirection = if params.orderDirection == 'desc' then 'asc' else 'desc'
 
@@ -26,33 +34,13 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
       $scope.videos = data.videos
       $scope.totalVideos = data.meta.total_videos
 
-  $scope.$watch 'searchText', (newVal, oldVal) ->
-    return unless newVal != oldVal
-    params.query = newVal
-    reload()
-
-  $scope.orderByLikes = ->
-    params.orderby = 'likes'
+  @orderBy = (type) ->
+    params.orderby = type
     toggleOrder()
     reload()
 
-  $scope.orderByViews = ->
-    params.orderby = 'views'
-    toggleOrder()
-    reload()
-
-  isOrderedByViews = ->
-    params.orderby == 'views'
-
-  isOrderedByLikes = ->
-    params.orderby == 'likes'
-
-  @orderLikesClass = (order) ->
-    return '' unless isOrderedByLikes()
-    if params.orderDirection == order then 'active' else 'hidden'
-
-  @orderViewsClass = (order) ->
-    return '' unless isOrderedByViews()
+  @orderClass = (type, order) ->
+    return '' unless isOrderedBy(type)
     if params.orderDirection == order then 'active' else 'hidden'
 
   @addMoreVideos = =>
