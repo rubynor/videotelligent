@@ -1,0 +1,26 @@
+.sort-icon
+  display: inline-block
+  .icon
+    position: absolute
+    font-size: 8px
+    @extend .glyphicon
+    &.asc
+      @extend .glyphicon-triangle-top
+      top: 35%
+      &.active
+        top: 50%
+        margin-top: -3px
+      &.disabled
+        visibility: hidden
+    &.desc
+      @extend .glyphicon-triangle-bottom
+      top: 50%
+      &.active
+        top: 50%
+        margin-top: -3px
+      &.disabled
+        visibility: hidden
+.sort-videos
+  small:last-child
+    margin-left: 20px
+    margin-right: 20px

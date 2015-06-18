@@ -41,17 +41,19 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
     toggleOrder()
     reload()
 
-  @isOrderedByViews = ->
+  isOrderedByViews = ->
     params.orderby == 'views'
 
-  @isOrderedByLikes = ->
+  isOrderedByLikes = ->
     params.orderby == 'likes'
 
-  @orderIcon = ->
-    if params.orderDirection == 'desc'
-      'glyphicon-triangle-bottom'
-    else
-      'glyphicon-triangle-top'
+  @orderLikesClass = (order) ->
+    return '' unless isOrderedByLikes()
+    if params.orderDirection == order then 'active' else 'hidden'
+
+  @orderViewsClass = (order) ->
+    return '' unless isOrderedByViews()
+    if params.orderDirection == order then 'active' else 'hidden'
 
   @addMoreVideos = =>
     Video.nextPage params, (data) =>

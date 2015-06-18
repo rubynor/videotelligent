@@ -34,12 +34,14 @@
             %small.text-muted order by:
             %small(ng-click='orderByViews()')
               views
-              %span(ng-if='browse.isOrderedByViews()')
-                .glyphicon(ng-class='browse.orderIcon()')
-            %small(style='margin-left: 20px; margin-right: 20px;' ng-click='orderByLikes()')
+              .sort-icon
+                .icon.asc(ng-class='browse.orderViewsClass("asc")')
+                .icon.desc(ng-class='browse.orderViewsClass("desc")')
+            %small(ng-click='orderByLikes()')
               likes
-              %span(ng-if='browse.isOrderedByLikes()')
-                .glyphicon(ng-class='browse.orderIcon()')
+              .sort-icon
+                .icon.asc(ng-class='browse.orderLikesClass("asc")')
+                .icon.desc(ng-class='browse.orderLikesClass("desc")')
       .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in videos")
         .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
           .panel-heading(ng-style="{ 'background-color': browse.colorByCategoryName(video.category_title) }")
