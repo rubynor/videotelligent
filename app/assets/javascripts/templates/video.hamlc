@@ -15,7 +15,7 @@
       .wrapper
         %h5.font-bold
           Category
-        %h4.m-t-xs.m-b-xs
+        %h4.m-t-xs.m-b-xs(ng-click='video.goToCategory(video.current.category_title )')
           {{ video.current.category_title }}
 
       .wrapper
