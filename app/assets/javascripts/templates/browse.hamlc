@@ -30,6 +30,12 @@
         .wrapper
           %small.text-muted
             {{ totalVideos | number }} results total
+          .sort-videos(style='float: right')
+            %small.text-muted order by:
+            %small(ng-click='browse.orderBy("views")')
+              = 'views |'
+            %small(ng-click='browse.orderBy("likes")')
+              likes
       .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in videos")
         .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
           .panel-heading(ng-style="{ 'background-color': browse.colorByCategoryName(video.category_title) }")

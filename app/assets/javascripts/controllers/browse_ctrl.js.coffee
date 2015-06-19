@@ -1,6 +1,7 @@
 BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) ->
 
   params = if $state.params.filters then JSON.parse(atob($state.params.filters)) else {}
+  params.order_by = videos.meta.order_by
 
   Category.get (categories) =>
     @categories = categories
@@ -19,9 +20,16 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
   $scope.$watch 'searchText', (newVal, oldVal) ->
     return unless newVal != oldVal
     params.query = newVal
+    reload()
+
+  reload = ->
     Video.firstPage params, (data) =>
       $scope.videos = data.videos
       $scope.totalVideos = data.meta.total_videos
+
+  @orderBy = (type) ->
+    params.order_by = type
+    reload()
 
   @addMoreVideos = =>
     Video.nextPage params, (data) =>

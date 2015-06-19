@@ -12,26 +12,5 @@
 @import "source-sans-pro";
 @import "bootstrap-slider";
 @import "video-block";
+@import 'browse';
 
-
-// Just some styling for the demonstration
-table.demo {
-  tr {
-    td:nth-child(2), th:nth-child(2) {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-    th {
-      width: 100px;
-    }
-    th:first-child {
-      width: 560px;
-    }
-    th:nth-child(2) {
-      width: 100%;
-    }
-    th.download {
-      width: 14px;
-    }
-  }
-}
