@@ -1,8 +1,7 @@
 BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) ->
 
   params = if $state.params.filters then JSON.parse(atob($state.params.filters)) else {}
-  params.orderby = videos.meta.orderby
-  params.orderDirection = videos.meta.orderDirection
+  params.order_by = videos.meta.order_by
 
   Category.get (categories) =>
     @categories = categories
@@ -23,25 +22,14 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
     params.query = newVal
     reload()
 
-  isOrderedBy = (type) ->
-    params.orderby == type
-
-  toggleOrder = ->
-    params.orderDirection = if params.orderDirection == 'desc' then 'asc' else 'desc'
-
   reload = ->
     Video.firstPage params, (data) =>
       $scope.videos = data.videos
       $scope.totalVideos = data.meta.total_videos
 
   @orderBy = (type) ->
-    params.orderby = type
-    toggleOrder()
+    params.order_by = type
     reload()
-
-  @orderClass = (type, order) ->
-    return '' unless isOrderedBy(type)
-    if params.orderDirection == order then 'active' else 'hidden'
 
   @addMoreVideos = =>
     Video.nextPage params, (data) =>
