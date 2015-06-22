@@ -22,3 +22,7 @@
 every :day, at: '03:00am' do
   rake "videos:import"
 end
+
+every :day, at: '05:00am' do
+  rake "categories:import"
+end
