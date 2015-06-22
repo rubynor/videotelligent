@@ -11,10 +11,9 @@
         %li(ng-class='{ active: !browse.selectedCategory }')
           %a(ng-click="browse.filterByCategory('')")
             All
-        %li(ng-repeat='(category, color) in browse.categories | orderBy: "name"' ng-class='{ active: browse.selectedCategory == category }')
-          %a(ng-click='browse.filterByCategory(category)')
-            %i.fa.fa-fw.fa-circle.text-muted(ng-style="{'color': color}")
-            {{ category }}
+        %li(ng-repeat='category in browse.categories | orderBy: "name"' ng-class='{ active: browse.selectedCategory == category.name }')
+          %a(ng-click='browse.filterByCategory(category.name)')
+            {{ category.name }}
       .wrapper
         %strong Views
   .col
@@ -38,7 +37,6 @@
               likes
       .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in videos")
         .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
-          .panel-heading(ng-style="{ 'background-color': browse.colorByCategoryName(video.category_title) }")
           .image-wrapper
             %img(ng-src='{{ video.thumbnail_url }}')
           .wrapper.clearfix.video-info

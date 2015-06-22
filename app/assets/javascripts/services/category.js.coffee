@@ -6,7 +6,7 @@ Category = ($resource) ->
   get: (success) ->
     if  _.isEmpty(categories)
       resource.get (data) ->
-        categories = data
+        categories = data.categories
         success(categories) if success
     else
       success(categories) if success
