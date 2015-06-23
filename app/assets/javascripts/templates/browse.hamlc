@@ -34,7 +34,9 @@
             %small(ng-click='browse.orderBy("views")')
               = 'views |'
             %small(ng-click='browse.orderBy("likes")')
-              likes
+              = 'likes |'
+            %small(ng-click='browse.orderBy("views_last_week")')
+              trending
       .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in videos")
         .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
           .image-wrapper
@@ -47,5 +49,6 @@
               %small.text-muted by {{ video.channel_title }}
               %br
               %small.text-muted
-                {{ video.views | number }} views •
-                {{ video.created_at | date }}
+                {{ video.views | number }} views
+                %br
+                {{ video.views_last_week | number }} views last week
