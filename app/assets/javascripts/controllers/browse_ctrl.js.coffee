@@ -40,10 +40,6 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
   @filterByCategory = (category) ->
     $scope.filters.category = category
 
-  @colorByCategoryName = (category_name) =>
-    return unless @categories
-    @categories[category_name]
-
   @getVideoEmbed = (uid) ->
     YoutubeEmbed.embed(uid)
 
