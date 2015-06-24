@@ -13,7 +13,7 @@ class YoutubeRepository
 
           begin
             channel.videos.map do |yt_video|
-              video = to_video_from(Yt::Video.new(id: yt_video.id, auth: account))
+              video = to_video_from(Yt::Video.new(id: yt_video.id, auth: content_owner))
               video.save
               video
             end
@@ -43,6 +43,7 @@ class YoutubeRepository
     video.uid = yt_video.id
     video.title = yt_video.title
     video.views = yt_video.view_count
+    video.views_last_week = yt_video.views(since: 1.week.ago)[:total]
     video.likes = yt_video.like_count
     video.dislikes = yt_video.dislike_count
     video.thumbnail_url = yt_video.thumbnail_url(:medium)
