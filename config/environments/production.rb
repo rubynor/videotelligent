@@ -2,7 +2,7 @@ require Rails.root.join("config/smtp")
 
 Videotelligent::Application.configure do
   config.middleware.insert_after(::Rack::Runtime, "::Rack::Auth::Basic", "Production") do |u, p|
-    [u, p] == ['video', 'fire ponnier er ingen kavalkade']
+    [u, p] == ['video', 'fire ponnier danser']
   end
 end
 
