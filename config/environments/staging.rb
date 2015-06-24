@@ -6,7 +6,7 @@ Mail.register_interceptor(
 
 Videotelligent::Application.configure do
   config.middleware.insert_after(::Rack::Runtime, "::Rack::Auth::Basic", "Staging") do |u, p|
-    [u, p] == ['video', 'ingen ku uten rockering']
+    [u, p] == ['video', 'fire ponnier danser']
   end
 end
 
