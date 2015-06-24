@@ -31,6 +31,9 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
     params.order_by = type
     reload()
 
+  @isOrderedBy = (type) ->
+    params.order_by == type
+
   @addMoreVideos = =>
     Video.nextPage params, (data) =>
       $scope.videos = $scope.videos.concat data.videos
