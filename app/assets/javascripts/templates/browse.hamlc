@@ -31,11 +31,11 @@
             {{ totalVideos | number }} results total
           .sort-videos(style='float: right')
             %small.text-muted order by:
-            %small(ng-click='browse.orderBy("views")')
+            %small(ng-click='browse.orderBy("views")' ng-class='{ active: browse.isOrderedBy("views") }')
               = 'views |'
-            %small(ng-click='browse.orderBy("likes")')
+            %small(ng-click='browse.orderBy("likes")' ng-class='{ active: browse.isOrderedBy("likes") }')
               = 'likes |'
-            %small(ng-click='browse.orderBy("views_last_week")')
+            %small(ng-click='browse.orderBy("views_last_week")' ng-class='{ active: browse.isOrderedBy("views_last_week") }')
               trending
       .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in videos")
         .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
