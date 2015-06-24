@@ -49,6 +49,7 @@
               %small.text-muted by {{ video.channel_title }}
               %br
               %small.text-muted
-                {{ video.views | number }} views
+                %ng-pluralize(count='video.views' when="{'0': 'No total views', 'one': '1 total view', 'other': '{} total views'}")
                 %br
-                {{ video.views_last_week | number }} views last week
+                %ng-pluralize(count='video.views_last_week' when="{'0': 'No views last week', 'one': '1 view last week', 'other': '{} views last week'}")
+
