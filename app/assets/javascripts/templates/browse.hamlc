@@ -8,10 +8,10 @@
       .wrapper
         %strong Categories
       %ul.nav.nav-pills.nav-stacked.nav-sm
-        %li(ng-class='{ active: !browse.selectedCategory }')
+        %li(ng-class="{ active: browse.isActiveCategory('') }")
           %a(ng-click="browse.filterByCategory('')")
             All
-        %li(ng-repeat='category in browse.categories' ng-class='{ active: browse.selectedCategory == category.name }')
+        %li(ng-repeat='category in browse.categories' ng-class='{ active: browse.isActiveCategory(category.name) }')
           %a(ng-click='browse.filterByCategory(category.name)')
             {{ category.name }}
       .wrapper

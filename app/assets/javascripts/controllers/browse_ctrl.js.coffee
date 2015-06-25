@@ -6,8 +6,6 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
   Category.get (categories) =>
     @categories = categories
 
-  @selectedCategory = params.category
-
   $scope.videos = videos.videos
   $scope.totalVideos = videos.meta.total_videos
   $scope.searchText = ''
@@ -31,6 +29,9 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
 
   @isOrderedBy = (type) ->
     params.order_by == type
+
+  @isActiveCategory = (category) ->
+    params.category == category
 
   @addMoreVideos = =>
     Video.nextPage params, (data) =>
