@@ -11,7 +11,7 @@
         %li(ng-class='{ active: !browse.selectedCategory }')
           %a(ng-click="browse.filterByCategory('')")
             All
-        %li(ng-repeat='category in browse.categories | orderBy: "name"' ng-class='{ active: browse.selectedCategory == category.name }')
+        %li(ng-repeat='category in browse.categories' ng-class='{ active: browse.selectedCategory == category.name }')
           %a(ng-click='browse.filterByCategory(category.name)')
             {{ category.name }}
       .wrapper
