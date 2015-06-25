@@ -12,24 +12,22 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
   $scope.totalVideos = videos.meta.total_videos
   $scope.searchText = ''
 
-  $scope.filters = {}
-  $scope.$watch 'filters', (newVal, oldVal) ->
-    $state.go('dashboard.browse', { filters: btoa(angular.toJson(newVal)) }, { reloadOnSearch: true }) if !_.isEmpty(newVal)
-  , true
-
   $scope.$watch 'searchText', (newVal, oldVal) ->
     return unless newVal != oldVal
     params.query = newVal
-    reload()
+    reload_data()
 
-  reload = ->
+  reload_data = ->
     Video.firstPage params, (data) =>
       $scope.videos = data.videos
       $scope.totalVideos = data.meta.total_videos
 
+  refresh_state = ->
+    $state.go('dashboard.browse', { filters: btoa(angular.toJson(params)) }, { reloadOnSearch: true })
+
   @orderBy = (type) ->
     params.order_by = type
-    reload()
+    refresh_state()
 
   @isOrderedBy = (type) ->
     params.order_by == type
@@ -41,7 +39,8 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
       console.log err
 
   @filterByCategory = (category) ->
-    $scope.filters.category = category
+    params.category = category
+    refresh_state()
 
   @getVideoEmbed = (uid) ->
     YoutubeEmbed.embed(uid)
