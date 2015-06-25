@@ -42,9 +42,6 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
     params.category = category
     refresh_state()
 
-  @getVideoEmbed = (uid) ->
-    YoutubeEmbed.embed(uid)
-
   @goToVideo = (id) ->
     $state.go('dashboard.video', { id: id })
 
