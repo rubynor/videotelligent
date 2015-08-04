@@ -20,7 +20,7 @@
     .wrapper.bg-light.lter.b-b
       %form.ng-pristine
         .input-group
-          %input.form-control.input-lg(type='text' ng-model='searchText' placeholder='Video title')
+          %input.form-control.input-lg(type='text' ng-model='searchText' placeholder='Video title' autofocus)
           %span.input-group-btn
             %button.btn.btn-lg.btn-default
               Search
