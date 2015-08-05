@@ -6,10 +6,7 @@ class YoutubeRepository
     ContentProvider.all.map do |cp|
       account = Yt::Account.new(access_token: cp.token, refresh_token: cp.refresh_token)
       account.content_owners.map do |content_owner|
-
-        # TODO: Get all channels, not just the first
         content_owner.partnered_channels.map do |channel|
-          # channel = content_owner.partnered_channels.first
 
           begin
             channel.videos.map do |yt_video|
