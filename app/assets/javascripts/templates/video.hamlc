@@ -17,7 +17,13 @@
           Category
         %h4.m-t-xs.m-b-xs(ng-click='video.goToCategory(video.current.category_title )')
           {{ video.current.category_title }}
-
+      .wrapper
+        %h5.font-bold
+          View count
+            %h4.m-t-xs.m-b-xs
+              Last week: {{ video.current.views_last_week | number }}
+            %h4.m-t-xs.m-b-xs
+              All time: {{ video.current.views | number }}
       .wrapper
         %h5.font-bold
           Likes
