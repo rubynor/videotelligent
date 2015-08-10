@@ -2,7 +2,8 @@ class VideosController < ApplicationController
   def index
     order_by = params[:order_by] || 'views'
 
-    @videos = Video.filter(params.slice(:category))
+    @videos = Video.includes(:category)
+                  .filter(params.slice(:category))
                   .search(params[:query])
                   .order(order_by => 'desc')
                   .paginate(page: params[:page], per_page: 24)

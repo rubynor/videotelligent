@@ -3,11 +3,10 @@ namespace :videos do
   task import: :environment do
     videos = YoutubeRepository.import_all
     puts "Total of #{videos.size} imported/refreshed"
-    categories = Category.import_all
-    puts "Total of #{categories.count} categories imported/refreshed"
   end
 
   task clean: :environment do
+    Category.destroy_all
     Video.destroy_all
   end
 end
