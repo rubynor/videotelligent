@@ -1,9 +1,11 @@
 class Video < ActiveRecord::Base
   include Filterable
 
+  belongs_to :category
+
   before_save :set_default_values
 
-  scope :category, -> (category_title) { where category_title: category_title }
+  scope :category, -> (category_title) { where 'categories.name' => category_title }
   scope :search, -> (query) { where('lower(title) LIKE :q OR lower(description) LIKE :q', q: "%#{query.try(:downcase)}%") }
 
   serialize :tags
