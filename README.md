@@ -38,3 +38,13 @@ you can deploy to staging and production with:
 
     $ ./bin/deploy staging
     $ ./bin/deploy production
+
+## Please note
+
+This app's backend depends pretty heavily on [the yt library](https://github.com/Fullscreen/yt) for communicationg with
+the Youtube API. Since that library has some bugs that hit us, and they're not the fastest to merge PRs with bugfixes,
+we now run from [Karianne's forked version of yt](https://github.com/karianne/yt). When those PRs are merged, we should
+switch back to the original version.
+
+PRs we depend on being merged:
+- https://github.com/Fullscreen/yt/pull/228

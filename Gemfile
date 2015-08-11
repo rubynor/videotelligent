@@ -33,7 +33,8 @@ gem "title"
 gem "uglifier"
 gem "unicorn"
 gem "viddl-rb"
-gem "yt", "~> 0.24.1"
+# TODO: Change this to original gem once PR has been merged
+gem "yt", git: "https://github.com/karianne/yt", branch: "fix-refresh-token-for-content-owners" #"~> 0.24.1"
 gem 'whenever', :require => false
 gem "will_paginate"
 
