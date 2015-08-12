@@ -6,7 +6,7 @@ namespace :videos do
   end
 
   task clean: :environment do
-    Category.destroy_all
-    Video.destroy_all
+    Category.delete_all
+    Video.delete_all
   end
 end
