@@ -18,17 +18,14 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
           template: JST['blocks/footer']
 
     .state "dashboard.browse",
-      url: "/browse?order_by&category"
+      url: "/browse?order_by&category&view_as&query"
       template: JST['browse']
       controller: 'BrowseCtrl as browse'
       resolve: videos: ['$state', '$stateParams', 'Video', ($state, $stateParams, Video) ->
 
-        params = {
-          order_by: $stateParams.order_by,
-          category: $stateParams.category
-        }
+        console.log(JSON.stringify($stateParams))
 
-        Video.firstPage(params).$promise
+        Video.firstPage($stateParams).$promise
       ]
 
     .state "dashboard.video",
