@@ -1,6 +1,6 @@
 BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) ->
 
-  params = if $state.params.filters then JSON.parse(atob($state.params.filters)) else {}
+  params = if $state.params then angular.copy($state.params) else {}
   params.order_by = videos.meta.order_by
   params.category = '' unless params.category
 
@@ -17,13 +17,14 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
     reloadData()
 
   reloadData = ->
+    console.log("reloading data")
     Video.firstPage params, (data) =>
       $scope.videos = data.videos
       $scope.totalVideos = data.meta.total_videos
     refreshState()
 
   refreshState = ->
-    $state.go('dashboard.browse', { filters: btoa(angular.toJson(params)) }, { reloadOnSearch: true })
+    $state.go('dashboard.browse', { order_by: params.order_by, category: params.category }, { reloadOnSearch: true })
 
   @orderBy = (type) ->
     params.order_by = type
