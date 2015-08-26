@@ -18,13 +18,20 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
           template: JST['blocks/footer']
 
     .state "dashboard.browse",
-      url: "/browse?filters"
+      url: "/browse?order_by&category"
       template: JST['browse']
       controller: 'BrowseCtrl as browse'
       resolve: videos: ['$state', '$stateParams', 'Video', ($state, $stateParams, Video) ->
-        filters = {}
-        filters = JSON.parse(atob($stateParams.filters)) if $stateParams.filters
-        Video.firstPage(filters).$promise
+
+        console.log("everybody was dashboard browsing, dudududu")
+        console.log(JSON.stringify($stateParams))
+
+        params = {
+          order_by: $stateParams.order_by,
+          category: $stateParams.category
+        }
+
+        Video.firstPage(params).$promise
       ]
 
     .state "dashboard.video",

@@ -2,7 +2,7 @@ VideoCtrl = ($state, video, YoutubeEmbed) ->
   @current = video.video
 
   @goToCategory = (category) ->
-    $state.go('dashboard.browse', { filters: btoa(angular.toJson({ category: category })) })
+    $state.go('dashboard.browse', { category: category })
 
   @richDescription = ->
     # Replace linebrake \n with tag <br/>
