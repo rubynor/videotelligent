@@ -23,9 +23,6 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
       controller: 'BrowseCtrl as browse'
       resolve: videos: ['$state', '$stateParams', 'Video', ($state, $stateParams, Video) ->
 
-        console.log("everybody was dashboard browsing, dudududu")
-        console.log(JSON.stringify($stateParams))
-
         params = {
           order_by: $stateParams.order_by,
           category: $stateParams.category

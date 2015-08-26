@@ -24,11 +24,6 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
     refreshState()
 
   refreshState = ->
-    console.log("refreshing state")
-    console.log("order by: " + params.order_by)
-    console.log("category: " + params.category)
-    console.log("params" + JSON.stringify(params))
-
     $state.go('dashboard.browse', { order_by: params.order_by, category: params.category }, { reloadOnSearch: true })
 
   @orderBy = (type) ->
