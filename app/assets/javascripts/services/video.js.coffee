@@ -6,6 +6,7 @@ Video = ($resource, $filter) ->
   firstPage: (params = {}, success) ->
     nextPage = 1
     params['page'] = nextPage
+
     data = resource.query(params, (data) ->
       nextPage++ unless data.videos.length == 0
       success(data) if success
@@ -13,6 +14,7 @@ Video = ($resource, $filter) ->
 
   nextPage: (params = {}, success, error) ->
     params['page'] = nextPage
+
     resource.query(params, (data) ->
       nextPage++ unless data.videos.length == 0
       success(data) if success
