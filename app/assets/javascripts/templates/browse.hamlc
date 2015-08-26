@@ -29,7 +29,13 @@
         .wrapper
           %small.text-muted
             {{ totalVideos | number }} results total
-          .sort-videos(style='float: right')
+          .view-as
+            %small.text-muted view as:
+            %small(ng-click='browse.viewAs("tile")' ng-class='{ active: browse.isViewedAs("tile") }')
+              = 'tiles |'
+            %small(ng-click='browse.viewAs("list")' ng-class='{ active: browse.isViewedAs("list") }')
+              = 'list'
+          .sort-videos
             %small.text-muted order by:
             %small(ng-click='browse.orderBy("views")' ng-class='{ active: browse.isOrderedBy("views") }')
               = 'views |'
@@ -37,19 +43,49 @@
               = 'likes |'
             %small(ng-click='browse.orderBy("views_last_week")' ng-class='{ active: browse.isOrderedBy("views_last_week") }')
               trending
-      .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in videos")
-        .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
-          .image-wrapper
-            %img(ng-src='{{ video.thumbnail_url }}')
-          .wrapper.clearfix.video-info
-            .col-sx-12
-              %strong
-                {{ video.title | characters: 75: true }}
-              %br
-              %small.text-muted by {{ video.channel_title }}
-              %br
-              %small.text-muted
-                %ng-pluralize(count='video.views' when="{'0': 'No total views', 'one': '1 total view', 'other': '{{video.views|number}} total views'}")
-                %br
-                %ng-pluralize(count='video.views_last_week' when="{'0': 'No views last week', 'one': '1 view last week', 'other': '{{video.views_last_week|number}} views last week'}")
-
+      %div(ng-switch='' on="viewType")
+        %div(ng-switch-when="tile")
+          .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in videos")
+            .video.panel.b-a(ng-click="browse.goToVideo(video.id)")
+              .image-wrapper
+                %img(ng-src='{{ video.thumbnail_url }}')
+              .wrapper.clearfix.video-info
+                .col-sx-12
+                  %strong
+                    {{ video.title | characters: 75: true }}
+                  %br
+                  %small.text-muted by {{ video.channel_title }}
+                  %br
+                  %small.text-muted
+                    %ng-pluralize(count='video.views' when="{'0': 'No total views', 'one': '1 total view', 'other': '{{video.views|number}} total views'}")
+                    %br
+                    %ng-pluralize(count='video.views_last_week' when="{'0': 'No views last week', 'one': '1 view last week', 'other': '{{video.views_last_week|number}} views last week'}")
+        %div(ng-switch-when="list")
+          %span
+            &nbsp;
+          .table-responsive
+            %table.table.table-striped.b-t.b-light
+              %thead
+                %tr
+                  %th
+                    &nbsp;
+                  %th
+                    Title
+                  %th
+                    Channel
+                  %th
+                    Total views
+                  %th
+                    Views last week
+              %tbody
+                %tr(ng-repeat='video in videos' ng-click='browse.goToVideo(video.id)')
+                  %td
+                    %img.list(ng-src='{{ video.thumbnail_url }}')
+                  %td
+                    {{video.title}}
+                  %td
+                    {{video.channel_title}}
+                  %td
+                    {{video.views | number}}
+                  %td
+                    {{video.views_last_week | number}}

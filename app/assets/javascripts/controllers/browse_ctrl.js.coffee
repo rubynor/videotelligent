@@ -1,8 +1,9 @@
-BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) ->
+BrowseCtrl = ($timeout, $state, $scope, $location, videos, YoutubeEmbed, Video, Category) ->
 
-  params = if $state.params.filters then JSON.parse(atob($state.params.filters)) else {}
+  params = if $state.params then angular.copy($state.params) else {}
   params.order_by = videos.meta.order_by
   params.category = '' unless params.category
+  params.view_as = 'tile' unless params.view_as
 
   Category.get (categories) =>
     @categories = categories
@@ -10,6 +11,7 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
   $scope.videos = videos.videos
   $scope.totalVideos = videos.meta.total_videos
   $scope.searchText = params.query
+  $scope.viewType = params.view_as
 
   $scope.$watch 'searchText', (newVal, oldVal) ->
     return unless newVal != oldVal
@@ -17,13 +19,16 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
     reloadData()
 
   reloadData = ->
+    console.log("reloading data")
     Video.firstPage params, (data) =>
       $scope.videos = data.videos
       $scope.totalVideos = data.meta.total_videos
-    refreshState()
+    refreshState(false)
 
-  refreshState = ->
-    $state.go('dashboard.browse', { filters: btoa(angular.toJson(params)) }, { reloadOnSearch: true })
+  refreshState = (notify=true) ->
+    console.log(params.view_as)
+
+    $state.go('dashboard.browse', params, notify: notify)
 
   @orderBy = (type) ->
     params.order_by = type
@@ -31,6 +36,14 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
 
   @isOrderedBy = (type) ->
     params.order_by == type
+
+  @viewAs = (viewType) ->
+    $scope.viewType = viewType
+    params.view_as = viewType
+    $location.search('view_as', viewType)
+
+  @isViewedAs = (viewType) ->
+    $scope.viewType == viewType
 
   @isActiveCategory = (category) ->
     params.category == category
@@ -52,4 +65,4 @@ BrowseCtrl = ($timeout, $state, $scope, videos, YoutubeEmbed, Video, Category) -
 
 angular
   .module('Videotelligent')
-  .controller('BrowseCtrl', ['$timeout', '$state', '$scope', 'videos', 'YoutubeEmbed', 'Video', 'Category', BrowseCtrl])
+  .controller('BrowseCtrl', ['$timeout', '$state', '$scope', '$location', 'videos', 'YoutubeEmbed', 'Video', 'Category', BrowseCtrl])
