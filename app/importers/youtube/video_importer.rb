@@ -43,6 +43,7 @@ module Youtube
       video.description = yt_video.description
       video.published_at = yt_video.published_at
       video.channel_title = yt_video.channel_title
+      video.channel_id = yt_video.channel_id
       video.category = Category.find_by_external_reference(yt_video.category_id)
       video
     end

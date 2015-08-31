@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811101623) do
+ActiveRecord::Schema.define(version: 20150831085020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20150811101623) do
     t.string   "channel_title"
     t.integer  "views_last_week", default: 0
     t.integer  "category_id"
+    t.string   "channel_id"
   end
 
   add_index "videos", ["uid"], name: "index_videos_on_uid", using: :btree
