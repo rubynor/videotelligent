@@ -38,11 +38,20 @@
           .sort-videos
             %small.text-muted order by:
             %small(ng-click='browse.orderBy("views")' ng-class='{ active: browse.isOrderedBy("views") }')
-              = 'views |'
-            %small(ng-click='browse.orderBy("likes")' ng-class='{ active: browse.isOrderedBy("likes") }')
-              = 'likes |'
+              = 'all views |'
             %small(ng-click='browse.orderBy("views_last_week")' ng-class='{ active: browse.isOrderedBy("views_last_week") }')
-              trending
+              views last week
+          %div
+            %div(style="float: left")
+              %ui-select(ng-model="country.selected" on-select='browse.filterByCountry(country.selected.code)' ng-disabled="disabled" style="width: 300px")
+                %ui-select-match(placeholder="Select or search for a country")
+                  {{$select.selected.name}}
+                %ui-select-choices(repeat="country in browse.countries | filter: $select.search")
+                  %span(ng-bind-html="country.name | highlight: $select.search")
+                  %small(ng-bind-html="country.code | highlight: $select.search")
+            %span(class="input-group-btn")
+              %button(ng-click="browse.filterByCountry(undefined)" class="btn btn-default")
+                %span(class="glyphicon glyphicon-trash")
       %div(ng-switch='' on="viewType")
         %div(ng-switch-when="tile")
           .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in videos")
@@ -57,9 +66,11 @@
                   %small.text-muted by {{ video.channel_title }}
                   %br
                   %small.text-muted
-                    %ng-pluralize(count='video.views' when="{'0': 'No total views', 'one': '1 total view', 'other': '{{video.views|number}} total views'}")
-                    %br
-                    %ng-pluralize(count='video.views_last_week' when="{'0': 'No views last week', 'one': '1 view last week', 'other': '{{video.views_last_week|number}} views last week'}")
+                    %ng-pluralize(count='video.filtered_views' when="{'0': 'No views with filter', 'one': '1 view with filter', 'other': '{{video.filtered_views|number}} views with filter'}")
+                    -# %br
+                    -# %ng-pluralize(count='video.views' when="{'0': 'No total views', 'one': '1 total view', 'other': '{{video.views|number}} total views'}")
+                    -# %br
+                    -# %ng-pluralize(count='video.views_last_week' when="{'0': 'No views last week', 'one': '1 view last week', 'other': '{{video.views_last_week|number}} views last week'}")
         %div(ng-switch-when="list")
           %span
             &nbsp;
@@ -77,6 +88,8 @@
                     Total views
                   %th
                     Views last week
+                  %th
+                    Views with filter
               %tbody
                 %tr(ng-repeat='video in videos' ng-click='browse.goToVideo(video.id)')
                   %td
@@ -89,3 +102,5 @@
                     {{video.views | number}}
                   %td
                     {{video.views_last_week | number}}
+                  %td
+                    {{video.filtered_views | number}}

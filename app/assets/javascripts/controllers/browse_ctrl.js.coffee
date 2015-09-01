@@ -1,12 +1,18 @@
-BrowseCtrl = ($timeout, $state, $scope, $location, videos, YoutubeEmbed, Video, Category) ->
+BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed, Video, Category, Country, countries) ->
 
   params = if $state.params then angular.copy($state.params) else {}
   params.order_by = videos.meta.order_by
   params.category = '' unless params.category
   params.view_as = 'tile' unless params.view_as
+  params.country = '' unless params.country
+
+  $scope.country =  {}
 
   Category.get (categories) =>
     @categories = categories
+
+  @countries = countries.countries
+  $scope.country.selected = $filter('filter')(@countries, {code: params.country})[0] if params.country
 
   $scope.videos = videos.videos
   $scope.totalVideos = videos.meta.total_videos
@@ -26,8 +32,6 @@ BrowseCtrl = ($timeout, $state, $scope, $location, videos, YoutubeEmbed, Video, 
     refreshState(false)
 
   refreshState = (notify=true) ->
-    console.log(params.view_as)
-
     $state.go('dashboard.browse', params, notify: notify)
 
   @orderBy = (type) ->
@@ -58,6 +62,13 @@ BrowseCtrl = ($timeout, $state, $scope, $location, videos, YoutubeEmbed, Video, 
     params.category = category
     refreshState()
 
+  @filterByCountry = (country) ->
+    console.log("Totally filtering by country " + JSON.stringify(country))
+
+    params.country = country
+
+    refreshState()
+
   @goToVideo = (id) ->
     $state.go('dashboard.video', { id: id })
 
@@ -65,4 +76,4 @@ BrowseCtrl = ($timeout, $state, $scope, $location, videos, YoutubeEmbed, Video, 
 
 angular
   .module('Videotelligent')
-  .controller('BrowseCtrl', ['$timeout', '$state', '$scope', '$location', 'videos', 'YoutubeEmbed', 'Video', 'Category', BrowseCtrl])
+  .controller('BrowseCtrl', ['$timeout', '$state', '$scope', '$location', '$filter', 'videos', 'YoutubeEmbed', 'Video', 'Category', 'Country', 'countries', BrowseCtrl])

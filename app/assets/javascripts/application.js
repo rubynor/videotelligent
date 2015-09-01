@@ -16,6 +16,8 @@
 //= require angular_1.4.0-rc.2
 //= require jquery-plugins
 //= require lodash
+//= require angular-sanitize
+//= require select
 //= require videotelligent
 //= require_tree ./templates
 //= require_tree .
