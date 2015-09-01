@@ -10,6 +10,11 @@ class Video < ActiveRecord::Base
 
   serialize :tags
 
+  def self.all_included
+    excluded_channel_ids = ENV['EXCLUDED_CHANNEL_IDS'].split(',') if ENV['EXCLUDED_CHANNEL_IDS']
+    self.includes(:category).where.not(channel_id: excluded_channel_ids)
+  end
+
   def rating
     (likes.to_f / (likes + dislikes)) * 100
   end
