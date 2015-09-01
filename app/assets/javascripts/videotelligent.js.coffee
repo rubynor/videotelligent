@@ -9,6 +9,7 @@ angular.module "Videotelligent", [
   'ngStorage'
   'ui.router'
   'ui.bootstrap'
+  'ui.select'
   'ui.utils'
   'oc.lazyLoad'
   'ngMaterial'
