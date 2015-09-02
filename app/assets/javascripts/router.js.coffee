@@ -14,13 +14,18 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
           controller: 'SidebarCtrl as sidebar'
         "content":
           template: JST['blocks/content']
+          controller: 'ContentCtrl as content'
         "footer":
           template: JST['blocks/footer']
 
     .state "dashboard.browse",
       url: "/browse?order_by&category&view_as&query"
-      template: JST['browse']
-      controller: 'BrowseCtrl as browse'
+      sticky: true
+      views:
+        "browse":
+          template: JST['browse']
+          controller: 'BrowseCtrl as browse'
+
       resolve: videos: ['$state', '$stateParams', 'Video', ($state, $stateParams, Video) ->
 
         console.log(JSON.stringify($stateParams))
