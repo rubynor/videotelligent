@@ -39,6 +39,9 @@
     "SENDGRID_PASSWORD": {
       "required": true
     },
+    "SENDGRID_USERNAME": {
+      "required": true
+    },
     "SMTP_ADDRESS": {
       "required": true
     },
