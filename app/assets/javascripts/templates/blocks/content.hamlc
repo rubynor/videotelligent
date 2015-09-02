@@ -3,3 +3,4 @@
     .hbox.hbox-auto-xs.hbox-auto-sm(ng-init="app.settings.asideFolded = false; app.settings.asideDock = false;")
       .col
         %ui-view
+        %ui-view(name="browse" ng-show="content.isBrowseState()")

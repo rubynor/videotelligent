@@ -14,6 +14,7 @@ angular.module "Videotelligent", [
   'ngMaterial'
   'infinite-scroll'
   'truncate'
+  'ct.ui.router.extras.sticky'
 ]
 
 
