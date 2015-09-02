@@ -3,7 +3,7 @@ Rake::Task['assets:clean'].enhance do
     begin
       puts 'Migrating the database'
       Rake::Task['db:migrate'].invoke
-    rescue ActiveRecord::NoDatabaseError => e
+    rescue ActiveRecord::NoDatabaseError, PG::ConnectionBad => e
       puts e
     end
   end
