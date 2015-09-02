@@ -1,0 +1,46 @@
+{
+  "scripts": {
+    "postdeploy": "bundle exec rake db:setup"
+  },
+  "env": {
+    "EMAIL_RECIPIENTS": {
+      "required": true
+    },
+    "GOOGLE_API_KEY": {
+      "required": true
+    },
+    "GOOGLE_CLIENT_ID": {
+      "required": true
+    },
+    "GOOGLE_CLIENT_SECRET": {
+      "required": true
+    },
+    "HONEYBADGER_API_KEY": {
+      "required": true
+    },
+    "HOST": {
+      "required": true
+    },
+    "LANG": {
+      "required": true
+    },
+    "RACK_ENV": {
+      "required": true
+    },
+    "RAILS_ENV": {
+      "required": true
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "required": true
+    },
+    "SECRET_KEY_BASE": {
+      "required": true
+    },
+    "SMTP_ADDRESS": {
+      "required": true
+    },
+    "SMTP_DOMAIN": {
+      "required": true
+    }
+  }
+}

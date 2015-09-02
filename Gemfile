@@ -42,6 +42,7 @@ group :development do
   gem "spring"
   gem "spring-commands-rspec"
   gem "web-console"
+  gem 'seed_dump', require: false
 end
 
 group :development, :test do
