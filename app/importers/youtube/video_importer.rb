@@ -15,7 +15,6 @@ module Youtube
           begin
             channel.videos.map do |yt_video|
               video = to_video_from(Yt::Video.new(id: yt_video.id, auth: content_owner))
-              video.save
               video
             end
           rescue Yt::Errors::RequestError => e
@@ -32,6 +31,7 @@ module Youtube
     private
     def to_video_from(yt_video)
       video = Video.find_or_initialize_by(uid: yt_video.id)
+      puts "Starting import of video #{yt_video.title}"
 
       video.uid = yt_video.id
       video.title = yt_video.title
@@ -45,6 +45,22 @@ module Youtube
       video.channel_title = yt_video.channel_title
       video.channel_id = yt_video.channel_id
       video.category = Category.find_by_external_reference(yt_video.category_id)
+      video.save
+
+      yt_video.views(by: :country).map do |country, total_views|
+        yt_video.viewer_percentage(in: { country: country }).map do |gender, percentages|
+          percentages.map do |age_group, percentage|
+            view_stat = ViewStat.find_or_initialize_by(video_id: video.id,
+                                                       country: country,
+                                                       gender: gender,
+                                                       age_group: age_group)
+
+            view_stat.number_of_views = ((total_views * percentage) / 100).floor
+            view_stat.save
+          end
+        end.flatten(1)
+      end.flatten(1)
+
       video
     end
 

@@ -4,7 +4,7 @@ class VideosController < ApplicationController
     order_by = params[:order_by] || 'views'
 
     @videos = Video.all_included
-                  .filter(params.slice(:category))
+                  .filter(params.slice(:category, :country))
                   .search(params[:query])
                   .order(order_by => 'desc')
                   .paginate(page: params[:page], per_page: 24)

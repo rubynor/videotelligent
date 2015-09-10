@@ -6,6 +6,7 @@ namespace :videos do
   end
 
   task clean: :environment do
+    ViewStat.delete_all
     Category.delete_all
     Video.delete_all
   end

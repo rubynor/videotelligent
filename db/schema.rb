@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150831085020) do
+ActiveRecord::Schema.define(version: 20150901155848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,5 +73,15 @@ ActiveRecord::Schema.define(version: 20150831085020) do
   end
 
   add_index "videos", ["uid"], name: "index_videos_on_uid", using: :btree
+
+  create_table "view_stats", force: :cascade do |t|
+    t.integer  "video_id"
+    t.string   "country"
+    t.string   "gender"
+    t.string   "age_group"
+    t.integer  "number_of_views"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
 end
