@@ -1,8 +1,7 @@
 namespace :videos do
   desc "Import videos into our database from youtube and update categories"
   task import: :environment do
-    videos = YoutubeRepository.import_all
-    puts "Total of #{videos.size} imported/refreshed"
+    YoutubeRepository.import_all
   end
 
   task clean: :environment do
