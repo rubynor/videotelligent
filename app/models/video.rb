@@ -19,8 +19,9 @@ class Video < ActiveRecord::Base
 
   serialize :tags
 
-  def rating
-    (likes.to_f / (likes + dislikes)) * 100
+  # filtered_views is only defined if views filter (country, gender, age group) is set
+  def filtered_views
+    read_attribute(:filtered_views) || nil
   end
 
   private
