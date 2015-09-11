@@ -309,10 +309,7 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
   @filterByCountry = (country) ->
     console.log("Totally filtering by country " + JSON.stringify(country))
 
-    if country
-      params.country = country.code
-    else
-      params.country = undefined
+    params.country = country
 
     refreshState()
 

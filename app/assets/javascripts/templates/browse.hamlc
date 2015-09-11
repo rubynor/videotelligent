@@ -46,7 +46,7 @@
           %div
             %label
               Country
-            %ui-select(ng-model="country.selected" on-select='browse.filterByCountry(country.selected)' ng-disabled="disabled" style="width: 300px")
+            %ui-select(ng-model="country.selected" on-select='browse.filterByCountry(country.selected.code)' ng-disabled="disabled" style="width: 300px")
               %ui-select-match(placeholder="Select or search")
                 {{$select.selected.name}}
               %ui-select-choices(repeat="country in countries | filter: $select.search")
