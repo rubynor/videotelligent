@@ -1,6 +1,11 @@
 module Youtube
   class VideoImporter
 
+    def initialize
+      @excluded_channel_ids = ENV['EXCLUDED_CHANNEL_IDS'].split(',') if ENV['EXCLUDED_CHANNEL_IDS']
+      @excluded_channel_ids ||= []
+    end
+
     def import_all
       ContentProvider.all.map do |cp|
         import_for(cp)
@@ -11,6 +16,8 @@ module Youtube
       account = Yt::Account.new(access_token: content_provider.token, refresh_token: content_provider.refresh_token)
       account.content_owners.map do |content_owner|
         content_owner.partnered_channels.map do |channel|
+
+          next if @excluded_channel_ids.include?(channel.id)
 
           begin
             channel.videos.map do |yt_video|

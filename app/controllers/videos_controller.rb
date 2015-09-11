@@ -3,7 +3,7 @@ class VideosController < ApplicationController
   def index
     order_by = params[:order_by] || 'views'
 
-    @videos = Video.all_included
+    @videos = Video.joins(:category)
                   .filter(params.slice(:category, :country))
                   .search(params[:query])
                   .order(order_by => 'desc')

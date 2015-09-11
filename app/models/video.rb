@@ -11,19 +11,14 @@ class Video < ActiveRecord::Base
 
   scope :country, -> (country) {
     joins(:view_stats)
-        .select("#{Video.quoted_table_name}.*, sum(view_stats.number_of_views) AS country_views")
+        .select("#{Video.quoted_table_name}.*, sum(view_stats.number_of_views) AS filtered_views")
         .where(view_stats: { country: country })
         .group('videos.id')
-        .order('country_views desc')
+        .order('filtered_views desc')
   }
 
   serialize :tags
-
-  def self.all_included
-    excluded_channel_ids = ENV['EXCLUDED_CHANNEL_IDS'].split(',') if ENV['EXCLUDED_CHANNEL_IDS']
-    self.joins(:category).where.not(channel_id: excluded_channel_ids)
-  end
-
+  
   def rating
     (likes.to_f / (likes + dislikes)) * 100
   end
