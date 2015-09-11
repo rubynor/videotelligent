@@ -33,6 +33,8 @@ module Youtube
     end
 
     private
+    LOWER_COUNTRY_VIEW_LIMIT = 1000
+
     def import_video(yt_video)
       video = Video.find_or_initialize_by(uid: yt_video.id)
       puts "Starting import of video #{yt_video.title}"
@@ -51,7 +53,7 @@ module Youtube
       video.category = Category.find_by_external_reference(yt_video.category_id)
       video.save
 
-      yt_video.views(by: :country).each do |country, total_views|
+      yt_video.views(by: :country).select { |_, views| views >= LOWER_COUNTRY_VIEW_LIMIT }.each do |country, total_views|
         yt_video.viewer_percentage(in: { country: country }).each do |gender, percentages|
           percentages.each do |age_group, percentage|
             view_stat = ViewStat.find_or_initialize_by(video_id: video.id,
