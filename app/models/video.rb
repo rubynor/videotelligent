@@ -6,16 +6,17 @@ class Video < ActiveRecord::Base
 
   before_save :set_default_values
 
-  scope :category, -> (category_title) { where categories: { name: category_title } }
-  scope :search, -> (query) { where('lower(title) LIKE :q OR lower(description) LIKE :q', q: "%#{query.try(:downcase)}%") }
-
-  scope :country, -> (country) {
-    joins(:view_stats)
+  scope :with_views, -> {
+    joins(:category)
+        .joins(:view_stats)
         .select("#{Video.quoted_table_name}.*, sum(view_stats.number_of_views) AS filtered_views")
-        .where(view_stats: { country: country })
         .group('videos.id')
         .order('filtered_views desc')
   }
+  scope :category, -> (category_title) { where categories: { name: category_title } }
+  scope :search, -> (query) { where('lower(title) LIKE :q OR lower(description) LIKE :q', q: "%#{query.try(:downcase)}%") }
+  scope :country, -> (country) { where(view_stats: { country: country }) }
+  scope :since, -> (from_date) { where(view_stats: { on_date: dates[from_date]...Date.today}) }
 
   serialize :tags
 

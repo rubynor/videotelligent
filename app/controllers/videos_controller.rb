@@ -1,12 +1,18 @@
 class VideosController < ApplicationController
 
+  RANGES_TO_DATES = {
+      'views' => Date.new(2000),
+      'views_last_week' => 1.week.ago.to_date,
+      'likes' => Date.new(2000) # TODO: This does not work now, but just to get it not to crash. Maybe.
+  }
+
   def index
     order_by = params[:order_by] || 'views'
 
-    @videos = Video.joins(:category)
+    @videos = Video.with_views
                   .filter(params.slice(:category, :country))
+                  .since(RANGES_TO_DATES[order_by])
                   .search(params[:query])
-                  .order(order_by => 'desc')
                   .paginate(page: params[:page], per_page: 24)
 
     respond_to do |format|
