@@ -4,6 +4,7 @@ ruby "2.2.2"
 gem "rails", "4.2.2"
 
 gem "active_model_serializers"
+gem "activerecord-import"
 gem "autoprefixer-rails"
 gem "bourbon", "~> 4.2.0"
 gem "coffee-rails", "~> 4.1.0"

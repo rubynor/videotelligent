@@ -68,6 +68,8 @@ module Youtube
 
       baseline_date = 8.days.ago
 
+      all_view_stats = []
+
       ViewStat.transaction do
         puts "Importing baseline"
 
@@ -85,7 +87,7 @@ module Youtube
               number_of_views = ((total_views * percentage) / 100).round
               view_stat.number_of_views = number_of_views
               baseline_views_in_countries_we_care_about += number_of_views
-              view_stat.save!
+              all_view_stats << view_stat
             end
           end
         end
@@ -106,7 +108,7 @@ module Youtube
                                    age_group: age_group,
                                    on_date: LONG_TIME_AGO)
           view_stat.number_of_views = (views_in_all_countries[gender][age_group] || 0) - baseline_views_in_countries_we_care_about
-          view_stat.save!
+          all_view_stats << view_stat
         end
 
         puts "# of requests after baseline notEurope: #{YoutubeRequestCounter.number_of_requests}"
@@ -150,7 +152,7 @@ module Youtube
 
                   view_stat.number_of_views = number_of_views
                   day_views_in_countries_we_care_about += number_of_views
-                  view_stat.save!
+                  all_view_stats << view_stat
                 end
               end
             end
@@ -162,22 +164,23 @@ module Youtube
                                                           end]]
                                           end]
             [:male, :female].product(%w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).each do |gender, age_group|
+              next unless views_in_all_countries && views_in_all_countries[gender]
+
               view_stat = ViewStat.new(video_id: video.id,
                                        country: 'OTHER',
                                        gender: gender,
                                        age_group: age_group,
                                        on_date: day)
 
-              next unless views_in_all_countries && views_in_all_countries[gender]
-
-
               view_stat.number_of_views = (views_in_all_countries[gender][age_group] || 0) - day_views_in_countries_we_care_about
-              view_stat.save!
+              all_view_stats << view_stat
             end
           end
 
         end
       end
+
+      ViewStat.import(all_view_stats)
 
       ending_time = Time.now.to_f
 
