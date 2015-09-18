@@ -73,7 +73,9 @@ module Youtube
       ViewStat.transaction do
         puts "Importing baseline"
 
-        baseline_views_in_countries_we_care_about = 0
+        baseline_views_in_countries_we_care_about = Hash[[:male, :female].map do |gender|
+                                                           [gender, Hash[%w(65- 35-44 45-54 13-17 25-34 55-64 18-24).map { |age_group| [age_group, 0] }]]
+                                                         end]
 
         yt_video.views(by: :country, until: baseline_date).select { |country, _| COUNTRIES_WE_CARE_ABOUT.include?(country) }.each do |country, total_views|
           yt_video.viewer_percentage(in: { country: country }, until: baseline_date).each do |gender, percentages|
@@ -86,7 +88,16 @@ module Youtube
 
               number_of_views = ((total_views * percentage) / 100).round
               view_stat.number_of_views = number_of_views
-              baseline_views_in_countries_we_care_about += number_of_views
+
+
+              puts "gender: #{gender.class}"
+              puts baseline_views_in_countries_we_care_about.keys.map(&:class)
+              puts "baseline_views: #{baseline_views_in_countries_we_care_about}"
+              puts "is baseline views nil? #{baseline_views_in_countries_we_care_about.nil?}"
+              puts "is baseline gender nil? #{baseline_views_in_countries_we_care_about[gender].nil?}"
+              puts "is age group nil? #{baseline_views_in_countries_we_care_about[gender][age_group].nil?}"
+
+              baseline_views_in_countries_we_care_about[gender][age_group] += number_of_views
               all_view_stats << view_stat
             end
           end
@@ -107,7 +118,7 @@ module Youtube
                                    gender: gender,
                                    age_group: age_group,
                                    on_date: LONG_TIME_AGO)
-          view_stat.number_of_views = (views_in_all_countries[gender][age_group] || 0) - baseline_views_in_countries_we_care_about
+          view_stat.number_of_views = (views_in_all_countries[gender][age_group] || 0) - baseline_views_in_countries_we_care_about[gender][age_group]
           all_view_stats << view_stat
         end
 
@@ -117,7 +128,9 @@ module Youtube
         (1.week.ago.to_date...Date.today).each do |day|
           puts "\t Importing for #{day}"
 
-          day_views_in_countries_we_care_about = 0
+          day_views_in_countries_we_care_about = Hash[[:male, :female].map do |gender|
+                                                             [gender, Hash[%w(65- 35-44 45-54 13-17 25-34 55-64 18-24).map { |age_group| [age_group, 0] }]]
+                                                           end]
 
           yt_video.views(by: :country, since: day, until: day).select { |country, _| COUNTRIES_WE_CARE_ABOUT.include?(country) }.each do |country, total_views|
             puts "\t\t Importing country #{country}"
@@ -151,7 +164,7 @@ module Youtube
                                            on_date: day)
 
                   view_stat.number_of_views = number_of_views
-                  day_views_in_countries_we_care_about += number_of_views
+                  day_views_in_countries_we_care_about[gender][age_group] += number_of_views
                   all_view_stats << view_stat
                 end
               end
@@ -172,7 +185,7 @@ module Youtube
                                        age_group: age_group,
                                        on_date: day)
 
-              view_stat.number_of_views = (views_in_all_countries[gender][age_group] || 0) - day_views_in_countries_we_care_about
+              view_stat.number_of_views = (views_in_all_countries[gender][age_group] || 0) - day_views_in_countries_we_care_about[gender][age_group]
               all_view_stats << view_stat
             end
           end
