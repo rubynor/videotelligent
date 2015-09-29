@@ -10,6 +10,7 @@ module Youtube
     def initialize(yt_video)
       @yt_video = yt_video
       @video = Video.find_or_initialize_by(uid: yt_video.id)
+      @interesting_countries = COUNTRIES_WE_CARE_ABOUT
     end
 
     def import_video
@@ -70,7 +71,7 @@ module Youtube
 
       views_in_countries_we_care_about = initial_demographic_view_hash
 
-      @yt_video.views(by: :country, until: baseline_date).select { |country, _| COUNTRIES_WE_CARE_ABOUT.include?(country) }.each do |country, total_views|
+      @yt_video.views(by: :country, until: baseline_date).select { |country, views| @interesting_countries.include?(country) && views >= 500 }.each do |country, total_views|
 
         puts "\t\t Importing #{country}"
 
@@ -95,7 +96,7 @@ module Youtube
       puts "# of requests after baseline Europe: #{YoutubeRequestCounter.number_of_requests}"
 
       # Insert combined "leftover rows" for baseline countries that are not part of COUNTRIES_WE_CARE_ABOUT
-      puts "Importing leftover rows"
+      puts "Importing consolidated viewstats"
       overall_viewer_percentage = @yt_video.viewer_percentage(until: baseline_date)
       total_views = @yt_video.views(until: baseline_date)[:total]
 

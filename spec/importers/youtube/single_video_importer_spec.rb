@@ -25,6 +25,7 @@ RSpec.describe Youtube::SingleVideoImporter do
 
   DEFAULT_COUNTRY = 'NO'
   DEFAULT_COUNTRY_VIEW_COUNT = 1000
+  TOO_SMALL_VIEWCOUNT_TO_BE_INTERESTING = 40
 
   before :each do
     allow(yt_video).to receive(:viewer_percentage).and_return({})
@@ -127,7 +128,7 @@ RSpec.describe Youtube::SingleVideoImporter do
         }
         allow(yt_video).to receive(:views).with(by: :country, until: 8.days.ago)
                                .and_return(views_per_country)
-        allow(yt_video).to receive(:viewer_percentage).with(in: {country: DEFAULT_COUNTRY}, until: 8.days.ago)
+        allow(yt_video).to receive(:viewer_percentage).with(in: { country: DEFAULT_COUNTRY }, until: 8.days.ago)
                                .and_return({ male: { '13-17' => 40.0, '65-' => 60.0 } })
         allow(yt_video).to receive(:viewer_percentage).with(until: 8.days.ago)
                                .and_return({ male: { '13-17' => 40.0, '65-' => 60.0 } })
@@ -168,6 +169,54 @@ RSpec.describe Youtube::SingleVideoImporter do
         video = subject.import_video
         expect(video.view_stats.where(country: "OTHER").where(on_date: Youtube::SingleVideoImporter::LONG_TIME_AGO..8.days.ago).map(&:number_of_views)).to contain_exactly(800, 1200)
       end
+
+    end
+
+    context "when we have countries with less than 500 baseline views" do
+      let(:too_small_viewcount_to_be_interesting) { 100 }
+      let(:another_country_we_care_about) { "SE" }
+      let(:views_per_country) {
+        {
+            DEFAULT_COUNTRY => DEFAULT_COUNTRY_VIEW_COUNT,
+            'NON_EXISTING' => 1000,
+            another_country_we_care_about => too_small_viewcount_to_be_interesting
+        }
+      }
+
+      before do
+        allow(yt_video).to receive(:views).with(by: :country, until: 8.days.ago)
+                               .and_return(views_per_country)
+        allow(yt_video).to receive(:viewer_percentage).with(in: { country: DEFAULT_COUNTRY }, until: 8.days.ago)
+                               .and_return({ male: { '13-17' => 40.0, '65-' => 60.0 } })
+        allow(yt_video).to receive(:viewer_percentage).with(in: { country: "SE" }, until: 8.days.ago)
+                               .and_return({ male: { '13-17' => 40.0, '65-' => 60.0 } })
+        allow(yt_video).to receive(:viewer_percentage).with(until: 8.days.ago)
+                               .and_return({ male: { '13-17' => 40.0, '65-' => 60.0 } })
+        allow(yt_video).to receive(:views).with(until: 8.days.ago).and_return({ total: views_per_country.values.sum })
+      end
+
+      it "should not include those countries as separate baseline country viewstats" do
+        video = subject.import_video
+        view_stats = video.view_stats.where(on_date: Youtube::SingleVideoImporter::LONG_TIME_AGO..8.days.ago).where.not(country: "OTHER")
+
+        puts view_stats.inspect
+
+        expect(view_stats.map(&:number_of_views).sum).to eq(DEFAULT_COUNTRY_VIEW_COUNT)
+      end
+
+      it "should include those countries in the consolidated baseline viewstats" do
+        video = subject.import_video
+        view_stats = video.view_stats.where(on_date: Youtube::SingleVideoImporter::LONG_TIME_AGO..8.days.ago).where(country: "OTHER")
+
+        puts view_stats.inspect
+
+        expect(view_stats.map(&:number_of_views).sum).to eq(1000 + too_small_viewcount_to_be_interesting)
+      end
+
+      it "should not include those countries in the weekly viewstats" do
+        
+      end
+
 
     end
 
