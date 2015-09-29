@@ -52,12 +52,16 @@ group :development, :test do
   gem "byebug"
   gem "dotenv-rails"
   gem "factory_girl_rails"
+  gem "guard"
+  gem 'guard-rspec', require: false
+  gem 'guard-rails', require: false
   gem "pry-rails"
   gem "rspec-rails", "~> 3.1.0"
 end
 
 group :test do
   gem "capybara-webkit", ">= 1.2.0"
+  gem "climate_control"
   gem "database_cleaner"
   gem "formulaic"
   gem "launchy"
