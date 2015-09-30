@@ -46,6 +46,6 @@
       %hr
 
       .wrapper
-        %a.btn.btn-lg.btn-primary(ng-href="{{ video.current.download_path }}" target="_self")
+        %a.btn.btn-lg.btn-primary.btn-block(ng-href="{{ video.current.download_path }}" target="_self")
           %i.fa.fa-download
-          DOWNLOAD
+          &nbsp;GET VIDEO
