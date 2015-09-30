@@ -4,6 +4,9 @@ module Youtube
     def initialize
       @excluded_channel_ids = ENV['EXCLUDED_CHANNEL_IDS'].split(',') if ENV['EXCLUDED_CHANNEL_IDS']
       @excluded_channel_ids ||= []
+      @interesting_countries = %w(DK EE FI FO GB IE IS LT LV NO SE AT BE CH DE
+                            FR LI LU HU MD PL RO RU SK UA AL BA ES GR
+                            HR IT ME MK MT RS PT SI) # Most countries in Europe
     end
 
     def import_all
@@ -21,7 +24,7 @@ module Youtube
 
           begin
             channel.videos.each do |yt_video|
-              SingleVideoImporter.new(Yt::Video.new(id: yt_video.id, auth: content_owner)).import_video
+              SingleVideoImporter.new(Yt::Video.new(id: yt_video.id, auth: content_owner), @interesting_countries).import_video
             end
           rescue Yt::Errors::RequestError => e
             unless e.kind['code'] == 404

@@ -1,22 +1,20 @@
 module Youtube
   class SingleVideoImporter
 
-    LOWER_COUNTRY_VIEW_LIMIT = 1000
+    LOWER_TOTAL_VIEW_LIMIT = 5000
+    LOWER_COUNTRY_VIEW_LIMIT = 2500
     LONG_TIME_AGO = Date.new(2000)
-    COUNTRIES_WE_CARE_ABOUT = %w(DK EE FI FO GB IE IS LT LV NO SE AT BE CH DE
-                            FR LI LU HU MD PL RO RU SK UA AL BA ES GR
-                            HR IT ME MK MT RS PT SI) # Most countries in Europe
 
-    def initialize(yt_video)
+    def initialize(yt_video, countries_we_care_about)
       @yt_video = yt_video
       @video = Video.find_or_initialize_by(uid: yt_video.id)
-      @interesting_countries = COUNTRIES_WE_CARE_ABOUT
+      @interesting_countries = countries_we_care_about
     end
 
     def import_video
       YoutubeRequestCounter.reset!
 
-      return unless @yt_video.view_count && @yt_video.view_count >= LOWER_COUNTRY_VIEW_LIMIT
+      return unless @yt_video.view_count && @yt_video.view_count >= LOWER_TOTAL_VIEW_LIMIT
 
       puts "Starting import of video #{@yt_video.title}"
       starting_time = Time.now.to_f
@@ -71,24 +69,31 @@ module Youtube
 
       views_in_countries_we_care_about = initial_demographic_view_hash
 
-      @yt_video.views(by: :country, until: baseline_date).select { |country, views| @interesting_countries.include?(country) && views >= 500 }.each do |country, total_views|
+      countries_and_views = @yt_video.views(by: :country, until: baseline_date).select { |country, views| @interesting_countries.include?(country) && views >= LOWER_COUNTRY_VIEW_LIMIT }
+      @interesting_countries = countries_and_views.keys
 
-        puts "\t\t Importing #{country}"
+      puts "Interesting countries: #{@interesting_countries}"
+
+      if @interesting_countries.any?
+        countries_and_views.each do |country, total_views|
+
+          puts "\t\t Importing #{country}"
 
 
-        @yt_video.viewer_percentage(in: { country: country }, until: baseline_date).each do |gender, percentages|
-          percentages.each do |age_group, percentage|
-            number_of_views = percentage_to_number(total_views, percentage)
-            views_in_countries_we_care_about[gender][age_group] += number_of_views
+          @yt_video.viewer_percentage(in: { country: country }, until: baseline_date).each do |gender, percentages|
+            percentages.each do |age_group, percentage|
+              number_of_views = percentage_to_number(total_views, percentage)
+              views_in_countries_we_care_about[gender][age_group] += number_of_views
 
-            view_stat = ViewStat.new(video_id: @video.id,
-                                     country: country,
-                                     gender: gender,
-                                     age_group: age_group,
-                                     on_date: LONG_TIME_AGO,
-                                     number_of_views: number_of_views)
+              view_stat = ViewStat.new(video_id: @video.id,
+                                       country: country,
+                                       gender: gender,
+                                       age_group: age_group,
+                                       on_date: LONG_TIME_AGO,
+                                       number_of_views: number_of_views)
 
-            all_view_stats << view_stat
+              all_view_stats << view_stat
+            end
           end
         end
       end
@@ -125,49 +130,51 @@ module Youtube
 
       day_views_in_countries_we_care_about = initial_demographic_view_hash
 
-      @yt_video.views(by: :country, since: day, until: day).select { |country, _| COUNTRIES_WE_CARE_ABOUT.include?(country) }.each do |country, total_views|
-        puts "\t\t Importing country #{country}"
+      if @interesting_countries.any?
+        @yt_video.views(by: :country, since: day, until: day).select { |country, _| @interesting_countries.include?(country) }.each do |country, total_views|
+          puts "\t\t Importing country #{country}"
 
-        # TODO: Only pull daily viewer percentage if daily views is higher than threshold
-        viewer_percentage = if total_views > 150 #todo check this number out
-                              @yt_video.viewer_percentage(in: { country: country }, since: day, until: day)
-                            else
-                              {}
-                            end
-        if viewer_percentage.empty?
-          puts "\t\t\tno stats for #{day} in #{country}, extrapolating using stats for last week"
-          # This means that Youtube didn't want to give us statistics for a single day and country, so we're going to fetch the week stats and extrapolate on day
-          viewer_percentage = @yt_video.viewer_percentage(in: { country: country }, since: 1.week.ago)
+          # TODO: Only pull daily viewer percentage if daily views is higher than threshold
+          viewer_percentage = if total_views > 150 #todo check this number out
+                                @yt_video.viewer_percentage(in: { country: country }, since: day, until: day)
+                              else
+                                {}
+                              end
           if viewer_percentage.empty?
-            puts "\t\t\tno stats for last week in #{country} either, extrapolating using stats for all time"
-            viewer_percentage = @yt_video.viewer_percentage(in: { country: country })
+            puts "\t\t\tno stats for #{day} in #{country}, extrapolating using stats for last week"
+            # This means that Youtube didn't want to give us statistics for a single day and country, so we're going to fetch the week stats and extrapolate on day
+            viewer_percentage = @yt_video.viewer_percentage(in: { country: country }, since: 1.week.ago)
+            if viewer_percentage.empty?
+              puts "\t\t\tno stats for last week in #{country} either, extrapolating using stats for all time"
+              viewer_percentage = @yt_video.viewer_percentage(in: { country: country })
+            end
           end
-        end
 
-        viewer_percentage.each do |gender, percentages|
-          percentages.each do |age_group, percentage|
-            number_of_views = percentage_to_number(total_views, percentage)
+          viewer_percentage.each do |gender, percentages|
+            percentages.each do |age_group, percentage|
+              number_of_views = percentage_to_number(total_views, percentage)
 
-            next unless number_of_views > 0
-            view_stat = ViewStat.new(video_id: @video.id,
-                                     country: country,
-                                     gender: gender,
-                                     age_group: age_group,
-                                     on_date: day,
-                                     number_of_views: number_of_views)
+              next unless number_of_views > 0
+              view_stat = ViewStat.new(video_id: @video.id,
+                                       country: country,
+                                       gender: gender,
+                                       age_group: age_group,
+                                       on_date: day,
+                                       number_of_views: number_of_views)
 
-            day_views_in_countries_we_care_about[gender][age_group] += number_of_views
-            all_view_stats << view_stat
+              day_views_in_countries_we_care_about[gender][age_group] += number_of_views
+              all_view_stats << view_stat
+            end
           end
         end
       end
 
       # Insert combined "leftover rows" for given day for countries that are not part of COUNTRIES_WE_CARE_ABOUT
       day_views_in_all_countries = @yt_video.viewer_percentage(since: day, until: day).map do |gender, dist|
-                                          [gender, dist.map do |age_group, percentage|
-                                                          [age_group, percentage_to_number(percentage, @yt_video.views(since: day, until: day)[:total])]
-                                                        end.to_h]
-                                        end.to_h
+        [gender, dist.map do |age_group, percentage|
+                 [age_group, percentage_to_number(percentage, @yt_video.views(since: day, until: day)[:total])]
+               end.to_h]
+      end.to_h
 
       AGE_GROUPS_BY_GENDER.each do |gender, age_group|
         next unless day_views_in_all_countries[gender] && day_views_in_all_countries[gender][age_group] && day_views_in_all_countries[gender][age_group] > 0
