@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914160931) do
+ActiveRecord::Schema.define(version: 20150930151241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,12 @@ ActiveRecord::Schema.define(version: 20150914160931) do
   end
 
   add_index "content_providers", ["uid"], name: "index_content_providers_on_uid", unique: true, using: :btree
+
+  create_table "countries", force: :cascade do |t|
+    t.string  "code"
+    t.string  "name"
+    t.boolean "is_interesting"
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false

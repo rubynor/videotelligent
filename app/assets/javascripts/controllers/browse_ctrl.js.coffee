@@ -1,4 +1,4 @@
-BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed, Video, Category) ->
+BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed, Video, Category, Country) ->
 
   params = if $state.params then angular.copy($state.params) else {}
   params.order_by = videos.meta.order_by
@@ -258,6 +258,9 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
   Category.get (categories) =>
     @categories = categories
 
+  Country.get (countries) =>
+    @countries = countries
+
   $scope.videos = videos.videos
   $scope.totalVideos = videos.meta.total_videos
   $scope.searchText = params.query
@@ -320,4 +323,4 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
 
 angular
   .module('Videotelligent')
-  .controller('BrowseCtrl', ['$timeout', '$state', '$scope', '$location', '$filter', 'videos', 'YoutubeEmbed', 'Video', 'Category', BrowseCtrl])
+  .controller('BrowseCtrl', ['$timeout', '$state', '$scope', '$location', '$filter', 'videos', 'YoutubeEmbed', 'Video', 'Category', 'Country', BrowseCtrl])

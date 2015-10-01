@@ -49,7 +49,7 @@
             %ui-select(ng-model="country.selected" on-select='browse.filterByCountry(country.selected.code)' ng-disabled="disabled" style="width: 300px")
               %ui-select-match(placeholder="Select or search")
                 {{$select.selected.name}}
-              %ui-select-choices(repeat="country in countries | filter: $select.search")
+              %ui-select-choices(repeat="country in browse.countries | filter: $select.search")
                 %span(ng-bind-html="country.name | highlight: $select.search")
                 %small(ng-bind-html="country.code | highlight: $select.search")
             %span(class="input-group-btn")
