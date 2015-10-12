@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150831085020) do
+ActiveRecord::Schema.define(version: 20150930151241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,12 @@ ActiveRecord::Schema.define(version: 20150831085020) do
   end
 
   add_index "content_providers", ["uid"], name: "index_content_providers_on_uid", unique: true, using: :btree
+
+  create_table "countries", force: :cascade do |t|
+    t.string  "code"
+    t.string  "name"
+    t.boolean "is_interesting"
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -73,5 +79,18 @@ ActiveRecord::Schema.define(version: 20150831085020) do
   end
 
   add_index "videos", ["uid"], name: "index_videos_on_uid", using: :btree
+
+  create_table "view_stats", force: :cascade do |t|
+    t.integer  "video_id"
+    t.string   "country"
+    t.string   "gender"
+    t.string   "age_group"
+    t.integer  "number_of_views"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.date     "on_date"
+  end
+
+  add_index "view_stats", ["country"], name: "index_view_stats_on_country", using: :btree
 
 end

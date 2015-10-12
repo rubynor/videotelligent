@@ -1,12 +1,17 @@
 class VideosController < ApplicationController
 
+  RANGES_TO_DATES = {
+      'views' => Youtube::SingleVideoImporter::LONG_TIME_AGO,
+      'views_last_week' => 1.week.ago.to_date,
+  }
+
   def index
     order_by = params[:order_by] || 'views'
 
-    @videos = Video.all_included
-                  .filter(params.slice(:category))
+    @videos = Video.with_views
+                  .filter(params.slice(:category, :country))
+                  .since(RANGES_TO_DATES[order_by])
                   .search(params[:query])
-                  .order(order_by => 'desc')
                   .paginate(page: params[:page], per_page: 24)
 
     respond_to do |format|

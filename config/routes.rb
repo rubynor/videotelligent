@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
 
   resources :categories, only: [:index]
+  resources :countries, only: [:index]
 
   get '/auth/:provider/callback', to: 'content_provider#import'
 

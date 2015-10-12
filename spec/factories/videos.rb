@@ -6,6 +6,6 @@ FactoryGirl.define do
     likes 1
     dislikes 1
     uid 'MyString'
-    category_title 'Category title'
+    category
   end
 end
