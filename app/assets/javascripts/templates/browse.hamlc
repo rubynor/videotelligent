@@ -41,17 +41,21 @@
               = 'all views |'
             %small(ng-click='browse.orderBy("views_last_week")' ng-class='{ active: browse.isOrderedBy("views_last_week") }')
               views last week
-          %div
-            %div(style="float: left")
-              %ui-select(ng-model="country.selected" on-select='browse.filterByCountry(country.selected.code)' ng-disabled="disabled" style="width: 300px")
-                %ui-select-match(placeholder="Select or search for a country")
-                  {{$select.selected.name}}
-                %ui-select-choices(repeat="country in browse.countries | filter: $select.search")
-                  %span(ng-bind-html="country.name | highlight: $select.search")
-                  %small(ng-bind-html="country.code | highlight: $select.search")
-            %span(class="input-group-btn")
-              %button(ng-click="browse.filterByCountry(undefined)" class="btn btn-default")
-                %span(class="glyphicon glyphicon-trash")
+      .col-sm-12.last-element
+        %span
+          %ui-select.filter-input(ng-model="country.selected" on-select='browse.filterByCountry(country.selected.code)' ng-disabled="disabled")
+            %ui-select-match(placeholder="Select or search for a country" allow-clear)
+              {{$select.selected.name}}
+            %ui-select-choices(repeat="country in browse.countries | filter: $select.search")
+              %span(ng-bind-html="country.name | highlight: $select.search")
+              %small(ng-bind-html="country.code | highlight: $select.search")
+        %span
+          %ui-select.filter-input(ng-model="gender.selected" on-select='browse.filterByGender(gender.selected)' ng-disabled="disabled")
+            %ui-select-match(placeholder="Select gender" allow-clear)
+              {{$select.selected}}
+            %ui-select-choices(repeat="gender in browse.genders | filter: $select.search")
+              %span(ng-bind-html="gender | highlight: $select.search")
+
       %div(ng-switch='' on="viewType")
         %div(ng-switch-when="tile")
           .col-lg-3.col-md-4.col-sm-12(ng-repeat="video in videos")
@@ -84,10 +88,10 @@
                     Title
                   %th
                     Channel
-                  %th
-                    Total views
-                  %th
-                    Views last week
+                  -# %th
+                  -#   Total views
+                  -# %th
+                  -#   Views last week
                   %th
                     Views with filter
               %tbody
@@ -98,9 +102,9 @@
                     {{video.title}}
                   %td
                     {{video.channel_title}}
-                  %td
-                    {{video.views | number}}
-                  %td
-                    {{video.views_last_week | number}}
+                  -# %td
+                  -#   {{video.views | number}}
+                  -# %td
+                  -#   {{video.views_last_week | number}}
                   %td
                     {{video.filtered_views | number}}

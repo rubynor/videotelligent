@@ -5,14 +5,19 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
   params.category = '' unless params.category
   params.view_as = 'tile' unless params.view_as
   params.country = '' unless params.country
+  params.gender = '' unless params.gender
 
   $scope.country =  {}
+  $scope.gender =  {}
 
   Category.get (categories) =>
     @categories = categories
 
   @countries = countries.countries
   $scope.country.selected = $filter('filter')(@countries, {code: params.country})[0] if params.country
+
+  @genders = [ 'male', 'female' ]
+  $scope.gender.selected = params.gender if params.gender
 
   $scope.videos = videos.videos
   $scope.totalVideos = videos.meta.total_videos
@@ -63,10 +68,11 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
     refreshState()
 
   @filterByCountry = (country) ->
-    console.log("Totally filtering by country " + JSON.stringify(country))
-
     params.country = country
+    refreshState()
 
+  @filterByGender = (gender) ->
+    params.gender = gender
     refreshState()
 
   @goToVideo = (id) ->
