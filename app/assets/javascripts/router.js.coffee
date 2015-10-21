@@ -19,7 +19,7 @@ Router = ($stateProvider, $urlRouterProvider, $locationProvider) ->
           template: JST['blocks/footer']
 
     .state "dashboard.browse",
-      url: "/browse?order_by&category&view_as&query&country"
+      url: "/browse?order_by&category&view_as&query&country&gender"
       sticky: true
       views:
         "browse":

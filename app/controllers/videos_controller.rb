@@ -9,7 +9,7 @@ class VideosController < ApplicationController
     order_by = params[:order_by] || 'views'
 
     @videos = Video.with_views
-                  .filter(params.slice(:category, :country))
+                  .filter(params.slice(:category, :country, :gender))
                   .since(RANGES_TO_DATES[order_by])
                   .search(params[:query])
                   .paginate(page: params[:page], per_page: 24)
