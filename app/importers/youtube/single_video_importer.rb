@@ -26,7 +26,7 @@ module Youtube
 
       import_video_itself
 
-      if @video.new_record?
+      if @video.new_record? || @video.view_stats.size == 0
         import_baseline_view_stats
 
         dates_last_week_with_views.each do |day|
