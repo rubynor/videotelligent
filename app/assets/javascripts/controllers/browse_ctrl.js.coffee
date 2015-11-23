@@ -6,9 +6,11 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
   params.view_as = 'tile' unless params.view_as
   params.country = '' unless params.country
   params.gender = '' unless params.gender
+  params.age_group = '' unless params.age_group
 
   $scope.country =  {}
   $scope.gender =  {}
+  $scope.age_group =  {}
 
   Category.get (categories) =>
     @categories = categories
@@ -18,6 +20,9 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
 
   @genders = [ 'male', 'female' ]
   $scope.gender.selected = params.gender if params.gender
+
+  @age_groups = ["13-17", "18-24", "25-34", "35-44", "45-54", "55-64", "65-"]
+  $scope.age_group.selected = params.age_group if params.age_group
 
   $scope.videos = videos.videos
   $scope.totalVideos = videos.meta.total_videos
@@ -73,6 +78,10 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
 
   @filterByGender = (gender) ->
     params.gender = gender
+    refreshState()
+
+  @filterByAgeGroup = (age_group) ->
+    params.age_group = age_group
     refreshState()
 
   @goToVideo = (id) ->

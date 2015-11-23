@@ -55,6 +55,12 @@
               {{$select.selected}}
             %ui-select-choices(repeat="gender in browse.genders | filter: $select.search")
               %span(ng-bind-html="gender | highlight: $select.search")
+        %span
+          %ui-select.filter-input(ng-model="age_group.selected" on-select='browse.filterByAgeGroup(age_group.selected)' ng-disabled="disabled")
+            %ui-select-match(placeholder="Select age group" allow-clear)
+              {{$select.selected}}
+            %ui-select-choices(repeat="age_group in browse.age_groups | filter: $select.search")
+              %span(ng-bind-html="age_group | highlight: $select.search")
 
       %div(ng-switch='' on="viewType")
         %div(ng-switch-when="tile")

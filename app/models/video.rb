@@ -17,6 +17,7 @@ class Video < ActiveRecord::Base
   scope :search, -> (query) { where('lower(title) LIKE :q OR lower(description) LIKE :q', q: "%#{query.try(:downcase)}%") }
   scope :country, -> (country) { where(view_stats: { country: country }) }
   scope :gender, -> (gender) { where(view_stats: { gender: gender }) }
+  scope :age_group, -> (age_group) { where(view_stats: { age_group: age_group }) }
   scope :since, -> (from_date) { where(view_stats: { on_date: from_date...Date.today}) }
 
   serialize :tags
