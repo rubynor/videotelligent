@@ -1,5 +1,9 @@
 / header
 %header#header.app-header.navbar{:role => "menu"}
+  .banner-wrapper
+    .ribbon-wrapper
+      .ribbon
+        BETA
   / navbar header
   .navbar-header.bg-dark
     %button.pull-right.visible-xs.dk{:target => ".navbar-collapse", "ui-toggle-class" => "show"}
