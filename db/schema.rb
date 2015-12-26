@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930151241) do
+ActiveRecord::Schema.define(version: 20151226183740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20150930151241) do
     t.string   "channel_id"
   end
 
+  add_index "videos", ["category_id"], name: "index_videos_on_category_id", using: :btree
   add_index "videos", ["uid"], name: "index_videos_on_uid", using: :btree
 
   create_table "view_stats", force: :cascade do |t|
@@ -91,6 +92,10 @@ ActiveRecord::Schema.define(version: 20150930151241) do
     t.date     "on_date"
   end
 
+  add_index "view_stats", ["age_group"], name: "index_view_stats_on_age_group", using: :btree
   add_index "view_stats", ["country"], name: "index_view_stats_on_country", using: :btree
+  add_index "view_stats", ["gender"], name: "index_view_stats_on_gender", using: :btree
+  add_index "view_stats", ["on_date"], name: "index_view_stats_on_on_date", using: :btree
+  add_index "view_stats", ["video_id"], name: "index_view_stats_on_video_id", using: :btree
 
 end
