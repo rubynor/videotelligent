@@ -12,7 +12,7 @@ class Video < ActiveRecord::Base
   }
 
   scope :with_views_filtered, -> {
-    includes(:category)
+    joins(:category)
         .joins(:view_stats)
         .select("#{Video.quoted_table_name}.*, sum(view_stats.number_of_views) AS filtered_views")
         .group('videos.id')
