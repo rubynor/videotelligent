@@ -1,4 +1,6 @@
-BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed, Video, Category, Country, countries) ->
+BrowseCtrl = ($timeout, $state, $scope, $rootScope, $location, $filter, videos, YoutubeEmbed, Video, Category, Country, countries) ->
+
+  $rootScope.spinner = false
 
   params = if $state.params then angular.copy($state.params) else {}
   params.order_by = videos.meta.order_by
@@ -42,6 +44,7 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
     refreshState(false)
 
   refreshState = (notify=true) ->
+    $rootScope.spinner = true
     $state.go('dashboard.browse', params, notify: notify)
 
   @orderBy = (type) ->
@@ -63,8 +66,10 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
     params.category == category
 
   @addMoreVideos = =>
+    $rootScope.spinner = true
     Video.nextPage params, (data) =>
       $scope.videos = $scope.videos.concat data.videos
+      $rootScope.spinner = false
     , (err) ->
       console.log err
 
@@ -91,4 +96,4 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
 
 angular
   .module('Videotelligent')
-  .controller('BrowseCtrl', ['$timeout', '$state', '$scope', '$location', '$filter', 'videos', 'YoutubeEmbed', 'Video', 'Category', 'Country', 'countries', BrowseCtrl])
+  .controller('BrowseCtrl', ['$timeout', '$state', '$scope','$rootScope', '$location', '$filter', 'videos', 'YoutubeEmbed', 'Video', 'Category', 'Country', 'countries', BrowseCtrl])
