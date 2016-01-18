@@ -66,6 +66,12 @@ BrowseCtrl = ($timeout, $state, $scope, $rootScope, $location, $filter, videos, 
     params.category == category
 
   @addMoreVideos = =>
+    # Quickfix to stop app from using method
+    # when state is something else..
+    # dashboard.browse is hidden in the dom for
+    # other states, making this method actually run
+    # when scrolling down in other views..
+    return unless $state.$current.name == 'dashboard.browse'
     $rootScope.spinner = true
     Video.nextPage params, (data) =>
       $scope.videos = $scope.videos.concat data.videos
