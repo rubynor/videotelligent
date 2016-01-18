@@ -8,7 +8,9 @@ Video = ($resource, $filter) ->
     params['page'] = nextPage
 
     data = resource.query(params, (data) ->
-      nextPage++ unless data.videos.length == 0
+      unless data.videos.length == 0
+        nextPage++
+        data['no_more_videos'] = true
       success(data) if success
     )
 
@@ -16,7 +18,9 @@ Video = ($resource, $filter) ->
     params['page'] = nextPage
 
     resource.query(params, (data) ->
-      nextPage++ unless data.videos.length == 0
+      unless data.videos.length == 0
+        nextPage++
+        data['no_more_videos'] = true
       success(data) if success
     , error)
 

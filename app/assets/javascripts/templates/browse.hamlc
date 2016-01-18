@@ -115,6 +115,10 @@
                   %td
                     {{video.filtered_views | number}}
 
+
+        %div(style="margin-left: 20px" ng-if="no_more_videos")
+          %strong No more videos
+
         %div(style="margin-left: 20px" ng-if="spinner")
-          %strong Laster inn flere videoer
+          %strong Loading videos
           %div(us-spinner="{radius:10, width:4, length: 4}" style='position: relative; bottom: 10px;')

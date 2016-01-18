@@ -72,9 +72,11 @@ BrowseCtrl = ($timeout, $state, $scope, $rootScope, $location, $filter, videos, 
     # other states, making this method actually run
     # when scrolling down in other views..
     return unless $state.$current.name == 'dashboard.browse'
+    return if $scope.no_more_videos
     $rootScope.spinner = true
     Video.nextPage params, (data) =>
       $scope.videos = $scope.videos.concat data.videos
+      $scope.no_more_videos = data.no_more_videos
       $rootScope.spinner = false
     , (err) ->
       console.log err
