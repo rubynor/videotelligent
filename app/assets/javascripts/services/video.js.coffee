@@ -1,26 +1,16 @@
 Video = ($resource, $filter) ->
   resource = $resource("/videos/:id.json", {id: "@id"}, {update: {method: "PUT"}, query: {isArray: false}})
 
-  nextPage = 1
+  nextPage = 0
 
   firstPage: (params = {}, success) ->
-    nextPage = 1
-    params['page'] = nextPage
-
-    data = resource.query(params, (data) ->
-      unless data.videos.length == 0
-        nextPage++
-        data['no_more_videos'] = true
-      success(data) if success
-    )
+    @.nextPage(params, success)
 
   nextPage: (params = {}, success, error) ->
-    params['page'] = nextPage
+    params['page'] = nextPage++
 
     resource.query(params, (data) ->
-      unless data.videos.length == 0
-        nextPage++
-        data['no_more_videos'] = true
+      data['no_more_videos'] = data.videos.length == 0
       success(data) if success
     , error)
 
