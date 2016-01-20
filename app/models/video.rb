@@ -8,7 +8,7 @@ class Video < ActiveRecord::Base
 
   scope :with_views_non_filtered, -> {
     select("#{Video.quoted_table_name}.*, views AS filtered_views")
-        .order('views desc')
+        .order('views desc').includes(:category)
   }
 
   scope :with_views_filtered, -> {
