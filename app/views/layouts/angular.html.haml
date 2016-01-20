@@ -10,6 +10,7 @@
       = stylesheet_link_tag :application, media: "all"
       = csrf_meta_tags
   %body
+    %span(us-spinner="{radius:30, width:8, length: 16}" ng-if='spinner')
     #app.app.app-header-fixed.app-aside-fixed
       %div(ui-view='header')
       %div(ui-view='sidebar')

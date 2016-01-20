@@ -16,11 +16,11 @@ angular.module "Videotelligent", [
   'infinite-scroll'
   'truncate'
   'ct.ui.router.extras.sticky'
+  'angularSpinner'
 ]
 
-
-angular.module('Videotelligent').controller('TypeaheadDemoCtrl', ->
-  # Dummy
-)
+angular.module('Videotelligent').run(['$rootScope', ($rootScope) ->
+  $rootScope.spinner = true
+])
 
 angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 500)

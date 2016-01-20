@@ -18,6 +18,8 @@
 //= require lodash
 //= require angular-sanitize
 //= require select
+//= require spin
+//= require angular-spinner
 //= require videotelligent
 //= require_tree ./templates
 //= require_tree .

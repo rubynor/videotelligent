@@ -1,4 +1,6 @@
-BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed, Video, Category, Country, countries) ->
+BrowseCtrl = ($timeout, $state, $scope, $rootScope, $location, $filter, videos, YoutubeEmbed, Video, Category, Country, countries) ->
+
+  $rootScope.spinner = false
 
   params = if $state.params then angular.copy($state.params) else {}
   params.order_by = videos.meta.order_by
@@ -42,6 +44,7 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
     refreshState(false)
 
   refreshState = (notify=true) ->
+    $rootScope.spinner = true
     $state.go('dashboard.browse', params, notify: notify)
 
   @orderBy = (type) ->
@@ -63,8 +66,18 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
     params.category == category
 
   @addMoreVideos = =>
+    # Quickfix to stop app from using method
+    # when state is something else..
+    # dashboard.browse is hidden in the dom for
+    # other states, making this method actually run
+    # when scrolling down in other views..
+    return unless $state.$current.name == 'dashboard.browse'
+    return if $scope.no_more_videos
+    $rootScope.spinner = true
     Video.nextPage params, (data) =>
       $scope.videos = $scope.videos.concat data.videos
+      $scope.no_more_videos = data.no_more_videos
+      $rootScope.spinner = false
     , (err) ->
       console.log err
 
@@ -91,4 +104,4 @@ BrowseCtrl = ($timeout, $state, $scope, $location, $filter, videos, YoutubeEmbed
 
 angular
   .module('Videotelligent')
-  .controller('BrowseCtrl', ['$timeout', '$state', '$scope', '$location', '$filter', 'videos', 'YoutubeEmbed', 'Video', 'Category', 'Country', 'countries', BrowseCtrl])
+  .controller('BrowseCtrl', ['$timeout', '$state', '$scope','$rootScope', '$location', '$filter', 'videos', 'YoutubeEmbed', 'Video', 'Category', 'Country', 'countries', BrowseCtrl])

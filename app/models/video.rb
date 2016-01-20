@@ -6,8 +6,13 @@ class Video < ActiveRecord::Base
 
   before_save :set_default_values
 
-  scope :with_views, -> {
-    includes(:category)
+  scope :with_views_non_filtered, -> {
+    select("#{Video.quoted_table_name}.*, views AS filtered_views")
+        .order('views desc')
+  }
+
+  scope :with_views_filtered, -> {
+    joins(:category)
         .joins(:view_stats)
         .select("#{Video.quoted_table_name}.*, sum(view_stats.number_of_views) AS filtered_views")
         .group('videos.id')
