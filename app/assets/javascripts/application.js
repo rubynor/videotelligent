@@ -10,13 +10,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
 //= require hamlcoffee
 //= require angular_1.4.0-rc.2
-//= require jquery-plugins
 //= require lodash
-//= require angular-sanitize
 //= require select
 //= require spin
 //= require angular-spinner
