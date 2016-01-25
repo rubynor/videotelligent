@@ -4,6 +4,7 @@ Video = ($resource, $filter) ->
   nextPage = 0
 
   firstPage: (params = {}, success) ->
+    nextPage = 1
     @.nextPage(params, success)
 
   nextPage: (params = {}, success, error) ->

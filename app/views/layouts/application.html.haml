@@ -4,11 +4,11 @@
     %meta{:charset => "utf-8"}
     %meta{:content => "NOODP", :name => "ROBOTS"}
     %meta{:content => "initial-scale=1", :name => "viewport"}
-      %title
-        = title
-      %base(href="/")
-      = stylesheet_link_tag :application, media: "all"
-      = csrf_meta_tags
+    %title
+      = title
+    %base(href="/")
+    = stylesheet_link_tag :application, media: "all"
+    = csrf_meta_tags
   %body{:class => body_class}
     = render "flashes"
     .navbar.navbar-inverse

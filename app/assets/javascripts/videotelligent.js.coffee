@@ -1,21 +1,12 @@
 angular.module "Videotelligent", [
   'ngAnimate'
   'ngAria'
-  'ngCookies'
-  'ngMessages'
   'ngResource'
   'ngSanitize'
-  'ngTouch'
-  'ngStorage'
   'ui.router'
-  'ui.bootstrap'
   'ui.select'
-  'ui.utils'
-  'oc.lazyLoad'
-  'ngMaterial'
   'infinite-scroll'
   'truncate'
-  'ct.ui.router.extras.sticky'
   'angularSpinner'
 ]
 
