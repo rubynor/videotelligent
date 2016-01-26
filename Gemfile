@@ -38,6 +38,8 @@ gem "viddl-rb"
 gem "yt", git: "https://github.com/karianne/yt", branch: "fix-refresh-token-for-content-owners" #"~> 0.24.1"
 gem 'whenever', :require => false
 gem "will_paginate"
+gem "devise"
+gem 'angular_rails_csrf'
 
 group :development do
   gem "spring"
