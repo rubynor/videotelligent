@@ -76,7 +76,8 @@
                   %small.text-muted by {{ video.channel_title }}
                   %br
                   %small.text-muted
-                    %ng-pluralize(count='video.filtered_views' when="{'0': 'No views with filter', 'one': '1 view with filter', 'other': '{{video.filtered_views|number}} views with filter'}")
+                    %ng-pluralize(ng-if='browse.isOrderedBy("views")' count='video.filtered_views' when="{'0': 'No views with filter', 'one': '1 view with filter', 'other': '{{video.filtered_views|number}} views with filter'}")
+                    %ng-pluralize(ng-if='browse.isOrderedBy("views_last_week")' count='video.filtered_views_last_week' when="{'0': 'No views last week with filter', 'one': '1 view last week with filter', 'other': '{{video.filtered_views_last_week|number}} views last week with filter'}")
                     -# %br
                     -# %ng-pluralize(count='video.views' when="{'0': 'No total views', 'one': '1 total view', 'other': '{{video.views|number}} total views'}")
                     -# %br
@@ -112,8 +113,11 @@
                   -#   {{video.views | number}}
                   -# %td
                   -#   {{video.views_last_week | number}}
-                  %td
-                    {{video.filtered_views | number}}
+
+                  %td(ng-if='browse.isOrderedBy("views")')
+                    {{ video.filtered_views | number }}
+                  %td(ng-if='browse.isOrderedBy("views_last_week")')
+                    {{ video.filtered_views_last_week | number }}
 
 
         %div(style="margin-left: 20px" ng-if="no_more_videos")
