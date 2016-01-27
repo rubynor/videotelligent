@@ -244,7 +244,8 @@ Devise.setup do |config|
            ENV['GOOGLE_CLIENT_SECRET'],
            scope: 'profile, email,youtube.readonly,yt-analytics.readonly,youtubepartner-content-owner-readonly,youtubepartner',
            prompt: 'consent',
-           provider_ignores_state: true
+           provider_ignores_state: true,
+           redirect_uri: 'postmessage'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
