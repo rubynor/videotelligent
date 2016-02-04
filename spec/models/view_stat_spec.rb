@@ -21,7 +21,7 @@ RSpec.describe ViewStat, type: :model do
                    age_group: age,
                    video_id: video_id,
                    on_date: long_time_ago,
-                   number_of_views: 20
+                   number_of_views: 10
 
             14.times do |n|
               create :view_stat,
@@ -36,33 +36,19 @@ RSpec.describe ViewStat, type: :model do
         end
       end
 
+      initial_view_sum = ViewStat.sum(:number_of_views)
 
       initial_stat_count = ViewStat.count
       atr_number = countries.length * genders.length * age_groups.length
-      expected_deleted_data = atr_number*7
+      expected_deleted_data = atr_number*6
 
-      # expect(videos_count).to eq(120)
-
-      puts "stats from last week is #{ViewStat.where(on_date: start..beginning_of_last_week).count}"
-
-      puts "ViewStat.count is #{ViewStat.count}"
-
-      # ViewStat.merge_view_stats.each do |stat|
-      #   puts stat.attributes.to_options
-      # end
-
-
-      # Even though We generate data for a lot of days
-      # only 8 should be the outcome because of the merge
-      # We have a total of 2 x 2 x 2 attributes that are groupes
-      # = 8
-      # expect do
-      #   ViewStat.merge_view_stats
-      # end.to change { ViewStat.count }.by(8)
+      # puts "stats from last week is #{ViewStat.where(on_date: start..beginning_of_last_week).count}"
+      #
+      # puts "ViewStat.count is #{ViewStat.count}"
       expect(ViewStat.merge_view_stats.length).to eq(atr_number)
 
-      puts "stats from last week is #{ViewStat.where(on_date: start..beginning_of_last_week).count}"
-      puts "ViewStat.count is #{ViewStat.count}"
+      # puts "stats from last week is #{ViewStat.where(on_date: start..beginning_of_last_week).count}"
+      # puts "ViewStat.count is #{ViewStat.count}"
 
       expect(ViewStat.count).to eq(initial_stat_count - (expected_deleted_data))
 
@@ -70,7 +56,20 @@ RSpec.describe ViewStat, type: :model do
         ViewStat.merge_view_stats
       end.not_to change { ViewStat.count }
 
-      expect(ViewStat.last.number_of_views).to eq(20*7)
+      expect(ViewStat.last.number_of_views).to eq(20 * 7)
+
+      expect(ViewStat.sum(:number_of_views)).to eq(initial_view_sum)
+
+      # puts "Before: ViewStat.count is #{ViewStat.count}"
+
+      expect(ViewStat.merge_view_stats(to: long_time_ago + 1.day).length).to eq(atr_number)
+      # puts "After: ViewStat.count is #{ViewStat.count}"
+
+      expect(ViewStat.last.number_of_views).to eq(10)
+
+      expect(ViewStat.count).to eq(initial_stat_count - (expected_deleted_data))
+
+      expect(ViewStat.sum(:number_of_views)).to eq(initial_view_sum)
 
     end
   end
