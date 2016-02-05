@@ -2487,3 +2487,6 @@ ViewStat.create!([
                      { video_id: 5, country: "MT", gender: "male", age_group: "45-54", number_of_views: 1, on_date: Date.yesterday },
                      { video_id: 5, country: "MT", gender: "male", age_group: "18-24", number_of_views: 19, on_date: Date.yesterday }
                  ])
+
+VideosByView.refresh
+

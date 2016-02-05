@@ -1,6 +1,6 @@
 class VideoSerializer < ActiveModel::Serializer
   attributes :id, :link, :title, :published_at, :likes, :dislikes, :uid, :thumbnail_url, :views, :download_path,
-             :description, :channel_title, :tags, :views_last_week, :filtered_views
+             :description, :channel_title, :tags, :views_last_week, :filtered_views, :filtered_views_last_week
 
   has_one :category
 
