@@ -1,6 +1,8 @@
 require 'faraday/middleware'
 
 class ContentProvider < ActiveRecord::Base
+  belongs_to :user, foreign_key: :uid
+
   def self.from_omniauth(auth)
 
     content_provider = ContentProvider.find_or_initialize_by(uid: auth['uid'])
