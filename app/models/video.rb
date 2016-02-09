@@ -40,6 +40,10 @@ class Video < ActiveRecord::Base
     read_attribute(:filtered_views) || nil
   end
 
+  def filtered_views_last_week
+    read_attribute(:filtered_views_last_week) || nil
+  end
+
   def views_where(params)
     self.view_stats.where(params).map(&:number_of_views).sum
   end
