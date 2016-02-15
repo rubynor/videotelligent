@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204191050) do
+ActiveRecord::Schema.define(version: 20160215200324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20160204191050) do
   end
 
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true, using: :btree
+
+  create_table "content_owners", force: :cascade do |t|
+    t.string   "uid"
+    t.string   "name"
+    t.integer  "content_provider_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
 
   create_table "content_providers", force: :cascade do |t|
     t.string   "name"
@@ -60,21 +68,22 @@ ActiveRecord::Schema.define(version: 20160204191050) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                    default: "", null: false
+    t.string   "encrypted_password",       default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",            default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "uid"
     t.string   "provider"
     t.string   "image"
+    t.integer  "current_content_owner_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -88,18 +97,18 @@ ActiveRecord::Schema.define(version: 20160204191050) do
     t.integer  "dislikes"
     t.string   "uid"
     t.string   "thumbnail_url"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "views"
     t.string   "description"
     t.string   "tags"
     t.string   "channel_title"
-    t.integer  "views_last_week", default: 0
+    t.integer  "views_last_week",  default: 0
     t.integer  "category_id"
     t.string   "channel_id"
+    t.string   "content_owner_id"
   end
 
-  add_index "videos", ["category_id"], name: "index_videos_on_category_id", using: :btree
   add_index "videos", ["uid"], name: "index_videos_on_uid", using: :btree
 
   create_table "view_stats", force: :cascade do |t|
@@ -113,10 +122,6 @@ ActiveRecord::Schema.define(version: 20160204191050) do
     t.date     "on_date"
   end
 
-  add_index "view_stats", ["age_group"], name: "index_view_stats_on_age_group", using: :btree
   add_index "view_stats", ["country"], name: "index_view_stats_on_country", using: :btree
-  add_index "view_stats", ["gender"], name: "index_view_stats_on_gender", using: :btree
-  add_index "view_stats", ["on_date"], name: "index_view_stats_on_on_date", using: :btree
-  add_index "view_stats", ["video_id"], name: "index_view_stats_on_video_id", using: :btree
 
 end
