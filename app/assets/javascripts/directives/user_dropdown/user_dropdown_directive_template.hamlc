@@ -1,0 +1,15 @@
+%a.dropdown-toggle.clear(ng-show="userDrop.showUser" dropdown-toggle)
+  %span.thumb-sm.avatar.pull-right.m-t-n-sm.m-b-n-sm.m-l-sm
+    %img(ng-src="{{userDrop.user.image}}")
+    %i.on.md.b-white.bottom
+  %span.hidden-sm.hidden-md
+    {{ userDrop.name }}
+  %b.caret
+%ul.dropdown-menu.animated.fadeInRight.w
+  %li.wrapper.b-b
+    %strong Content Managers
+  %li(ng-repeat="contentOwner in userDrop.user.content_owners")
+    %a(ng-click="userDrop.updateCms(contentOwner)")
+      {{ contentOwner.name }}
+  %li.clearfix.panel-footer
+    %button.btn.btn-default.btn-sm.pull-right(ng-click="userDrop.logout()") Sign out
