@@ -2,6 +2,7 @@ class Video < ActiveRecord::Base
   include Filterable
 
   belongs_to :category
+  belongs_to :content_owner, primary_key: :uid
   has_many :view_stats
 
   before_save :set_default_values
@@ -19,6 +20,7 @@ class Video < ActiveRecord::Base
   scope :gender, -> (gender) { where(view_stats: { gender: gender }) }
   scope :age_group, -> (age_group) { where(view_stats: { age_group: age_group }) }
   scope :since, -> (from_date) { where(view_stats: { on_date: from_date...Date.today}) }
+  scope :by_content_owner, -> (content_owner) { where(content_owner: content_owner) }
 
   serialize :tags
 
