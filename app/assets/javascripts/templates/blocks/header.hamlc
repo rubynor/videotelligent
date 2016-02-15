@@ -27,7 +27,8 @@
         %i.fa.fa-indent.fa-fw.text-active
     %ul.nav.navbar-nav
       %li
-        %a(href='/auth/google_oauth2' target="_self") Authorize new content provider
+        %a(mcn-login) Sign in as MCN
+
 
       /User icon used to toggle userinfo in the sidebar
       /%a.btn.no-shadow.navbar-btn{:href => "#", :target => "#aside-user", "ui-toggle-class" => "show"}
@@ -167,7 +168,8 @@
 
 
     / nabar right
-    %ul.nav.navbar-nav.navbar-right
+    %ul.nav.navbar-nav.navbar-right(style='margin-right: 50px')
+      %li.dropdown(dropdown user-dropdown)
       /%li.dropdown
         %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
           %i.icon-bell.fa-fw
