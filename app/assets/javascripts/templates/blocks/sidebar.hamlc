@@ -5,9 +5,8 @@
       / nav
       %nav.navi.clearfix{"ui-nav" => ""}
         %ul.nav
-          %a(href='/users/auth/google_oauth2' target="_self") SOPPPPP
           %li.hidden-folded.padder.m-t.m-b-sm.text-muted.text-xs
-            %span(mcn-login="") Navigation
+            %span Navigation
           %sidebar-item(name='Browse' icon='glyphicon glyphicon-film icon' ui-sref-name='dashboard.browse' bold='true')
 
           / Examples:
