@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     get :download, on: :member
   end
 
+  resources :users, only: [:update] do
+    get :me, on: :collection
+  end
+
   resources :categories, only: [:index]
   resources :countries, only: [:index]
 
