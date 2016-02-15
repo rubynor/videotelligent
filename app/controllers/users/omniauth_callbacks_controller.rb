@@ -3,27 +3,30 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(request.env["omniauth.auth"])
     content_provider = ContentProvider.from_omniauth(request.env['omniauth.auth'])
 
+    begin
+      account = Yt::Account.new(refresh_token: content_provider.refresh_token)
+      account.content_owners.each do |yt_content_owner|
+        content_owner = ContentOwner.find_or_initialize_by(uid: yt_content_owner.owner_name)
+        content_owner.name = yt_content_owner.display_name
+        content_owner.content_provider = content_provider
+        content_owner.save!
+      end
+    rescue Yt::Errors::Forbidden => e
+      puts "Error: Could not request content_owners"
+      puts e
+    end
+
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Google"
-      sign_in_and_redirect @user, :event => :authentication
+      sign_in @user, :event => :authentication
+      render json: { success: 'Signed in' }
     else
       session["devise.google_data"] = request.env["omniauth.auth"]
-      redirect_to new_user_registration_url
+      render json: { error: 'Something went bad yo' }, status: 500
     end
   end
 
-  def self.from_omniauth(access_token)
-    binding.pry
-    data = access_token.info
-    user = User.where(:email => data["email"]).first
-
-    # Uncomment the section below if you want users to be created if they don't exist
-    # unless user
-    #     user = User.create(name: data["name"],
-    #        email: data["email"],
-    #        password: Devise.friendly_token[0,20]
-    #     )
-    # end
-    user
+  def failure
+    render json: { error: request.env['omniauth.error'].to_s }, status: 500
   end
 end
