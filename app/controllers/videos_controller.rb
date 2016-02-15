@@ -7,12 +7,16 @@ class VideosController < ApplicationController
 
   def index
     order_by = params[:order_by] || 'views'
+    @videos  = Video.with_views
 
-    @videos = Video.with_views
-                  .filter(params.slice(:category, :country, :gender, :age_group))
-                  .since(RANGES_TO_DATES[order_by])
-                  .search(params[:query])
-                  .paginate(page: params[:page], per_page: 24)
+    if current_user && current_user.current_content_owner
+      @videos = @videos.by_content_owner(current_user.current_content_owner)
+    end
+
+    @videos = @videos.filter(params.slice(:category, :country, :gender, :age_group))
+                    .since(RANGES_TO_DATES[order_by])
+                    .search(params[:query])
+                    .paginate(page: params[:page], per_page: 24)
 
     respond_to do |format|
       format.html
