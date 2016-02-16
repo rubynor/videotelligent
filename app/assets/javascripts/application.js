@@ -17,6 +17,7 @@
 //= require select
 //= require spin
 //= require angular-spinner
+//= require jquery-plugins
 //= require videotelligent
 //= require_tree ./templates
 //= require_tree .
