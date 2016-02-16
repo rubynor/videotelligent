@@ -1,5 +1,7 @@
-VideoCtrl = ($state, video, YoutubeEmbed) ->
+VideoCtrl = ($rootScope, $state, video, YoutubeEmbed) ->
   @current = video.video
+
+  $rootScope.spinner = false
 
   @goToCategory = (category) ->
     $state.go('dashboard.browse', { category: category })
@@ -15,4 +17,4 @@ VideoCtrl = ($state, video, YoutubeEmbed) ->
 
 angular
   .module('Videotelligent')
-  .controller('VideoCtrl', ['$state', 'video', 'YoutubeEmbed', VideoCtrl])
+  .controller('VideoCtrl', ['$rootScope', '$state', 'video', 'YoutubeEmbed', VideoCtrl])

@@ -1,1 +1,10 @@
-//= require_tree .
+//= require_tree ./01_angular
+//= require_tree ./angular-sanitize
+//= require ./ng-infinite-scroll.js
+//= require_tree ./angular-animate
+//= require_tree ./angular-aria
+//= require_tree ./angular-cookies
+//= require_tree ./angular-messages
+//= require_tree ./angular-resource
+//= require ./ui-router.js
+//= require ./truncate

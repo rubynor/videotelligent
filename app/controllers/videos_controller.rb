@@ -1,14 +1,10 @@
 class VideosController < ApplicationController
 
-  RANGES_TO_DATES = {
-      'views' => Youtube::SingleVideoImporter::LONG_TIME_AGO,
-      'views_last_week' => 1.week.ago.to_date,
-  }
-
   def index
     order_by = params[:order_by] || 'views'
     @videos  = Video.with_views
 
+<<<<<<< HEAD
     if current_user && current_user.current_content_owner
       @videos = @videos.by_content_owner(current_user.current_content_owner)
     end
@@ -17,6 +13,18 @@ class VideosController < ApplicationController
                     .since(RANGES_TO_DATES[order_by])
                     .search(params[:query])
                     .paginate(page: params[:page], per_page: 24)
+=======
+    @videos = if filter_params?
+                Video.with_views_filtered
+                  .filter(params.slice(:category, :country, :gender, :age_group))
+              else
+                Video.with_views_non_filtered
+              end
+
+    @videos = @videos.by_view_type(order_by)
+
+    @videos = @videos.search(params[:query]).paginate(page: params[:page], per_page: 24)
+>>>>>>> master
 
     respond_to do |format|
       format.html
@@ -31,5 +39,11 @@ class VideosController < ApplicationController
   def download
     @video = Video.find(params[:id])
     redirect_to YoutubeRepository.download_link(@video)
+  end
+
+  private
+
+  def filter_params?
+    params[:category] || params[:country] || params[:gender] || params[:age_group]
   end
 end
