@@ -6,5 +6,7 @@
 //= require_tree ./angular-cookies
 //= require_tree ./angular-messages
 //= require_tree ./angular-resource
+//= require_tree ./angular-bootstrap-nav-tree
+//= require_tree ./angular-bootstrap
 //= require ./ui-router.js
 //= require ./truncate

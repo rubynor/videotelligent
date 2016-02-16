@@ -8,6 +8,7 @@ angular.module "Videotelligent", [
   'infinite-scroll'
   'truncate'
   'angularSpinner'
+  'ui.bootstrap'
 ]
 
 angular.module('Videotelligent').run(['$rootScope', ($rootScope) ->
