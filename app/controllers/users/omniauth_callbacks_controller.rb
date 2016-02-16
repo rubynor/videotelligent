@@ -17,12 +17,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     if @user.persisted?
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Google"
+      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Google"
       sign_in @user, :event => :authentication
       render json: { success: 'Signed in' }
     else
       session["devise.google_data"] = request.env["omniauth.auth"]
-      render json: { error: 'Something went bad yo' }, status: 500
+      render json: {
+        error: I18n.t("devise.omniauth_callbacks.failure",
+                      kind: "Google",
+                      reason: "User could not be saved")
+      }, status: 500
     end
   end
 
