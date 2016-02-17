@@ -1,6 +1,13 @@
-McnLogin = ($window, $http) ->
+McnLogin = ($window, $http, User, $timeout) ->
   restrict: 'A'
   link: (scope, element) ->
+
+    scope.$watch ->
+      User.isSignedIn
+    , ->
+      if User.isSignedIn
+        element.hide()
+
     scopes = [
       'profile'
       'email'
@@ -8,7 +15,6 @@ McnLogin = ($window, $http) ->
       'https://www.googleapis.com/auth/yt-analytics.readonly'
       'https://www.googleapis.com/auth/youtubepartner-content-owner-readonly'
       'https://www.googleapis.com/auth/youtubepartner'
-      'https://www.googleapis.com/auth/plus.login'
     ]
 
     gapi.load 'auth2', ->
@@ -23,6 +29,7 @@ McnLogin = ($window, $http) ->
       scope.auth2.grantOfflineAccess(
         redirect_uri: 'postmessage'
         state: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        approval_prompt: 'force'
       ).then (authResult) ->
         if authResult['code']
           $http(
@@ -42,4 +49,4 @@ McnLogin = ($window, $http) ->
 
 angular
   .module('Videotelligent')
-  .directive('mcnLogin', ['$window', '$http', McnLogin])
+  .directive('mcnLogin', ['$window', '$http', 'User', '$timeout', McnLogin])
