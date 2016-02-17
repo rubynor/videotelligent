@@ -13,7 +13,7 @@ McnLogin = ($window, $http) ->
 
     gapi.load 'auth2', ->
       scope.auth2 = gapi.auth2.init(
-        client_id: '663769004258-qq4kbh4jrisi4ucuuhfd7aeafekfhnp1.apps.googleusercontent.com'
+        client_id: '<%= ENV['GOOGLE_CLIENT_ID'] %>'
         scope: scopes.join(' ')
       )
 
