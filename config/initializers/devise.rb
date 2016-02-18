@@ -242,7 +242,7 @@ Devise.setup do |config|
   config.omniauth :google_oauth2,
            ENV['GOOGLE_CLIENT_ID'],
            ENV['GOOGLE_CLIENT_SECRET'],
-           scope: 'profile, email,youtube.readonly,yt-analytics.readonly,youtubepartner-content-owner-readonly,youtubepartner',
+           scope: 'profile,email,youtube.readonly,yt-analytics.readonly,youtubepartner-content-owner-readonly,youtubepartner',
            prompt: 'consent',
            redirect_uri: 'postmessage',
            provider_ignores_state: true #TODO: Find a way to get rid of this

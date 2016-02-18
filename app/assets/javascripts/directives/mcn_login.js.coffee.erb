@@ -8,14 +8,11 @@ McnLogin = ($window, $http, User, $timeout) ->
       if User.isSignedIn
         element.hide()
 
-    scopes = [
-      'profile'
-      'email'
-      'https://www.googleapis.com/auth/youtube.readonly'
-      'https://www.googleapis.com/auth/yt-analytics.readonly'
-      'https://www.googleapis.com/auth/youtubepartner-content-owner-readonly'
-      'https://www.googleapis.com/auth/youtubepartner'
-    ]
+    scopes = '<%= Devise.omniauth_configs[:google_oauth2].strategy["scope"] %>'.split(',')
+
+    for googleScope, i in scopes
+      unless googleScope == 'profile' || googleScope == 'email'
+        scopes[i] = 'https://www.googleapis.com/auth/' + googleScope
 
     gapi.load 'auth2', ->
       scope.auth2 = gapi.auth2.init(
