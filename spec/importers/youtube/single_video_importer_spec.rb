@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Youtube::SingleVideoImporter do
 
 
+  let(:content_owner) { double(owner_name: 'CONTENT_OWNER_ID') }
   let(:yt_video) do
     double({
                id: "1",
@@ -22,7 +23,7 @@ RSpec.describe Youtube::SingleVideoImporter do
   end
 
   let(:interesting_countries) { %w(NO SE)}
-  let(:subject) { Youtube::SingleVideoImporter.new(yt_video, interesting_countries) }
+  let(:subject) { Youtube::SingleVideoImporter.new(yt_video, content_owner, interesting_countries) }
 
   DEFAULT_COUNTRY = 'NO'
   DEFAULT_COUNTRY_VIEW_COUNT = 10000

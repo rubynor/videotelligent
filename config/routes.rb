@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   resources :videos, only: [:index, :show] do
     get :download, on: :member
+  end
+
+  resources :users, only: [:update] do
+    get :me, on: :collection
   end
 
   resources :categories, only: [:index]

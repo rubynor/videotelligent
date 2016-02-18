@@ -9,12 +9,13 @@ module Youtube
     GENDERS = [:male, :female]
     AGE_GROUPS_BY_GENDER = GENDERS.product(ALL_AGE_GROUPS)
 
-    def initialize(yt_video, countries_we_care_about)
+    def initialize(yt_video, content_owner, countries_we_care_about)
 
       YoutubeRequestCounter.start_new_video!
 
       @yt_video = yt_video
       @video = Video.find_or_initialize_by(uid: yt_video.id)
+      @video.content_owner_id = content_owner.owner_name
       @interesting_countries = countries_we_care_about
     end
 

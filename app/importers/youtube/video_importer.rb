@@ -28,7 +28,11 @@ module Youtube
 
           begin
             channel.videos.each do |yt_video|
-              SingleVideoImporter.new(YtVideoAdapter.new(Yt::Video.new(id: yt_video.id, auth: content_owner)), @interesting_countries).import_video
+              SingleVideoImporter.new(
+                YtVideoAdapter.new(Yt::Video.new(id: yt_video.id, auth: content_owner)),
+                content_owner,
+                @interesting_countries
+              ).import_video
             end
           rescue Yt::Errors::RequestError => e
             unless e.kind['code'] == 404

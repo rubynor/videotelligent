@@ -1,0 +1,49 @@
+McnLogin = ($window, $http, User, $timeout) ->
+  restrict: 'A'
+  link: (scope, element) ->
+
+    scope.$watch ->
+      User.isSignedIn
+    , ->
+      if User.isSignedIn
+        element.hide()
+
+    scopes = '<%= Devise.omniauth_configs[:google_oauth2].strategy["scope"] %>'.split(',')
+
+    for googleScope, i in scopes
+      unless googleScope == 'profile' || googleScope == 'email'
+        scopes[i] = 'https://www.googleapis.com/auth/' + googleScope
+
+    gapi.load 'auth2', ->
+      scope.auth2 = gapi.auth2.init(
+        client_id: '<%= ENV['GOOGLE_CLIENT_ID'] %>'
+        scope: scopes.join(' ')
+      )
+
+    element.bind 'click', (e) ->
+      e.preventDefault()
+
+      scope.auth2.grantOfflineAccess(
+        redirect_uri: 'postmessage'
+        state: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        approval_prompt: 'force'
+      ).then (authResult) ->
+        if authResult['code']
+          $http(
+            method: 'POST'
+            url: "/users/auth/google_oauth2/callback"
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            data: authResult
+            transformRequest: (obj) -> # We need to send the data as url params
+              str = []                 # this code handles this.
+              for k,v of obj
+                str.push(encodeURIComponent(k) + "=" + encodeURIComponent(v))
+              return str.join("&")
+          ).then (data) ->
+              $window.location.reload()
+        else
+          console.log "There was an error."
+
+angular
+  .module('Videotelligent')
+  .directive('mcnLogin', ['$window', '$http', 'User', '$timeout', McnLogin])
