@@ -41,6 +41,8 @@ gem "will_paginate"
 gem "devise"
 gem 'angular_rails_csrf'
 
+gem 'delayed_task'
+
 group :development do
   gem "spring"
   gem "spring-commands-rspec"
