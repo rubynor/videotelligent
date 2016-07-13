@@ -110,6 +110,7 @@ GEM
     delayed_job_active_record (4.0.3)
       activerecord (>= 3.0, < 5.0)
       delayed_job (>= 3.0, < 4.1)
+    delayed_task (0.2.0)
     devise (3.5.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -422,6 +423,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   database_cleaner
   delayed_job_active_record
+  delayed_task
   devise
   dotenv-rails
   email_validator

@@ -30,3 +30,5 @@ namespace :view_stat do
     puts "Merge ended at #{end_time} and took #{distance_of_time_in_words(end_time - start_time)} seconds"
   end
 end
+
+require 'tasks/delayed_tasks'
