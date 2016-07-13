@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ViewStat, type: :model  do
   describe 'merge_view_stats', order: :defined do
 
-    before(:all) do
+    before(:each) do
       countries = %w(NO OTHER)
       genders = %w(female male)
       age_groups = ['13-16', '18-24', '25-35']
