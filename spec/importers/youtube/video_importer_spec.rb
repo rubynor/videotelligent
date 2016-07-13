@@ -5,7 +5,7 @@ RSpec.describe Youtube::VideoImporter do
   let(:content_provider) { build(:content_provider) }
   let(:content_providers) { [content_provider] }
   let(:account) { double }
-  let(:content_owner) { double }
+  let(:content_owner) { double(owner_name: 'CONTENT_OWNER_ID') }
   let(:content_owners) { [content_owner] }
   let(:channel) { double(id: 'CHANNEL_ID') }
   let(:channels) { [channel] }

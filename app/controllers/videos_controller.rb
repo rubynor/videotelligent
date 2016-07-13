@@ -10,6 +10,10 @@ class VideosController < ApplicationController
                 Video.with_views_non_filtered
               end
 
+    if current_user && current_user.current_content_owner
+      @videos = @videos.by_content_owner(current_user.current_content_owner)
+    end
+
     @videos = @videos.by_view_type(order_by)
 
     @videos = @videos.search(params[:query]).paginate(page: params[:page], per_page: 24)
